@@ -27,7 +27,6 @@ class RoleManager
         ];
 
         $userRole = $roles[Auth::user()->role] ?? null;
-
         if ($userRole === $role) {
             return $next($request);
         }

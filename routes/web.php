@@ -1,19 +1,46 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Vendor\VendorPageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/dashboard', function () {
-    return view('admin-dashboard');
-})->middleware(['auth', 'verified','rolemanager:admin'])->name('admin');
+Route::middleware(['auth', 'verified', 'rolemanager:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
-Route::get('/vendor/dashboard', function () {
-    return view('vendor-dashboard');
-})->middleware(['auth', 'verified','rolemanager:vendor'])->name('vendor');
+        Route::get('/attributes', [AdminPageController::class, 'attributes'])->name('attributes');
+        Route::get('/categories', [AdminPageController::class, 'categories'])->name('categories');
+        Route::get('/', [AdminPageController::class, 'index'])->name('dashboard');
+        Route::get('/orders', [AdminPageController::class, 'orders'])->name('orders');
+        Route::get('/payments', [AdminPageController::class, 'payments'])->name('payments');
+        Route::get('/settings', [AdminPageController::class, 'settings'])->name('settings');
+        Route::get('/users', [AdminPageController::class, 'users'])->name('users');
+        Route::get('/vendors', [AdminPageController::class, 'vendors'])->name('vendors');
+
+    });
+
+Route::middleware(['auth', 'verified', 'rolemanager:vendor'])
+    ->prefix('vendor')
+    ->name('vendor.')
+    ->group(function () {
+
+        Route::get('/products', [VendorPageController::class, 'products'])->name('products');
+        Route::get('/categories', [VendorPageController::class, 'categories'])->name('categories');
+        Route::get('/', [VendorPageController::class, 'index'])->name('dashboard');
+        Route::get('/orders', [VendorPageController::class, 'orders'])->name('orders');
+        Route::get('/payments', [VendorPageController::class, 'payments'])->name('payments');
+        Route::get('/settings', [VendorPageController::class, 'settings'])->name('settings');
+    });
+
+// Route::get('/vendor/dashboard', function () {
+//     return view('vendor-dashboard');
+// })->middleware(['auth', 'verified','rolemanager:vendor'])->name('vendor');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
