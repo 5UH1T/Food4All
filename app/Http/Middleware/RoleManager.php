@@ -23,8 +23,9 @@ class RoleManager
         $roles = [
             0 => 'admin',
             1 => 'vendor',
-            2 => 'user',
+            2 => 'customer',
         ];
+
 
         $userRole = $roles[Auth::user()->role] ?? null;
         if ($userRole === $role) {

@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Vendor\VendorPageController;
+use App\Http\Controllers\Customer\CustomerPageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,7 +24,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])
         Route::get('/users', [AdminPageController::class, 'users'])->name('users');
         Route::get('/vendors', [AdminPageController::class, 'vendors'])->name('vendors');
 
-    });
+});
 
 Route::middleware(['auth', 'verified', 'rolemanager:vendor'])
     ->prefix('vendor')
@@ -36,15 +37,25 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])
         Route::get('/orders', [VendorPageController::class, 'orders'])->name('orders');
         Route::get('/payments', [VendorPageController::class, 'payments'])->name('payments');
         Route::get('/settings', [VendorPageController::class, 'settings'])->name('settings');
-    });
+});
+
+
+Route::middleware(['auth', 'verified', 'rolemanager:customer'])
+    ->prefix('customer')
+    ->name('customer.')
+    ->group(function () {
+        Route::get('/orders', [CustomerPageController::class, 'orders'])->name('orders');
+        Route::get('/payments', [CustomerPageController::class, 'payments'])->name('payments');
+        Route::get('/', [CustomerPageController::class, 'profile'])->name('profile');
+});
 
 // Route::get('/vendor/dashboard', function () {
 //     return view('vendor-dashboard');
 // })->middleware(['auth', 'verified','rolemanager:vendor'])->name('vendor');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified','rolemanager:user'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified','rolemanager:user'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
