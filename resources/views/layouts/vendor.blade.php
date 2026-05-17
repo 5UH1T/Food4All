@@ -2,157 +2,240 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('vendor_title')</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords"
+        content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io/pages-blank.html" />
+
+    <title>@yield('vendor_title')</title>
+    <link rel="stylesheet" href="{{ asset('admin_assets/css/app.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
-<style>
-    [x-cloak] {
-        display: none !important;
-    }
-</style>
+<body>
+    <div class="wrapper">
+        <nav id="sidebar" class="sidebar js-sidebar">
+            <div class="sidebar-content js-simplebar">
+                <a class="sidebar-brand" href="index.html">
+                    <span class="align-middle">Vendor</span>
+                </a>
 
-<body class="bg-gray-100">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-header">
+                        Pages
+                    </li>
 
-    <div x-cloak x-data="{ sidebarOpen: true, profileOpen: false, testModal: false }" class="flex h-screen overflow-hidden">
+                    <li class="sidebar-item">
+                        <a href="{{ route('vendor.dashboard') }}"
+                            class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('vendor.dashboard') ? 'active' : '' }}">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
 
-        <!-- SIDEBAR -->
-        <aside :class="sidebarOpen ? 'w-64' : 'w-20'"
-            class="bg-slate-900 text-white transition-all duration-300 flex flex-col">
+                    <li class="sidebar-item">
+                        <a href="{{ route('vendor.categories') }}"
+                            class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('vendor.categories') ? 'active' : '' }}">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <span>Categories</span>
+                        </a>
+                    </li>
 
-            <!-- Logo -->
-            <div class="h-16 flex items-center justify-center border-b border-slate-800">
-                <span class="text-2xl font-bold tracking-wide" x-show="sidebarOpen">
-                    Vendor
-                </span>
+                    <li class="sidebar-item">
+                        <a href="{{ route('vendor.orders') }}"
+                            class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('vendor.orders') ? 'active' : '' }}">
+                            <i class="fa-solid fa-box-archive"></i>
+                            <span>Orders</span>
+                        </a>
+                    </li>
 
-                <span class="text-2xl font-bold" x-show="!sidebarOpen">
-                    V
-                </span>
+                    <li class="sidebar-item">
+                        <a href="{{ route('vendor.payments') }}"
+                            class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('vendor.payments') ? 'active' : '' }}">
+                            <i class="fa-solid fa-receipt"></i>
+                            <span>Payments</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="{{ route('vendor.settings') }}"
+                            class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('vendor.settings') ? 'active' : '' }}">
+                            <i class="fa-solid fa-gear"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
+        </nav>
 
-            <!-- Nav -->
-            <nav class="side-navbar flex-1 px-3 py-5 space-y-2 overflow-y-auto">
-
-                <a href="{{ route('vendor.dashboard') }}"
-                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition {{ request()->routeIs('vendor.dashboard') ? 'active' : '' }}">
-                    <i class="fa-solid fa-chart-line"></i>
-                    <span x-show="sidebarOpen">Dashboard</span>
+        <div class="main">
+            <nav class="navbar navbar-expand navbar-light navbar-bg">
+                <a class="sidebar-toggle js-sidebar-toggle">
+                    <i class="hamburger align-self-center"></i>
                 </a>
 
-                <a href="{{ route('vendor.categories') }}"
-                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition {{ request()->routeIs('vendor.categories') ? 'active' : '' }}">
-                    <i class="fa-solid fa-layer-group"></i>
-                    <span x-show="sidebarOpen">Categories</span>
-                </a>
+                <div class="navbar-collapse">
+                    <ul class="navbar-nav navbar-align flex items-center justify-center gap-2">
+                        <li class="nav-item dropdown">
+                            <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown"
+                                data-bs-toggle="dropdown">
+                                <div class="position-relative">
+                                    <i class="fa-regular fa-bell"></i>
+                                    <span class="indicator">4</span>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-notification dropdown-menu-lg dropdown-menu-end py-0"
+                                aria-labelledby="alertsDropdown">
+                                <div class="dropdown-menu-header">
+                                    4 New Notifications
+                                </div>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item">
+                                        <div class="row g-0 align-items-center">
+                                            <div class="col-2">
+                                                <i class="text-danger" data-feather="alert-circle"></i>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="text-dark">Update completed</div>
+                                                <div class="text-muted small mt-1">Restart server 12 to complete the
+                                                    update.</div>
+                                                <div class="text-muted small mt-1">30m ago</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item">
+                                        <div class="row g-0 align-items-center">
+                                            <div class="col-2">
+                                                <i class="text-warning" data-feather="bell"></i>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="text-dark">Lorem ipsum</div>
+                                                <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate
+                                                    hendrerit et.</div>
+                                                <div class="text-muted small mt-1">2h ago</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item">
+                                        <div class="row g-0 align-items-center">
+                                            <div class="col-2">
+                                                <i class="text-primary" data-feather="home"></i>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="text-dark">Login from 192.186.1.8</div>
+                                                <div class="text-muted small mt-1">5h ago</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item">
+                                        <div class="row g-0 align-items-center">
+                                            <div class="col-2">
+                                                <i class="text-success" data-feather="user-plus"></i>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="text-dark">New connection</div>
+                                                <div class="text-muted small mt-1">Christina accepted your request.
+                                                </div>
+                                                <div class="text-muted small mt-1">14h ago</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="dropdown-menu-footer">
+                                    <a href="#" class="text-muted">Show all notifications</a>
+                                </div>
+                            </div>
+                        </li>
 
-                <a href="{{ route('vendor.orders') }}"
-                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition {{ request()->routeIs('vendor.orders') ? 'active' : '' }}">
-                    <i class="fa-solid fa-box-archive"></i>
-                    <span x-show="sidebarOpen">Orders</span>
-                </a>
+                        <li class="nav-item dropdown">
 
-                <a href="{{ route('vendor.payments') }}"
-                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition {{ request()->routeIs('vendor.payments') ? 'active' : '' }}">
-                    <i class="fa-solid fa-receipt"></i>
-                    <span x-show="sidebarOpen">Payments</span>
-                </a>
+                            <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center"
+                                href="#" data-bs-toggle="dropdown">
+                                <img src="https://i.pravatar.cc/100" class="avatar img-fluid me-1 rounded-[50%]"
+                                    alt="Charles Hall" />
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="#"
+                                    class="d-flex justify-content-start align-items-center gap-2 py-3 dropdown-item hover:bg-gray-100 text-sm dropdown-item text-gray-700 active:text-gray-700">
+                                    <i class="fa-solid fa-circle-user"></i> Profile
+                                </a>
 
-                <a href="{{ route('vendor.settings') }}"
-                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 transition {{ request()->routeIs('vendor.settings') ? 'active' : '' }}">
-                    <i class="fa-solid fa-gear"></i>
-                    <span x-show="sidebarOpen">Settings</span>
-                </a>
+                                <a href="#"
+                                    class="d-flex justify-content-start align-items-center gap-2 py-3 dropdown-item hover:bg-gray-100 text-sm text-gray-700 active:text-gray-700">
+                                    <i class="fa-solid fa-gear"></i> Settings
+                                </a>
+                                {{-- <div class="dropdown-divider"></div> --}}
+                                {{-- <a class="dropdown-item" href="#">Log out</a> --}}
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
 
-
+                                    <a class="d-flex justify-content-start align-items-center gap-2 py-3 dropdown-item text-danger hover:bg-gray-100"
+                                        href="/logout"
+                                        onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out
+                                    </a>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </nav>
 
-            <!-- Footer -->
-            <div class="p-4 border-t border-slate-800">
-                <button @click="sidebarOpen = !sidebarOpen"
-                    class="w-full bg-slate-800 hover:bg-slate-700 rounded-lg py-2 text-sm transition">
-                    Toggle Sidebar
-                </button>
-            </div>
-        </aside>
+            <main class="content">
+                <div class="container-fluid p-0">
 
-        <!-- MAIN CONTENT -->
-        <div class="flex-1 flex flex-col overflow-hidden">
+                    @yield('vendor_content')
 
-            <!-- TOPBAR -->
-            <header class="h-16 bg-white shadow-sm border-b border-gray-200 px-6 flex items-center justify-between">
-
-                <!-- Left -->
-                <div>
-                    <h1 class="text-xl font-semibold text-gray-800">
-                        {{ $header ?? 'Dashboard' }}
-                    </h1>
                 </div>
+            </main>
 
-                <!-- Right -->
-                <div class="relative" x-data="{ open: false }">
-
-                    <!-- Profile Button -->
-                    <button @mouseenter="open = true"
-                        class="flex items-center gap-3 bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-xl transition">
-
-                        <img src="https://i.pravatar.cc/100" class="w-10 h-10 rounded-full object-cover" alt="profile">
-
-                        <div class="text-left hidden md:block">
-                            <p class="text-sm font-semibold text-gray-700">vendor User</p>
-                            <p class="text-xs text-gray-500">vendoristrator</p>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row text-muted">
+                        <div class="col-6 text-start">
+                            <p class="mb-0">
+                                <a class="text-muted" href="{{ route('vendor.dashboard') }}"
+                                    target="_blank"><strong>&copy; 2026 Food4All</strong></a>
+                                - All Rights Reserved
+                            </p>
                         </div>
-                    </button>
-
-                    <!-- Dropdown -->
-                    <div x-show="open" @mouseleave="open = false" x-transition
-                        class="absolute right-0 mt-3 w-52 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50">
-
-                        <a href="#" class="block px-4 py-3 hover:bg-gray-100 text-sm text-gray-700">
-                            Profile
-                        </a>
-
-                        <a href="#" class="block px-4 py-3 hover:bg-gray-100 text-sm text-gray-700">
-                            Settings
-                        </a>
-
-                        <hr>
-
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <a class="block px-4 py-3 hover:bg-red-50 text-sm text-red-600" href="/logout"
-                                onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </a>
-                        </form>
+                        <div class="col-6 text-end">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#" target="_blank">Support</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#" target="_blank">Help Center</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#" target="_blank">Privacy</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#" target="_blank">Terms</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </header>
-
-            <!-- PAGE CONTENT -->
-            <main class="flex-1 overflow-y-auto p-6">
-
-                <!-- Dynamic Content -->
-                @yield('vendor_content')
-
-            </main>
+            </footer>
         </div>
-
-
-
     </div>
 
+    <script src="{{ asset('admin_assets/js/app.js') }}"></script>
+
 </body>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 </html>

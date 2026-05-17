@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class AdminPageController extends Controller
@@ -15,7 +16,8 @@ class AdminPageController extends Controller
 
     public function categories()
     {
-        return view('admin.categories.manage');
+        $categories = Category::all();
+        return view('admin.categories.manage', compact('categories'));
     }
 
     public function orders()

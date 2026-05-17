@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminPageController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Vendor\VendorPageController;
 use App\Http\Controllers\Customer\CustomerPageController;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,10 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])
         Route::get('/settings', [AdminPageController::class, 'settings'])->name('settings');
         Route::get('/users', [AdminPageController::class, 'users'])->name('users');
         Route::get('/vendors', [AdminPageController::class, 'vendors'])->name('vendors');
+        Route::post('/categories/create', [CategoriesController::class, 'addCategory'])->name('createCategory');
+        Route::get('/categories/{id}', [CategoriesController::class, 'showCategory'])->name('showCategory');
+        Route::put('/categories/{id}', [CategoriesController::class, 'updateCategory'])->name('updateCategory');
+        Route::delete('/categories/{id}', [CategoriesController::class, 'deleteCategory'])->name('deleteCategory');
 
 });
 
