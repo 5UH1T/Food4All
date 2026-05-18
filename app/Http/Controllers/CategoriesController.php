@@ -3,64 +3,68 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class CategoriesController extends Controller
 {
 
+    // Create Category
     public function addCategory(Request $request) {
-        $validated_Data = $request->validate([
+        $validator = Validator::make($request->all(), [
             'category_name' => [
                 'required',
-                'unique:categories,category_name',
-                'max:100',
-                'regex:/^[A-Za-z][A-Za-z0-9\s]*$/'
+                Rule::unique('categories', 'category_name'),
             ],
-            'status' => ['required']
-        ], [
-            'category_name.required' => 'Category name is required.',
-            'category_name.unique' => 'Category already exists.',
-            'category_name.max' => 'Category name cannot exceed 100 characters.',
-            'category_name.regex' => 'Category name must start with a letter.'
+            'status' => ['required'],
         ]);
 
-        Category::create($validated_Data);
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', implode(', ', $validator->errors()->all()));
+        }
+
+        Category::create([
+            'category_name' => $request->category_name,
+            'status' => $request->status,
+        ]);
 
         return redirect()->back()->with('success','Category Added Successfully!');
     }
 
+    // Show Single Category
     public function showCategory(string $id)
     {
         $category_item = Category::findOrFail($id);
         return response()->json($category_item);
     }
 
+    // Edit Category
     public function updateCategory(Request $request, string $id) {
         $category = Category::findOrFail($id);
-        $validated_Data = $request->validate([
+        $validator = Validator::make($request->all(), [
             'category_name' => [
                 'required',
-                'max:100',
-                'regex:/^[A-Za-z][A-Za-z0-9\s]*$/',
                 Rule::unique('categories', 'category_name')->ignore($id),
             ],
-            'status' => [
-                'required',
-            ],
-        ], [
-            'category_name.required' => 'Category name is required.',
-            'category_name.unique' => 'Category already exists.',
-            'category_name.max' => 'Category name cannot exceed 100 characters.',
-            'category_name.regex' => 'Category name must start with a letter and contain only letters, numbers, and spaces.',
+            'status' => ['required'],
         ]);
 
-        $category->update($validated_Data);
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', implode(', ', $validator->errors()->all()));
+        }
+
+        $category->update([
+            'category_name' => $request->category_name,
+            'status' => $request->status,
+        ]);
 
         return redirect()->back()->with('success','Category Updated Successfully!');
     }
 
+    // Delete Category
     public function deleteCategory(Request $request, string $id) {
         $category = Category::findOrFail($id);
         $category->delete();

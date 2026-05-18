@@ -13,7 +13,7 @@
             </div>
 
             <!-- FORM -->
-            <form action="{{ route('admin.createCategory') }}" method="POST">
+            <form id="createAdminCategory" action="{{ route('admin.createCategory') }}" method="POST">
                 @csrf
 
                 <div class="modal-body">
@@ -21,7 +21,8 @@
                     <!-- TITLE -->
                     <div class="mb-3">
                         <label class="form-label">Category Title</label>
-                        <input type="text" name="category_name" class="form-control" placeholder="Soft Drinks">
+                        <input type="text" name="category_name" id="create_category_name" class="form-control"
+                            placeholder="Soft Drinks">
 
                         @error('category_name')
                             <div class="text-danger small">{{ $message }}</div>
@@ -31,7 +32,8 @@
                     <!-- STATUS -->
                     <div>
                         <label class="form-label">Status</label>
-                        <select name="status" class="form-select">
+                        <select name="status" id="create_category_status" class="form-select">
+                            <option value="" selected disabled>-- Select a Status --</option>
                             <option value="draft">Draft</option>
                             <option value="published">Published</option>
                         </select>

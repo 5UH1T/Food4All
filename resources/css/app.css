@@ -26,3 +26,9 @@
 .dropdown-menu.dropdown-notification {
     min-width: 300px !important;
 }
+
+.just-validate-error-label {
+    padding: 4px 0 0 5px;
+    color: #dc3545;
+    font-size: 14px;
+}

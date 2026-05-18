@@ -13,7 +13,7 @@
             </div>
 
             <!-- FORM -->
-            <form id="editForm" method="POST">
+            <form id="editAdminCategory" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -33,6 +33,7 @@
                     <div>
                         <label class="form-label">Status</label>
                         <select name="status" id="edit_status" class="form-select">
+                            <option value="" disabled>-- Select a Status --</option>
                             <option value="draft">Draft</option>
                             <option value="published">Published</option>
                         </select>

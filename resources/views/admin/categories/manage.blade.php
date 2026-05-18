@@ -115,7 +115,7 @@
                     document.getElementById('edit_category_name').value = this.dataset.name;
                     document.getElementById('edit_status').value = this.dataset.status;
 
-                    document.getElementById('editForm').action =
+                    document.getElementById('editAdminCategory').action =
                         `/admin/categories/${id}`;
 
                 });
