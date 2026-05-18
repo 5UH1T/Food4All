@@ -16,7 +16,7 @@ class AdminPageController extends Controller
 
     public function categories()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('id', 'desc')->paginate(5);
         return view('admin.categories.manage', compact('categories'));
     }
 

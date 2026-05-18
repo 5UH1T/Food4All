@@ -8,12 +8,12 @@ export function editCategoryValidation() {
 
     validation
         .addField('#edit_category_name', [
-            { rule: 'required', errorMessage: 'Category Title is required' },
             { rule: 'minLength', value: 3 },
+            { rule: 'required', errorMessage: 'Category Title is required' },
             {
                 rule: 'customRegexp',
                 value: /^[A-Za-z][A-Za-z0-9\s]*$/,
-                errorMessage: 'Invalid Cateogory Title',
+                errorMessage: 'Invalid Category Title',
             },
         ])
         .addField('#edit_status', [
@@ -36,7 +36,7 @@ export function createCategoryValidation() {
             {
                 rule: 'customRegexp',
                 value: /^[A-Za-z][A-Za-z0-9\s]*$/,
-                errorMessage: 'Invalid Cateogory Title',
+                errorMessage: 'Invalid Category Title',
             },
         ])
         .addField('#create_category_status', [

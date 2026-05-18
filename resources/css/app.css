@@ -32,3 +32,7 @@
     color: #dc3545;
     font-size: 14px;
 }
+
+.page-link:hover {
+    text-decoration: none;
+}

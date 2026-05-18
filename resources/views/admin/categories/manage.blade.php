@@ -101,7 +101,9 @@
 
             </table>
         </div>
-
+    </div>
+    <div class="mt-2">
+        {{ $categories->links('pagination::bootstrap-5') }}
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
