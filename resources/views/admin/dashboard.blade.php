@@ -6,7 +6,7 @@
     <div class="">
         <div class="container-fluid p-0">
 
-            <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
+            <h1 class="h3 mb-3">Analytics Dashboard</h1>
 
             <div class="row">
                 <div class="col-xl-6 col-xxl-5 d-flex">
@@ -26,7 +26,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h1 class="mt-1 mb-3">2.382</h1>
+                                        <h2 class="mt-1 mb-3">2.382</h2>
                                         <div class="mb-0">
                                             <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
                                                 -3.65% </span>
@@ -47,7 +47,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h1 class="mt-1 mb-3">14.212</h1>
+                                        <h2 class="mt-1 mb-3">14.212</h2>
                                         <div class="mb-0">
                                             <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i>
                                                 5.25% </span>
@@ -70,7 +70,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h1 class="mt-1 mb-3">$21.300</h1>
+                                        <h2 class="mt-1 mb-3">$21.300</h2>
                                         <div class="mb-0">
                                             <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i>
                                                 6.65% </span>
@@ -91,7 +91,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h1 class="mt-1 mb-3">64</h1>
+                                        <h2 class="mt-1 mb-3">64</h2>
                                         <div class="mb-0">
                                             <span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
                                                 -2.25% </span>

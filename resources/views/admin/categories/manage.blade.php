@@ -23,17 +23,28 @@
     </script>
 
     <!-- TOP ACTION -->
-    <div class="mb-3">
+    <div class="mb-3 d-flex flex-lg-row flex-column align-items-center justify-content-between w-100">
         <button class="ml-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" data-bs-toggle="modal"
             data-bs-target="#createModal">
             + Create Category
         </button>
+
+        <form method="GET" class="form-outline relative border-1 border-slate-500 rounded-lg overflow-hidden w-[300px]">
+            <input type="search" name="search" required placeholder="Search..." value="{{ request('search') }}"
+                class="form-control w-100 pr-[55px] rounded-lg" />
+
+            <button type="submit"
+                class="bg-primary text-white absolute top-0 right-0 w-[50px] h-100 flex items-center justify-center">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
     </div>
 
     <!-- TABLE -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
 
-        <div class="p-4 border-b border-gray-100">
+        <div class="p-2 border-b">
             <h4 class="text-gray-800 text-center">
                 Your Categories
             </h4>

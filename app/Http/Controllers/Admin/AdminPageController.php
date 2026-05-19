@@ -14,9 +14,18 @@ class AdminPageController extends Controller
         return view('admin.attributes.manage');
     }
 
-    public function categories()
+    public function categories(Request $request)
     {
-        $categories = Category::orderBy('id', 'desc')->paginate(5);
+        $search = $request->query('search');
+
+        $categories = Category::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where('category_name', 'LIKE', "%{$search}%");
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(5)
+            ->withQueryString();
+
         return view('admin.categories.manage', compact('categories'));
     }
 

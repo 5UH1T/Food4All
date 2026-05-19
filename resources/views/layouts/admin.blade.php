@@ -28,7 +28,7 @@
     <div class="wrapper">
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
-                <a class="sidebar-brand" href="index.html">
+                <a class="sidebar-brand" href="{{ route('admin.dashboard') }}">
                     <span class="align-middle">Admin</span>
                 </a>
 
@@ -108,6 +108,9 @@
             <nav class="navbar navbar-expand navbar-light navbar-bg">
                 <a class="sidebar-toggle js-sidebar-toggle">
                     <i class="hamburger align-self-center"></i>
+                </a>
+                <a href="/" title="Go to Website" target="_blank">
+                    <i class="fa-solid fa-globe globe-icon"></i>
                 </a>
 
                 <div class="navbar-collapse">

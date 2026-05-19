@@ -70,6 +70,10 @@
                     <i class="hamburger align-self-center"></i>
                 </a>
 
+                <a href="/" title="Go to Website" target="_blank">
+                    <i class="fa-solid fa-globe globe-icon"></i>
+                </a>
+
                 <div class="navbar-collapse">
                     <ul class="navbar-nav navbar-align flex items-center justify-center gap-2">
                         <li class="nav-item dropdown">
