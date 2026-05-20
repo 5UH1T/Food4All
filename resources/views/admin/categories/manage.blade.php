@@ -44,12 +44,6 @@
     <!-- TABLE -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
 
-        <div class="p-2 border-b">
-            <h4 class="text-gray-800 text-center">
-                Your Categories
-            </h4>
-        </div>
-
         <div class="overflow-x-auto">
             <table class="w-full text-left">
 
