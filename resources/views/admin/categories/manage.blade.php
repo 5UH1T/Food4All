@@ -5,9 +5,9 @@
 @endsection
 
 @section('admin_content')
-    @include('components.category.createModal')
-    @include('components.category.editModal')
-    @include('components.category.deleteModal')
+    @include('components.admin.category.createModal')
+    @include('components.admin.category.editModal')
+    @include('components.admin.category.deleteModal')
 
     {{-- SUCCESS ALERT --}}
     <script>

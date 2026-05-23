@@ -3,7 +3,7 @@
     Orders - Admin
 @endsection
 @section('admin_content')
-    @include('components.orders.view-order')
+    @include('components.admin.orders.view-order')
 
     <h2 class="text-center mb-5">All Orders</h2>
     <div class="mb-3 d-flex align-items-center justify-content-end w-100">
