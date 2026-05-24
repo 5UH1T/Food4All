@@ -46,6 +46,14 @@
                     </li>
 
                     <li class="sidebar-item">
+                        <a href="{{ route('vendor.products') }}"
+                            class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('vendor.products') ? 'active' : '' }}">
+                            <i class="fa-solid fa-utensils"></i>
+                            <span>Products</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
                         <a href="{{ route('vendor.categories') }}"
                             class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('vendor.categories') ? 'active' : '' }}">
                             <i class="fa-solid fa-layer-group"></i>
