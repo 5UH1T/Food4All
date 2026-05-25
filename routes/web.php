@@ -6,26 +6,27 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Vendor\VendorPageController;
 use App\Http\Controllers\Customer\CustomerPageController;
 use Illuminate\Support\Facades\Route;
+use UniSharp\LaravelFilemanager\Lfm;
 
 Route::get('/', function () {
-    return view('index');
+    return view('welcome');
 });
 
-Route::get('/signin', function () {
-    return view('login');
-});
+// Route::get('/signin', function () {
+//     return view('login');
+// });
 
-Route::get('/products', function () {
-    return view('product-category');
-});
+// Route::get('/products', function () {
+//     return view('product-category');
+// });
 
-Route::get('/signup', function () {
-    return view('register');
-});
+// Route::get('/signup', function () {
+//     return view('register');
+// });
 
-Route::get('/product', function () {
-    return view('product');
-});
+// Route::get('/product', function () {
+//     return view('product');
+// });
 
 Route::middleware(['auth', 'verified', 'rolemanager:admin'])
     ->prefix('admin')
@@ -48,7 +49,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])
 });
 
 Route::middleware(['auth', 'verified', 'rolemanager:vendor'])
-    ->prefix('vendor')
+    ->prefix('vender')
     ->name('vendor.')
     ->group(function () {
 
@@ -82,6 +83,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    Lfm::routes();
 });
 
 require __DIR__.'/auth.php';

@@ -101,7 +101,16 @@
 
                         <div class="col-12">
                             <label class="form-label">Product Images</label>
-                            <input type="file" name="images[]" multiple class="form-control">
+
+                            <div class="input-group">
+                                <button class="btn btn-primary" type="button" id="lfm">
+                                    Choose Images
+                                </button>
+
+                                <input id="thumbnail" class="form-control" type="text" name="images">
+                            </div>
+
+                            <div id="holder" class="mt-3 d-flex flex-wrap gap-2"></div>
                         </div>
 
                         <div class="col-12">
@@ -146,16 +155,75 @@
     </div>
 
     <script src="/ckeditor/ckeditor.js"></script>
+
     <script>
         if (window.CKEDITOR && document.getElementById('editor')) {
             CKEDITOR.replace('editor');
         }
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+
     <script>
-        if (window.CKEDITOR && document.getElementById('editor')) {
-            CKEDITOR.replace('editor');
-        }
+        $(document).ready(function() {
+
+            // init filemanager
+            $('#lfm').filemanager('image', {
+                multiple: true
+            });
+
+            // FIX: listen when input value is set by filemanager
+            const input = document.getElementById('thumbnail');
+            const holder = document.getElementById('holder');
+
+            function renderPreview() {
+
+                holder.innerHTML = '';
+
+                if (!input.value) return;
+
+                let images = input.value.split(',');
+
+                images.forEach(function(img) {
+
+                    img = img.trim();
+                    if (!img) return;
+
+                    // fix missing /storage prefix if needed
+                    if (!img.startsWith('http') && !img.startsWith('/storage')) {
+                        img = '/storage/' + img.replace(/^\/+/, '');
+                    }
+
+                    let image = document.createElement('img');
+
+                    image.src = img;
+                    image.style.width = '100px';
+                    image.style.height = '100px';
+                    image.style.objectFit = 'cover';
+                    image.style.borderRadius = '10px';
+                    image.style.border = '1px solid #ddd';
+                    image.style.padding = '3px';
+
+                    holder.appendChild(image);
+                });
+            }
+
+            // IMPORTANT: detect filemanager update (not input change)
+            $('#lfm').on('click', function() {
+
+                const observer = new MutationObserver(function() {
+                    renderPreview();
+                });
+
+                observer.observe(input, {
+                    attributes: true,
+                    attributeFilter: ['value']
+                });
+
+                setTimeout(() => observer.disconnect(), 5000);
+            });
+
+        });
     </script>
 @endsection
