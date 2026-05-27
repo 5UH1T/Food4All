@@ -44,3 +44,7 @@ html, body {
 .page-link:hover {
     text-decoration: none;
 }
+
+.sidebar-brand {
+    text-decoration: none !important;
+}

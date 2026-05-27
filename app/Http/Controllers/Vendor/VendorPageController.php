@@ -23,9 +23,14 @@ class VendorPageController extends Controller
         return view('vendor.payments.manage');
     }
 
-    public function products()
+    public function createProducts()
     {
         return view('vendor.products.manage');
+    }
+
+    public function products()
+    {
+        return view('vendor.products.view');
     }
 
     public function index()

@@ -28,7 +28,7 @@
     <div class="wrapper">
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
-                <a class="sidebar-brand" href="index.html">
+                <a class="sidebar-brand" href="{{ route('vendor.dashboard') }}">
                     <span class="align-middle">Vendor</span>
                 </a>
 
@@ -45,12 +45,28 @@
                         </a>
                     </li>
 
+                    <li class="sidebar-header py-2">
+                        Products
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="{{ route('vendor.createProducts') }}"
+                            class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('vendor.createProducts') ? 'active' : '' }}">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Create Product</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar-item">
                         <a href="{{ route('vendor.products') }}"
                             class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('vendor.products') ? 'active' : '' }}">
                             <i class="fa-solid fa-utensils"></i>
-                            <span>Products</span>
+                            <span>View Products</span>
                         </a>
+                    </li>
+
+                    <li class="sidebar-header py-2">
+                        Other
                     </li>
 
                     <li class="sidebar-item">

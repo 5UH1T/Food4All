@@ -53,6 +53,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])
     ->name('vendor.')
     ->group(function () {
 
+        Route::get('/products/create', [VendorPageController::class, 'createProducts'])->name('createProducts');
         Route::get('/products', [VendorPageController::class, 'products'])->name('products');
         Route::get('/categories', [VendorPageController::class, 'categories'])->name('categories');
         Route::get('/', [VendorPageController::class, 'index'])->name('dashboard');
