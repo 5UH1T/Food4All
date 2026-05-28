@@ -3,14 +3,27 @@
 namespace App\Http\Controllers\Vendor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class VendorPageController extends Controller
 {
 
-    public function categories()
+    public function categories(Request $request)
     {
-        return view('vendor.categories.manage');
+        $search = $request->query('search');
+        $categories = Category::select('id','category_name')->where('status', 'published')->get();
+        $subCategories = SubCategory::query()
+        ->with('categories')
+        ->when($search, function ($query) use ($search) {
+            $query->where('sub_category_name', 'LIKE', "%{$search}%");
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(5)
+            ->withQueryString();
+
+        return view('vendor.categories.manage', compact('categories', 'subCategories'));
     }
 
     public function orders()

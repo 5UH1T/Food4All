@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Vendor\VendorPageController;
 use App\Http\Controllers\Customer\CustomerPageController;
+use App\Http\Controllers\SubCategoriesController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
@@ -49,13 +50,14 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])
 });
 
 Route::middleware(['auth', 'verified', 'rolemanager:vendor'])
-    ->prefix('vender')
+    ->prefix('store')
     ->name('vendor.')
     ->group(function () {
 
         Route::get('/products/create', [VendorPageController::class, 'createProducts'])->name('createProducts');
         Route::get('/products', [VendorPageController::class, 'products'])->name('products');
         Route::get('/categories', [VendorPageController::class, 'categories'])->name('categories');
+        Route::post('/categories/create', [SubCategoriesController::class, 'addCategory'])->name('createCategory');
         Route::get('/', [VendorPageController::class, 'index'])->name('dashboard');
         Route::get('/orders', [VendorPageController::class, 'orders'])->name('orders');
         Route::get('/payments', [VendorPageController::class, 'payments'])->name('payments');
