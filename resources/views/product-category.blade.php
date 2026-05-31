@@ -1,1 +1,1 @@
-<h1>Product Grid Based on Categories</h1>
+<h1>Product Grid Based on Categories Test</h1>
