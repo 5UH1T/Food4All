@@ -13,7 +13,7 @@
             </div>
 
             <!-- FORM -->
-            <form id="editAdminCategory" method="POST">
+            <form id="editVendorCategory" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -22,17 +22,24 @@
                     <!-- TITLE -->
                     <div class="mb-3">
                         <label class="form-label">Category Title</label>
-                        <input type="text" name="category_name" id="edit_category_name" class="form-control">
+                        <input type="text" name="sub_category_name" id="edit_sub_category_name" class="form-control">
+                    </div>
 
-                        @error('category_name')
-                            <div class="text-danger small">{{ $message }}</div>
-                        @enderror
+                    <!-- STATUS -->
+                    <div>
+                        <label class="form-label">Main Category</label>
+                        <select name="category_id" id="edit_sub_category_parent" class="form-select">
+                            <option value="" selected disabled>-- Select Main Category --</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <!-- STATUS -->
                     <div>
                         <label class="form-label">Status</label>
-                        <select name="status" id="edit_status" class="form-select">
+                        <select name="status" id="edit_sub_category_status" class="form-select">
                             <option value="" disabled>-- Select a Status --</option>
                             <option value="draft">Draft</option>
                             <option value="published">Published</option>

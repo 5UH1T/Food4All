@@ -45,11 +45,12 @@ class SubCategoriesController extends Controller
     public function updateCategory(Request $request, string $id) {
         $category = SubCategory::findOrFail($id);
         $validator = Validator::make($request->all(), [
-            'category_name' => [
+            'sub_category_name' => [
                 'required',
-                Rule::unique('categories', 'category_name')->ignore($id),
+                Rule::unique('sub_categories', 'sub_category_name')->ignore($id),
             ],
             'status' => ['required'],
+            'category_id' => ['required'],
         ]);
 
         if ($validator->fails()) {
@@ -57,8 +58,9 @@ class SubCategoriesController extends Controller
         }
 
         $category->update([
-            'category_name' => $request->category_name,
+            'sub_category_name' => $request->sub_category_name,
             'status' => $request->status,
+            'category_id' => $request->category_id, 
         ]);
 
         return redirect()->back()->with('success','Category Updated Successfully!');

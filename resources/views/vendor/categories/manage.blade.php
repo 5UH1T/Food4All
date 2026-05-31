@@ -90,7 +90,8 @@
                                     <button
                                         class="w-9 h-9 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 edit-btn"
                                         data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ $subcategory->id }}"
-                                        data-name="{{ $subcategory->category_name }}"
+                                        data-name="{{ $subcategory->sub_category_name }}"
+                                        data-category-id="{{ $subcategory->category_id }}"
                                         data-status="{{ $subcategory->status }}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
@@ -126,11 +127,13 @@
 
                     const id = this.dataset.id;
 
-                    document.getElementById('edit_category_name').value = this.dataset.name;
-                    document.getElementById('edit_status').value = this.dataset.status;
+                    document.getElementById('edit_sub_category_name').value = this.dataset.name;
+                    document.getElementById('edit_sub_category_parent').value = this.dataset
+                        .categoryId;
+                    document.getElementById('edit_sub_category_status').value = this.dataset.status;
 
-                    document.getElementById('editvendorCategory').action =
-                        `/vendor/categories/${id}`;
+                    document.getElementById('editVendorCategory').action =
+                        `/store/categories/${id}`;
 
                 });
             });
@@ -142,7 +145,7 @@
                     const id = this.dataset.id;
 
                     document.getElementById('deleteForm').action =
-                        `/vendor/categories/${id}`;
+                        `/store/categories/${id}`;
 
                 });
             });

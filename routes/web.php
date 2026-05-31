@@ -56,12 +56,14 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])
 
         Route::get('/products/create', [VendorPageController::class, 'createProducts'])->name('createProducts');
         Route::get('/products', [VendorPageController::class, 'products'])->name('products');
-        Route::get('/categories', [VendorPageController::class, 'categories'])->name('categories');
-        Route::post('/categories/create', [SubCategoriesController::class, 'addCategory'])->name('createCategory');
         Route::get('/', [VendorPageController::class, 'index'])->name('dashboard');
         Route::get('/orders', [VendorPageController::class, 'orders'])->name('orders');
         Route::get('/payments', [VendorPageController::class, 'payments'])->name('payments');
         Route::get('/settings', [VendorPageController::class, 'settings'])->name('settings');
+        Route::get('/categories', [VendorPageController::class, 'categories'])->name('categories');
+        Route::post('/categories/create', [SubCategoriesController::class, 'addCategory'])->name('createCategory');
+        Route::put('/categories/{id}', [SubCategoriesController::class, 'updateCategory'])->name('updateCategory');
+        Route::delete('/categories/{id}', [SubCategoriesController::class, 'deleteCategory'])->name('deleteCategory');
 });
 
 
