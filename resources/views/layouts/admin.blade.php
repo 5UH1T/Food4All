@@ -19,8 +19,8 @@
     <link rel="canonical" href="https://demo-basic.adminkit.io/pages-blank.html" />
 
     <title>@yield('admin_title')</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('admin_assets/css/app.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/custom.css'])
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 

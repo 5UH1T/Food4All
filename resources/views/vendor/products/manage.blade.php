@@ -8,50 +8,8 @@
         html {
             overflow: hidden !important;
         }
-
-        .image-preview-item {
-            position: relative;
-            display: inline-block;
-            width: 100px;
-            height: 100px;
-        }
-
-        .image-preview-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            padding: 3px;
-        }
-
-        .remove-preview-btn {
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            background: #ff3b30;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            font-size: 14px;
-            font-weight: bold;
-            line-height: 1;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .remove-preview-btn:hover {
-            background: #d62218;
-            transform: scale(1.1);
-        }
     </style>
+
     <div class="container py-4">
 
         <div class="mb-4">
@@ -90,8 +48,9 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label class="form-label fw-bold">Category <span class="text-danger">*<span></label>
-                            <select name="food_type" class="form-select">
+                            <label class="form-label fw-bold">Main Category <span class="text-danger">*<span></label>
+                            <select name="food_type" class="form-select" required>
+                                <option value="" selected disabled>-- Select a Main Category --</option>
                                 <option>Vegetarian</option>
                                 <option>Non-Vegetarian</option>
                                 <option>Vegan</option>
@@ -102,8 +61,9 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label class="form-label fw-bold">Sub Category <span class="text-danger">*<span></label>
-                            <select name="category" class="form-select">
+                            <label class="form-label fw-bold">Category <span class="text-danger">*<span></label>
+                            <select name="category" class="form-select" required>
+                                <option value="" selected disabled>-- Select a Category --</option>
                                 <option>Fast Food</option>
                                 <option>Drinks</option>
                                 <option>Desserts</option>
@@ -113,27 +73,14 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label class="form-label fw-bold">Portion <span class="text-danger">*<span></label>
-                            <input type="number" name="prep_time" class="form-control">
-                        </div>
-
-                        <div class="col-12">
-                            <label class="form-label fw-bold">Attributes</label>
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="hot" id="hot">
-                                    <label class="form-check-label" for="hot">
-                                        Hot
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="popular" id="popular">
-                                    <label class="form-check-label" for="popular">
-                                        Popular
-                                    </label>
-                                </div>
-                            </div>
+                            <label class="form-label fw-bold">Portion</label>
+                            <select name="category" class="form-select">
+                                <option>Fast Food</option>
+                                <option>Drinks</option>
+                                <option>Desserts</option>
+                                <option>Main Course</option>
+                                <option>Snacks</option>
+                            </select>
                         </div>
 
                         <div class="col-12">
