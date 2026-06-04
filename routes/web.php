@@ -42,6 +42,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])
         Route::get('/settings', [AdminPageController::class, 'settings'])->name('settings');
         Route::get('/users', [AdminPageController::class, 'users'])->name('users');
         Route::get('/vendors', [AdminPageController::class, 'vendors'])->name('vendors');
+        Route::get('/donations', [AdminPageController::class, 'donations'])->name('donations');
         Route::post('/categories/create', [CategoriesController::class, 'addCategory'])->name('createCategory');
         Route::get('/categories/{id}', [CategoriesController::class, 'showCategory'])->name('showCategory');
         Route::put('/categories/{id}', [CategoriesController::class, 'updateCategory'])->name('updateCategory');
@@ -73,6 +74,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:customer'])
     ->group(function () {
         Route::get('/orders', [CustomerPageController::class, 'orders'])->name('orders');
         Route::get('/payments', [CustomerPageController::class, 'payments'])->name('payments');
+        Route::get('/donations', [CustomerPageController::class, 'donations'])->name('donations');
         Route::get('/', [CustomerPageController::class, 'profile'])->name('profile');
 });
 

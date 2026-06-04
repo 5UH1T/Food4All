@@ -40,7 +40,7 @@
                     <li class="sidebar-item">
                         <a href="{{ route('customer.profile') }}"
                             class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('customer.profile') ? 'active' : '' }}">
-                            <i class="fa-solid fa-gear"></i>
+                            <i class="fa-solid fa-user"></i>
                             <span>Profile</span>
                         </a>
                     </li>
@@ -48,8 +48,16 @@
                     <li class="sidebar-item">
                         <a href="{{ route('customer.orders') }}"
                             class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('customer.orders') ? 'active' : '' }}">
-                            <i class="fa-solid fa-box-archive"></i>
+                            <i class="fa-solid fa-basket-shopping"></i>
                             <span>Orders</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="{{ route('customer.donations') }}"
+                            class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('customer.donations') ? 'active' : '' }}">
+                            <i class="fa-solid fa-gift"></i>
+                            <span>Donations</span>
                         </a>
                     </li>
 

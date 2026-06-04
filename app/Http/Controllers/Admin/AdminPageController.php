@@ -14,6 +14,11 @@ class AdminPageController extends Controller
         return view('admin.attributes.manage');
     }
 
+    public function donations()
+    {
+        return view('admin.donations.manage');
+    }
+
     public function categories(Request $request)
     {
         $search = $request->query('search');
