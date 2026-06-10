@@ -38,7 +38,11 @@ class VendorPageController extends Controller
 
     public function createProducts()
     {
-        return view('vendor.products.manage');
+        $categories = Category::select('id','category_name')->where('status', 'published')->select('id', 'category_name')->get();
+
+        // $subCategories = SubCategory::select('id','sub_category_name')->where('status', 'published')->select('id', 'category_id', 'sub_category_name')->get();
+
+        return view('vendor.products.manage' , compact('categories'));
     }
 
     public function products()

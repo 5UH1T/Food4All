@@ -17,7 +17,7 @@
             <p class="text-muted">Fill in the details to add a new food item</p>
         </div>
 
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" action="{{ route('vendor.createProducts') }}">
             @csrf
 
             <div class="card border-0 shadow-sm rounded-3">
@@ -27,7 +27,7 @@
 
                         <div class="col-12">
                             <label class="form-label fw-bold">Title <span class="text-danger">*<span></label>
-                            <input type="text" name="name" class="form-control">
+                            <input type="text" name="title" class="form-control">
                         </div>
 
                         <div class="col-md-4">
@@ -44,42 +44,26 @@
 
                         <div class="col-md-4">
                             <label class="form-label fw-bold" title="Price before discount">Initial Price</label>
-                            <input type="number" name="price" class="form-control">
+                            <input type="number" name="initial_price" class="form-control">
                         </div>
 
                         <div class="col-md-4">
                             <label class="form-label fw-bold">Main Category <span class="text-danger">*<span></label>
-                            <select name="food_type" class="form-select" required>
+                            <select id="selectCategory" name="category_id" class="form-select" required>
                                 <option value="" selected disabled>-- Select a Main Category --</option>
-                                <option>Vegetarian</option>
-                                <option>Non-Vegetarian</option>
-                                <option>Vegan</option>
-                                <option>Dairy</option>
-                                <option>Hard Drinks</option>
-                                <option>Soft Drinks</option>
+                                @foreach ($categories as $category)
+                                    <option value={{ $category->id }}>{{ $category->category_name }}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="col-md-4">
                             <label class="form-label fw-bold">Category <span class="text-danger">*<span></label>
-                            <select name="category" class="form-select" required>
+                            <select id="selectSubCategory" name="sub_category_id" class="form-select" required>
                                 <option value="" selected disabled>-- Select a Category --</option>
-                                <option>Fast Food</option>
-                                <option>Drinks</option>
-                                <option>Desserts</option>
-                                <option>Main Course</option>
-                                <option>Snacks</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label class="form-label fw-bold">Portion</label>
-                            <select name="category" class="form-select">
-                                <option>Fast Food</option>
-                                <option>Drinks</option>
-                                <option>Desserts</option>
-                                <option>Main Course</option>
-                                <option>Snacks</option>
+                                {{-- @foreach ($subCategories as $category)
+                                    <option value={{ $category->id }}>{{ $category->sub_category_name }}</option>
+                                @endforeach --}}
                             </select>
                         </div>
 
@@ -106,9 +90,10 @@
 
                         <div class="col-12">
                             <label class="form-label fw-bold">Status <span class="text-danger">*<span></label>
-                            <select name="availability" class="form-select">
-                                <option>Published</option>
-                                <option>Draft</option>
+                            <select name="status" class="form-select">
+                                <option value="" selected disabled>-- Select a Status --</option>
+                                <option value="draft">Draft</option>
+                                <option value="published">Published</option>
                             </select>
                         </div>
 
@@ -211,6 +196,34 @@
             setInterval(function() {
                 renderPreview();
             }, 300);
+        });
+    </script>
+    <script>
+        document.getElementById('selectCategory').addEventListener('change', function() {
+
+            let categoryId = this.value;
+            let sub = document.getElementById('selectSubCategory');
+
+            sub.innerHTML = '<option value="">Loading...</option>';
+
+            if (!categoryId) {
+                sub.innerHTML = '<option value="">Select Sub Category</option>';
+                return;
+            }
+
+            fetch(`/store/subcategories/${categoryId}`)
+                .then(res => res.json())
+                .then(data => {
+                    sub.innerHTML = '<option value="" selected disabled>Select Sub Category</option>';
+
+                    data.forEach(item => {
+                        sub.innerHTML += `
+                        <option value="${item.id}">
+                            ${item.sub_category_name}
+                        </option>
+                    `;
+                    });
+                });
         });
     </script>
 @endsection

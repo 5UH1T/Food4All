@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Vendor\VendorPageController;
 use App\Http\Controllers\Customer\CustomerPageController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SubCategoriesController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
@@ -56,11 +57,13 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])
     ->group(function () {
 
         Route::get('/products/create', [VendorPageController::class, 'createProducts'])->name('createProducts');
-        Route::get('/products', [VendorPageController::class, 'products'])->name('products');
         Route::get('/', [VendorPageController::class, 'index'])->name('dashboard');
         Route::get('/orders', [VendorPageController::class, 'orders'])->name('orders');
         Route::get('/payments', [VendorPageController::class, 'payments'])->name('payments');
         Route::get('/settings', [VendorPageController::class, 'settings'])->name('settings');
+        Route::get('/products', [VendorPageController::class, 'products'])->name('products');
+        Route::get('/subcategories/{categoryId}', [ProductsController::class, 'getSubCategories'])->name('getSubCategories');
+        Route::post('/products/create', [ProductsController::class, 'store'])->name('createProduct');
         Route::get('/categories', [VendorPageController::class, 'categories'])->name('categories');
         Route::post('/categories/create', [SubCategoriesController::class, 'addCategory'])->name('createCategory');
         Route::put('/categories/{id}', [SubCategoriesController::class, 'updateCategory'])->name('updateCategory');
