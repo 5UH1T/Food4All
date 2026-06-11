@@ -66,7 +66,7 @@ public function store(Request $request)
 
     // 2. Safely convert images string → array
     $images = collect(explode(',', $validated['images']))
-        ->map(fn($img) => trim($img))
+        ->map(fn ($img) => parse_url(trim($img), PHP_URL_PATH))
         ->filter()
         ->values();
 

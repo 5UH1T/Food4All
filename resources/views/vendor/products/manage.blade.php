@@ -10,6 +10,18 @@
         }
     </style>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                window.notyf.success("{{ session('success') }}");
+            @endif
+
+            @if (session('error'))
+                window.notyf.error("{{ session('error') }}");
+            @endif
+        });
+    </script>
+
     <div class="container py-4">
 
         <div class="mb-4">
@@ -80,10 +92,9 @@
                                 <button class="btn btn-primary" type="button" id="lfm" data-input="thumbnail">
                                     Choose Images
                                 </button>
-                                <input id="thumbnail" class="form-control" type="text" name="images" readonly>
+                                <input id="thumbnail" class="form-control" type="text" name="images" readonly hidden>
                             </div>
-                            <small class="text-muted d-block mt-1">You can select multiple files inside the file manager
-                                window.</small>
+                            <small class="text-muted d-block mt-1">Plese select one or more images</small>
 
                             <div id="holder" class="mt-3 d-flex flex-wrap gap-3"></div>
                         </div>
