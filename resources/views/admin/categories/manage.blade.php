@@ -38,6 +38,12 @@
 
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
+
+            @if (request('search'))
+                <a href="{{ url()->current() }}" class="text-gray-400 absolute right-[55px] top-[50%] translate-y-[-50%]">
+                    <i title="Reset" class="fa-solid fa-x text-lg"></i>
+                </a>
+            @endif
         </form>
     </div>
 
@@ -57,51 +63,59 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($categories as $index => $category)
+                    @if ($categories->total() === 0)
                         <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
-
-                            <td class="p-3 font-semibold text-gray-700">
-                                {{ $index + 1 }}
-                            </td>
-
-                            <td class="p-3 text-gray-600">
-                                {{ $category->category_name }}
-                            </td>
-
-                            <td class="p-3">
-                                <span
-                                    class="px-3 py-1 rounded-full text-xs font-semibold
-                                {{ $category->status === 'published' ? 'text-green-600 bg-green-100' : 'text-amber-600 bg-amber-100' }}">
-                                    {{ $category->status }}
-                                </span>
-                            </td>
-
-                            <!-- ACTIONS -->
-                            <td class="p-3 text-right">
-
-                                <div class="flex justify-end gap-3">
-
-                                    <!-- EDIT -->
-                                    <button
-                                        class="w-9 h-9 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 edit-btn"
-                                        data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ $category->id }}"
-                                        data-name="{{ $category->category_name }}" data-status="{{ $category->status }}">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-
-                                    <!-- DELETE -->
-                                    <button
-                                        class="w-9 h-9 flex items-center justify-center rounded-lg bg-red-50 text-red-600 hover:bg-red-100 delete-btn"
-                                        data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $category->id }}">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-
-                                </div>
-
-                            </td>
-
+                            <td colspan="5" class="p-3 font-semibold text-gray-700 text-center">No Category Found</td>
                         </tr>
-                    @endforeach
+                    @else
+                        @foreach ($categories as $index => $category)
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+
+                                <td class="p-3 font-semibold text-gray-700">
+                                    {{ $index + 1 }}
+                                </td>
+
+                                <td class="p-3 text-gray-600">
+                                    {{ $category->category_name }}
+                                </td>
+
+                                <td class="p-3">
+                                    <span
+                                        class="px-3 py-1 rounded-full text-xs font-semibold
+                                {{ $category->status === 'published' ? 'text-green-600 bg-green-100' : 'text-amber-600 bg-amber-100' }}">
+                                        {{ $category->status }}
+                                    </span>
+                                </td>
+
+                                <!-- ACTIONS -->
+                                <td class="p-3 text-right">
+
+                                    <div class="flex justify-end gap-3">
+
+                                        <!-- EDIT -->
+                                        <button
+                                            class="w-9 h-9 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 edit-btn"
+                                            data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ $category->id }}"
+                                            data-name="{{ $category->category_name }}"
+                                            data-status="{{ $category->status }}">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+
+                                        <!-- DELETE -->
+                                        <button
+                                            class="w-9 h-9 flex items-center justify-center rounded-lg bg-red-50 text-red-600 hover:bg-red-100 delete-btn"
+                                            data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                            data-id="{{ $category->id }}">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
 
             </table>

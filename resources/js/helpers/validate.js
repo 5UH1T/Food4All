@@ -12,7 +12,7 @@ export function editCategoryValidation() {
             { rule: 'required', errorMessage: 'Category Title is required' },
             {
                 rule: 'customRegexp',
-                value: /^[A-Za-z][A-Za-z0-9\s]*$/,
+                value: /^[A-Za-z][A-Za-z0-9\s._&-]*$/,
                 errorMessage: 'Invalid Category Title',
             },
         ])
@@ -35,7 +35,7 @@ export function createCategoryValidation() {
             { rule: 'minLength', value: 3 },
             {
                 rule: 'customRegexp',
-                value: /^[A-Za-z][A-Za-z0-9\s]*$/,
+                value: /^[A-Za-z][A-Za-z0-9\s._&-]*$/,
                 errorMessage: 'Invalid Category Title',
             },
         ])
@@ -59,7 +59,7 @@ export function createSubCategoryValidation() {
             { rule: 'minLength', value: 3 },
             {
                 rule: 'customRegexp',
-                value: /^[A-Za-z][A-Za-z0-9\s]*$/,
+                value: /^[A-Za-z][A-Za-z0-9\s._&-]*$/,
                 errorMessage: 'Invalid Sub Category Title',
             },
         ])
@@ -67,6 +67,32 @@ export function createSubCategoryValidation() {
             { rule: 'required', errorMessage: 'Please select a Main Category' },
         ])
         .addField('#create_sub_category_status', [
+            { rule: 'required', errorMessage: 'Please select a Status' },
+        ])
+        .onSuccess(async (event) => {
+            event.target.submit();
+        });
+}
+
+export function editSubCategoryValidation() {
+    const validation = new JustValidate('#editVendorCategory', {
+        errorFieldCssClass: 'is-invalid',
+    });
+
+    validation
+        .addField('#edit_sub_category_name', [
+            { rule: 'required', errorMessage: 'Sub Category Title is required' },
+            { rule: 'minLength', value: 3 },
+            {
+                rule: 'customRegexp',
+                value: /^[A-Za-z][A-Za-z0-9\s._&-]*$/,
+                errorMessage: 'Invalid Sub Category Title',
+            },
+        ])
+        .addField('#edit_sub_category_parent', [
+            { rule: 'required', errorMessage: 'Please select a Main Category' },
+        ])
+        .addField('#edit_sub_category_status', [
             { rule: 'required', errorMessage: 'Please select a Status' },
         ])
         .onSuccess(async (event) => {

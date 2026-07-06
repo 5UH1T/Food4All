@@ -24,7 +24,7 @@
                             class="form-control" placeholder="Soft Drinks">
                     </div>
 
-                    <!-- STATUS -->
+                    <!-- Main Category -->
                     <div>
                         <label class="form-label">Main Category</label>
                         <select name="category_id" id="create_sub_category_parent" class="form-select">

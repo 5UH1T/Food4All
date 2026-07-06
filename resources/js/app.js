@@ -1,7 +1,7 @@
 import './bootstrap';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { editCategoryValidation, createCategoryValidation, createSubCategoryValidation } from './helpers/validate';
+import { editCategoryValidation, createCategoryValidation, createSubCategoryValidation, editSubCategoryValidation } from './helpers/validate';
 
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
@@ -24,5 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('#createVendorCategory')) {
         createSubCategoryValidation();
+    }
+
+    if (document.querySelector('#editVendorCategory')) {
+        editSubCategoryValidation();
     }
 });

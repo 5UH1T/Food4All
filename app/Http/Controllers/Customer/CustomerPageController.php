@@ -12,13 +12,18 @@ class CustomerPageController extends Controller
         return view('customer.profile');
     }
 
-    public function orders()
+    public function payments()
     {
         return view('customer.payments.manage');
     }
 
-    public function payments()
+    public function orders()
     {
         return view('customer.orders.manage');
+    }
+
+    public function donations()
+    {
+        return view('customer.donations.manage');
     }
 }

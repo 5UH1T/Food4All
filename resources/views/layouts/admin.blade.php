@@ -19,8 +19,8 @@
     <link rel="canonical" href="https://demo-basic.adminkit.io/pages-blank.html" />
 
     <title>@yield('admin_title')</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('admin_assets/css/app.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/custom.css'])
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -56,8 +56,16 @@
                     <li class="sidebar-item">
                         <a href="{{ route('admin.orders') }}"
                             class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('admin.orders') ? 'active' : '' }}">
-                            <i class="fa-solid fa-box-archive"></i>
+                            <i class="fa-solid fa-basket-shopping"></i>
                             <span>Orders</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="{{ route('admin.donations') }}"
+                            class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('admin.donations') ? 'active' : '' }}">
+                            <i class="fa-solid fa-gift"></i>
+                            <span>Donations</span>
                         </a>
                     </li>
 

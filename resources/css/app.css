@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 
+* {
+    font-family: "Inter";
+}
+
 html, body {
     overflow:  auto !important;
 }

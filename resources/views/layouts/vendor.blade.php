@@ -20,7 +20,7 @@
 
     <title>@yield('vendor_title')</title>
     <link rel="stylesheet" href="{{ asset('admin_assets/css/app.css') }}">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/custom.css'])
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -80,7 +80,7 @@
                     <li class="sidebar-item">
                         <a href="{{ route('vendor.orders') }}"
                             class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('vendor.orders') ? 'active' : '' }}">
-                            <i class="fa-solid fa-box-archive"></i>
+                            <i class="fa-solid fa-basket-shopping"></i>
                             <span>Orders</span>
                         </a>
                     </li>
