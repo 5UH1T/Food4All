@@ -159,7 +159,7 @@
             <button type="submit" class="btn-submit">Register Now</button>
 
             <div class="switch-prompt">
-                Already have an account? <a href="login.html">Log In here</a>
+                Already have an account? <a href=" {{ url('/signin') }}">Log In here</a>
             </div>
         </form>
     </div>

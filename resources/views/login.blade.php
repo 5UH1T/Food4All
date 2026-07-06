@@ -178,7 +178,7 @@
             <button type="submit" class="btn-submit">Sign In</button>
 
             <div class="switch-prompt">
-                Don't Have an Account? <a href="signup.html">Create an account</a>
+                Don't Have an Account? <a href="{{ url('/signup') }}">Create an account</a>
             </div>
         </form>
     </div>
