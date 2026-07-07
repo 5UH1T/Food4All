@@ -1,5 +1,45 @@
 import JustValidate from 'just-validate';
 
+// Authentication Validation
+export function loginValidation() {
+    const validation = new JustValidate('#loginForm', {
+        errorFieldCssClass: 'is-invalid',
+    });
+
+    validation
+        .addField('#email', [
+            {
+                rule: 'required',
+                errorMessage: 'Email address is required',
+            },
+            {
+                rule: 'email',
+                errorMessage: 'Please enter a valid email address',
+            },
+            {
+                rule: 'customRegexp',
+                value: /^(?!\d+@)(?![^@]+@\d)(?![^@]+@[a-zA-Z]+\d+\.)[A-Za-z0-9._%+-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9]){2,}\.[A-Za-z]{2,}$/,
+                errorMessage: 'Please enter a valid email address',
+            },
+        ])
+
+        .addField('#password', [
+            {
+                rule: 'required',
+                errorMessage: 'Password is required',
+            },
+            {
+                rule: 'minLength',
+                value: 6,
+                errorMessage: 'Password must be at least 6 characters',
+            },
+        ])
+
+        .onSuccess((event) => {
+            event.target.submit();
+        });
+}
+
 // Admin Catgories
 export function editCategoryValidation() {
     const validation = new JustValidate('#editAdminCategory', {
