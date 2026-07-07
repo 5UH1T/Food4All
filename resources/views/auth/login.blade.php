@@ -7,6 +7,10 @@
             @if (session('error'))
                 window.notyf.error("{{ session('error') }}");
             @endif
+
+            @if (session('success'))
+                window.notyf.success("{{ session('success') }}");
+            @endif
         }, 500);
     </script>
 

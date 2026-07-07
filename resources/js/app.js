@@ -1,7 +1,7 @@
 import './bootstrap';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { editCategoryValidation, createCategoryValidation, createSubCategoryValidation, editSubCategoryValidation, loginValidation } from './helpers/validate';
+import { editCategoryValidation, createCategoryValidation, createSubCategoryValidation, editSubCategoryValidation, loginValidation, userRegisterValidation } from './helpers/validate';
 
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
@@ -16,6 +16,10 @@ window.notyf = new Notyf({
 document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('#loginForm')) {
         loginValidation();
+    }
+
+    if (document.querySelector('#userRegisterForm')) {
+        userRegisterValidation();
     }
 
     if (document.querySelector('#editAdminCategory')) {

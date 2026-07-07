@@ -16,7 +16,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans text-gray-900 flex items-center justify-center w-screen min-h-screen bg-gray-100">
+<body class="font-sans text-gray-900 flex items-center justify-center max-w-screen min-h-screen bg-gray-100">
     <style>
         * {
             margin: 0;

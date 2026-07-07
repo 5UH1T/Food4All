@@ -7,7 +7,7 @@
 
         <h2>Create Account</h2>
 
-        <form method="POST" action="{{ route('register') }}">
+        <form id="userRegisterForm" method="POST" action="{{ route('register') }}">
             @csrf
 
             <!-- Name -->
@@ -49,6 +49,27 @@
                     autocomplete="new-password" />
 
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group">
+                <x-input-label for="phone" :value="__('Phone Number')" />
+
+                <x-text-input id="phone" class="block w-full" type="text" name="phone" :value="old('phone')"
+                    placeholder="Phone Number" required />
+
+                <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+            </div>
+
+            <!-- Address -->
+            <div class="form-group">
+                <x-input-label for="name" :value="__('Your Address')" />
+
+
+                <x-text-input id="address" class="block w-full" type="text" name="address" :value="old('address')"
+                    placeholder="Your Address" required />
+
+                <x-input-error :messages="$errors->get('address')" class="mt-2" />
             </div>
 
             <button type="submit" class="btn-submit mt-3">

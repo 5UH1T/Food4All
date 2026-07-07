@@ -18,7 +18,7 @@ export function loginValidation() {
             },
             {
                 rule: 'customRegexp',
-                value: /^(?!\d+@)(?![^@]+@\d)(?![^@]+@[a-zA-Z]+\d+\.)[A-Za-z0-9._%+-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9]){2,}\.[A-Za-z]{2,}$/,
+                value: /^(?!\d+@)(?![^@]+@\d)(?![^@]+@[a-zA-Z]+\d+\.)[A-Za-z][A-Za-z0-9._%+-]*@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9]){2,}\.[A-Za-z]{2,}$/,
                 errorMessage: 'Please enter a valid email address',
             },
         ])
@@ -32,6 +32,100 @@ export function loginValidation() {
                 rule: 'minLength',
                 value: 6,
                 errorMessage: 'Password must be at least 6 characters',
+            },
+        ])
+
+        .onSuccess((event) => {
+            event.target.submit();
+        });
+}
+
+// User Registration Validation
+export function userRegisterValidation() {
+    const validation = new JustValidate('#userRegisterForm', {
+        errorFieldCssClass: 'is-invalid',
+    });
+
+    validation
+        .addField('#name', [
+            {
+                rule: 'required',
+                errorMessage: 'Full name is required',
+            },
+            {
+                rule: 'minLength',
+                value: 3,
+                errorMessage: 'Name must be at least 3 characters',
+            },
+        ])
+
+        .addField('#email', [
+            {
+                rule: 'required',
+                errorMessage: 'Email address is required',
+            },
+            {
+                rule: 'email',
+                errorMessage: 'Please enter a valid email address',
+            },
+            {
+                rule: 'customRegexp',
+                value: /^(?!\d+@)(?![^@]+@\d)(?![^@]+@[a-zA-Z]+\d+\.)[A-Za-z][A-Za-z0-9._%+-]*@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9]){2,}\.[A-Za-z]{2,}$/,
+                errorMessage: 'Please enter a valid email address',
+            },
+        ])
+        
+        .addField('#password', [
+            {
+                rule: 'required',
+                errorMessage: 'Password is required',
+            },
+            {
+                rule: 'minLength',
+                value: 6,
+                errorMessage: 'Password must be at least 6 characters',
+            },
+        ])
+
+        .addField('#password_confirmation', [
+            {
+                rule: 'required',
+                errorMessage: 'Please confirm your password',
+            },
+            {
+                validator: (value, context) => {
+                    return value === document.querySelector('#password').value;
+                },
+                errorMessage: 'Passwords do not match',
+            },
+        ])
+        
+        .addField('#phone', [
+            {
+                rule: 'required',
+                errorMessage: 'Phone number is required',
+            },
+            {
+                rule: 'minLength',
+                value: 10,
+                errorMessage: 'Phone number must be at least 10 digits',
+            },
+            {
+                rule: 'customRegexp',
+                value: /^(98|97)\d{8}$/,
+                errorMessage: 'Please enter a valid phone number',
+            },
+        ])
+        
+        .addField('#address', [
+            {
+                rule: 'required',
+                errorMessage: 'Address is required',
+            },
+            {
+                rule: 'minLength',
+                value: 5,
+                errorMessage: 'Address must be at least 5 characters',
             },
         ])
 
