@@ -73,9 +73,9 @@
                             <label class="form-label fw-bold">Category <span class="text-danger">*<span></label>
                             <select id="selectSubCategory" name="sub_category_id" class="form-select" required>
                                 <option value="" selected disabled>-- Select a Category --</option>
-                                {{-- @foreach ($subCategories as $category)
+                                @foreach ($subCategories as $category)
                                     <option value={{ $category->id }}>{{ $category->sub_category_name }}</option>
-                                @endforeach --}}
+                                @endforeach
                             </select>
                         </div>
 

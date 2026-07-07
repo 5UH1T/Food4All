@@ -40,9 +40,9 @@ class VendorPageController extends Controller
     {
         $categories = Category::select('id','category_name')->where('status', 'published')->select('id', 'category_name')->get();
 
-        // $subCategories = SubCategory::select('id','sub_category_name')->where('status', 'published')->select('id', 'category_id', 'sub_category_name')->get();
+        $subCategories = SubCategory::select('id','sub_category_name')->where('status', 'published')->select('id', 'category_id', 'sub_category_name')->get();
 
-        return view('vendor.products.manage' , compact('categories'));
+        return view('vendor.products.manage' , compact('categories','subCategories'));
     }
 
     public function products()
