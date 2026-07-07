@@ -30,9 +30,17 @@ class AuthenticatedSessionController extends Controller
 
         $authUserRole = Auth::user()->role;
 
-        if($authUserRole === 0) {
-            return redirect()->intended(route('admin.dashboard', absolute: false));
-        } else if ($authUserRole === 1) {
+        if ($authUserRole === 0) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect()->route('login')->with('error', 'You are not authorized to access this page.');
+
+        }
+
+        $request->session()->regenerate();
+
+        if ($authUserRole === 1) {
             return redirect()->intended(route('vendor.dashboard', absolute: false));
         } else {
             return redirect()->intended(route('customer.profile', absolute: false));

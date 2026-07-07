@@ -2,6 +2,7 @@
 
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
+
     <script>
         setTimeout(() => {
             @if (session('error'))
@@ -16,9 +17,9 @@
             <img src="{{ asset('admin_assets/img/logo-flat.png') }}" alt="Logo" class="w-[200px]">
         </a>
 
-        <div class="title">Welcome Back</div>
+        <div class="title">Welcome Back, Admin!</div>
 
-        <form method="POST" id="loginForm" action="{{ route('login') }}">
+        <form method="POST" id="loginForm" action="{{ route('admin.login') }}">
             @csrf
 
             <!-- Email -->
