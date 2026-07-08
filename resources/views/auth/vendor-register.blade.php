@@ -5,17 +5,17 @@
             <img src="{{ asset('admin_assets/img/logo-flat.png') }}" alt="Logo" class="w-[250px]">
         </a>
 
-        <h2>Create Account</h2>
+        <h2>Create Your Store Account</h2>
 
-        <form id="userRegisterForm" method="POST" action="{{ route('register') }}">
+        <form id="storeRegisterForm" method="POST" action="{{ route('vendor-register.store') }}">
             @csrf
 
             <!-- Name -->
             <div class="form-group">
-                <x-input-label for="name" :value="__('Full Name')" />
+                <x-input-label for="name" :value="__('Store Name')" />
 
                 <x-text-input id="name" class="block w-full" type="text" name="name" :value="old('name')"
-                    placeholder="Your Name" required autofocus autocomplete="name" />
+                    placeholder="Your Store Name" required autofocus autocomplete="name" />
 
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
@@ -72,6 +72,16 @@
                 <x-input-error :messages="$errors->get('address')" class="mt-2" />
             </div>
 
+            <!-- PAN Number -->
+            <div class="form-group">
+                <x-input-label for="pan" :value="__('PAN Number')" />
+
+                <x-text-input id="pan" class="block w-full" type="text" name="pan" :value="old('pan')"
+                    placeholder="Enter PAN Number" required />
+
+                <x-input-error :messages="$errors->get('pan')" class="mt-2" />
+            </div>
+
             <button type="submit" class="btn-submit mt-3">
                 Register Now
             </button>
@@ -84,8 +94,8 @@
             </div>
             <div class="register-text mt-1">or</div>
             <div class="register-text mt-1">
-                <a class="register-text text-black no-underline hover:underline" href="store/register">
-                    Register your Store
+                <a class="register-text text-black no-underline hover:underline" href="/register">
+                    Register as User
                 </a>
             </div>
         </form>

@@ -77,6 +77,12 @@
                         Create an account
                     </a>
                 </div>
+                <div class="register-text mt-1">or</div>
+                <div class="register-text mt-1">
+                    <a class="register-text text-black no-underline hover:underline" href="store/register">
+                        Register your Store
+                    </a>
+                </div>
             @endif
 
         </form>
