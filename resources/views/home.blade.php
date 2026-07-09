@@ -61,7 +61,7 @@
 
             <div class="swiper fp-dishes-slider">
                 <div class="swiper-wrapper p-2">
-                    @foreach ($latestProducts as $product)
+                    @foreach ($endProducts as $product)
                         <div class="swiper-slide">
                             <div class="card fp-dish-card">
                                 <div class="fp-dish-img-wrapper">
@@ -275,53 +275,6 @@
         </div>
     </section>
 
-    {{-- Another Slider --}}
-    <section class="fp-dishes-section">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-end mb-5">
-                <div>
-                    <span class="text-uppercase small text-success fw-bold tracking-wider">Bang For Bucks</span>
-                    <h2 class="fw-bold m-0 mt-1">Value For Money Items</h2>
-                </div>
-                <div class="d-flex gap-2">
-                    <button class="btn btn-outline-dark rounded-circle fp-dishes-prev p-2 lh-1"><i
-                            class="bi bi-chevron-left"></i></button>
-                    <button class="btn btn-outline-dark rounded-circle fp-dishes-next p-2 lh-1"><i
-                            class="bi bi-chevron-right"></i></button>
-                </div>
-            </div>
-
-            <div class="swiper fp-value-slider">
-                <div class="swiper-wrapper p-2">
-                    @foreach ($valueProducts as $product)
-                        <div class="swiper-slide">
-                            <div class="card fp-dish-card">
-                                <div class="fp-dish-img-wrapper">
-                                    {{-- <span class="fp-dish-badge">Top Rated</span> --}}
-                                    <img src="{{ asset($product->productImage->first()->image_path) }}"
-                                        alt="{{ $product->title }}">
-                                </div>
-                                <div class="card-body p-4">
-                                    <a href="/{{ $product->id }}">
-                                        <h5 class="fw-bold fs-5 text-truncate mb-2">{{ $product->title ?? '' }}</h5>
-                                    </a>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <div>
-                                            <span class="fp-dish-price">Rs {{ $product->price }}</span>
-                                            <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
-                                        </div>
-                                        <button class="btn btn-sm btn-outline-success rounded-circle"><i
-                                                class="bi bi-plus-lg"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </section>
-
     {{-- Stats --}}
     <section class="fp-impact-section py-5">
 
@@ -401,8 +354,8 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-end mb-5">
                 <div>
-                    <span class="text-uppercase small text-success fw-bold tracking-wider">Bang For Bucks</span>
-                    <h2 class="fw-bold m-0 mt-1">Value For Money Items</h2>
+                    <span class="text-uppercase small text-success fw-bold tracking-wider">Hot & Fresh</span>
+                    <h2 class="fw-bold m-0 mt-1">Recently Added Items</h2>
                 </div>
                 <div class="d-flex gap-2">
                     <button class="btn btn-outline-dark rounded-circle fp-dishes-prev p-2 lh-1"><i
@@ -414,7 +367,7 @@
 
             <div class="swiper fp-value-slider">
                 <div class="swiper-wrapper p-2">
-                    @foreach ($valueProducts as $product)
+                    @foreach ($latestProducts as $product)
                         <div class="swiper-slide">
                             <div class="card fp-dish-card">
                                 <div class="fp-dish-img-wrapper">

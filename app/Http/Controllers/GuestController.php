@@ -15,6 +15,13 @@ class GuestController extends Controller
 
         $latestProducts = Product::with('productImage')
             ->where('status', 'published')
+            ->latest('updated_at')
+            ->take(10)
+            ->get();
+
+
+        $endProducts = Product::with('productImage')
+            ->where('status', 'published')
             ->oldest('updated_at')
             ->take(10)
             ->get();
@@ -67,7 +74,7 @@ class GuestController extends Controller
         ->sortByDesc('value_score')
         ->take(10);
 
-        return view('home', compact('latestProducts', 'vendors', 'valueProducts', 'userCount', 'vendorCount'));
+        return view('home', compact('latestProducts', 'endProducts', 'vendors', 'valueProducts', 'userCount', 'vendorCount'));
     }
 
     public function productDetails($id)
