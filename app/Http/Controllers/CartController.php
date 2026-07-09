@@ -61,7 +61,8 @@ public function add(Request $request)
 
 
         return response()->json([
-            'message' => 'Added to Cart Successfully!'
+            'message' => 'Added to Cart Successfully!',
+            'cartCount' => $cart->items()->sum('quantity')
         ]);
     }
 }

@@ -547,6 +547,7 @@
 
                     if (response.ok) {
                         window.notyf.success(data.message);
+                        document.getElementById('cartCountBadge').innerText = data.cartCount;
                     } else {
                         window.notyf.error(data.message);
                     }

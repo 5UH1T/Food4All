@@ -1,3 +1,11 @@
+@php
+    $cartCount = 0;
+
+    if (auth()->check()) {
+        $cartCount = auth()->user()->cart?->items()->sum('quantity') ?? 0;
+    }
+@endphp
+
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -128,10 +136,10 @@
             <a href="/cart" class="btn nb-icon-btn position-relative flex items-center justify-center">
                 {{-- data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" --}}
                 <i class="bi bi-cart4"></i>
-                <span
+                <span id="cartCountBadge"
                     class="position-absolute top-0 start-100 translate-middle 
                 badge rounded-pill nb-cart-badge">
-                    3
+                    {{ $cartCount }}
                 </span>
 
             </a>
