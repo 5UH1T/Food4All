@@ -61,6 +61,58 @@ html, body {
         color: white !important;
     }
 }
+.quantity-box {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 50px;
+    padding: 5px;
+    width: fit-content;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.quantity-btn {
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: #198754;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+}
+
+.quantity-btn:hover {
+    background: #146c43;
+    transform: scale(1.08);
+}
+
+.quantity-btn:active {
+    transform: scale(0.95);
+}
+
+.quantity-input {
+    width: 55px;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    background: transparent;
+    outline: none;
+}
+
+/* Remove number input arrows */
+.quantity-input::-webkit-inner-spin-button,
+.quantity-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.quantity-input {
+    -moz-appearance: textfield;
+}
 
 .card-body a {
     all:unset;

@@ -30,8 +30,8 @@
                 <!-- Product Image -->
                 <div class="col-lg-6">
                     <div class="fp-product-image">
-                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=900"
-                            class="img-fluid rounded-4" alt="Margherita Pizza">
+                        <img src="{{ asset($product->productImage->first()->image_path) }}" class="img-fluid rounded-4"
+                            alt="Margherita Pizza">
                     </div>
                 </div>
 
@@ -39,41 +39,39 @@
                 <div class="col-lg-6">
 
                     <span class="badge fp-category-badge mb-3">
-                        Italian Cuisine
+                        {{ $product->categories->category_name }}
                     </span>
 
                     <h1 class="fw-bold mb-3">
-                        Classic Margherita Pizza
+                        {{ $product->title }}
                     </h1>
 
 
                     <!-- Price -->
                     <div class="mb-4">
-                        <span class="fp-product-price">Rs 399</span>
+                        <span class="fp-product-price">Rs {{ $product->price }}</span>
 
                         <del class="text-muted ms-3">
-                            Rs 499
+                            Rs {{ $product->initial_price }}
                         </del>
                     </div>
 
                     <!-- Description -->
                     <p class="text-muted mb-4">
-                        Freshly baked stone-oven pizza topped with premium mozzarella,
-                        hand-picked basil leaves, rich tomato sauce, and extra virgin olive oil.
-                        Prepared fresh every order for the perfect Italian taste.
+                        {!! $product->description !!}
                     </p>
 
                     <!-- Category -->
                     <div class="mb-3">
                         <strong>Category :</strong>
-                        Pizza
+                        {{ $product->subCategories->sub_category_name }}
                     </div>
 
                     <div class="mb-4">
                         <strong>Availability :</strong>
 
                         <span class="text-success fw-semibold">
-                            In Stock
+                            {{ $product->stock }} left
                         </span>
                     </div>
 
@@ -84,7 +82,18 @@
                             Quantity
                         </label>
 
-                        <input type="number" class="form-control" value="1" min="1" style="width:90px;">
+                        <div class="quantity-box d-flex align-items-center">
+                            <button class="quantity-btn" type="button" id="decreaseQty">
+                                <i class="bi bi-dash"></i>
+                            </button>
+
+                            <input type="number" id="quantity" class="quantity-input" value="1" min="1"
+                                max="{{ $product->stock }}">
+
+                            <button class="quantity-btn" type="button" id="increaseQty">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
 
                     </div>
 
@@ -113,6 +122,55 @@
 
         </div>
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const quantityInput = document.getElementById('quantity');
+            const increaseBtn = document.getElementById('increaseQty');
+            const decreaseBtn = document.getElementById('decreaseQty');
+
+            const maxStock = parseInt(quantityInput.getAttribute('max'));
+
+            increaseBtn.addEventListener('click', function() {
+
+                let currentValue = parseInt(quantityInput.value);
+
+                if (currentValue < maxStock) {
+                    quantityInput.value = currentValue + 1;
+                }
+
+            });
+
+
+            decreaseBtn.addEventListener('click', function() {
+
+                let currentValue = parseInt(quantityInput.value);
+
+                if (currentValue > 1) {
+                    quantityInput.value = currentValue - 1;
+                }
+
+            });
+
+
+            // Prevent manual input exceeding stock
+            quantityInput.addEventListener('input', function() {
+
+                let value = parseInt(this.value);
+
+                if (value > maxStock) {
+                    this.value = maxStock;
+                }
+
+                if (value < 1 || isNaN(value)) {
+                    this.value = 1;
+                }
+
+            });
+
+        });
+    </script>
 </body>
 
 </html>

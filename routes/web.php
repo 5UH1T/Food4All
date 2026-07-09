@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
 Route::get('/', [GuestController::class, 'getHomeItems'])->name('home');
-Route::get('/{id}', [GuestController::class, 'productDetails'])->name('product');
 
 Route::get('/cart', function () {
     return view('cart');
@@ -112,3 +111,4 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 });
 
 require __DIR__.'/auth.php';
+Route::get('/{id}', [GuestController::class, 'productDetails'])->name('product');
