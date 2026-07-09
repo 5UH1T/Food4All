@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -50,6 +50,7 @@ public function store(Request $request)
 
     // 1. Create product
     $product = Product::create([
+        'vendor_id' => Auth::id(),
         'title' => $validated['title'],
         'slug' => Str::slug($validated['title']) . '-' . time(),
 

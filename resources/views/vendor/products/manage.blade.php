@@ -29,7 +29,7 @@
             <p class="text-muted">Fill in the details to add a new food item</p>
         </div>
 
-        <form method="POST" enctype="multipart/form-data" action="{{ route('vendor.createProducts') }}">
+        <form method="POST" id="createProductForm" enctype="multipart/form-data" action="{{ route('vendor.createProducts') }}">
             @csrf
 
             <div class="card border-0 shadow-sm rounded-3">
@@ -80,13 +80,12 @@
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label fw-bold">Description <span class="text-danger">*<span></label>
+                            <label class="form-label fw-bold">Description </label>
                             <textarea id="editor" name="description" class="form-control" rows="5"></textarea>
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label fw-bold fw-semibold">Product Images <span
-                                    class="text-danger">*<span></label>
+                            <label class="form-label fw-bold fw-semibold">Product Images </label>
 
                             <div class="input-group">
                                 <button class="btn btn-primary" type="button" id="lfm" data-input="thumbnail">

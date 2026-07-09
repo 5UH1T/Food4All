@@ -339,3 +339,113 @@ export function editSubCategoryValidation() {
             event.target.submit();
         });
 }
+
+export function createProductValidation() {
+    const validation = new JustValidate('#createProductForm', {
+        errorFieldCssClass: 'is-invalid',
+    });
+
+    validation
+        .addField('input[name="title"]', [
+            {
+                rule: 'required',
+                errorMessage: 'Product title is required',
+            },
+            {
+                rule: 'minLength',
+                value: 3,
+                errorMessage: 'Product title must be at least 3 characters',
+            },
+            {
+                rule: 'customRegexp',
+                value: /^[a-zA-Z][a-zA-Z0-9\s._&-]*$/,
+                errorMessage: 'Product title must start with a letter and contain only valid characters',
+            },
+        ])
+
+        .addField('input[name="price"]', [
+            {
+                rule: 'required',
+                errorMessage: 'Price is required',
+            },
+            {
+                rule: 'number',
+                errorMessage: 'Price must be a valid number',
+            },
+            {
+                rule: 'minNumber',
+                value: 0,
+                errorMessage: 'Price cannot be less than 0',
+            },
+            {
+                rule: 'maxNumber',
+                value: 9999,
+                errorMessage: 'Price is above the allowed range',
+            },
+        ])
+
+        .addField('input[name="stock"]', [
+            {
+                rule: 'required',
+                errorMessage: 'Stock is required',
+            },
+            {
+                rule: 'number',
+                errorMessage: 'Stock must be a valid number',
+            },
+            {
+                rule: 'minNumber',
+                value: 1,
+                errorMessage: 'Stock must be at least 1',
+            },
+            {
+                rule: 'maxNumber',
+                value: 999,
+                errorMessage: 'Stock is above the allowed range',
+            },
+        ])
+
+        .addField('input[name="initial_price"]', [
+            {
+                validator: (value) => {
+                    if (!value) return true;
+
+                    const price = Number(document.querySelector('input[name="price"]').value);
+                    const initialPrice = Number(value);
+
+                    return initialPrice >= price;
+                },
+                errorMessage: 'Initial price cannot be less than price',
+            },
+            {
+                rule: 'maxNumber',
+                value: 9999,
+                errorMessage: 'Price is above the allowed range ',
+            },
+        ])
+
+        .addField('#selectCategory', [
+            {
+                rule: 'required',
+                errorMessage: 'Please select a Main Category',
+            },
+        ])
+
+        .addField('#selectSubCategory', [
+            {
+                rule: 'required',
+                errorMessage: 'Please select a Category',
+            },
+        ])
+
+        .addField('select[name="status"]', [
+            {
+                rule: 'required',
+                errorMessage: 'Please select a Status',
+            },
+        ])
+
+        .onSuccess((event) => {
+            event.target.submit();
+        });
+    }

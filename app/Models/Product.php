@@ -15,6 +15,7 @@ class Product extends Model
         'category_id',
         'sub_category_id',
         'description',
+        'vendor_id',
         'images',
         'status',
     ];
