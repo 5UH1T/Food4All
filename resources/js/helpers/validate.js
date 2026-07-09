@@ -434,7 +434,7 @@ export function createProductValidation() {
             },
             {
                 rule: 'customRegexp',
-                value: /^[a-zA-Z][a-zA-Z0-9\s._&-]*$/,
+                value: /^[a-zA-Z].*$/,
                 errorMessage: 'Product title must start with a letter and contain only valid characters',
             },
         ])

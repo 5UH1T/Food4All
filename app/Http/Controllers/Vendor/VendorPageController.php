@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class VendorPageController extends Controller
 {
@@ -45,9 +46,20 @@ class VendorPageController extends Controller
         return view('vendor.products.manage' , compact('categories','subCategories'));
     }
 
-    public function products()
+    public function products(Request $request)
     {
-        return view('vendor.products.view');
+        $search = $request->query('search');
+
+        $products = Product::where('vendor_id', auth()->id())
+            ->with(['mainImage','categories', 'subCategories'])
+            ->when($search, function ($query) use ($search) {
+                $query->where('title', 'LIKE', "%{$search}%");
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('vendor.products.view', compact('products'));
     }
 
     public function index()
