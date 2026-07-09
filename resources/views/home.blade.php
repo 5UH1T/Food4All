@@ -14,13 +14,17 @@
         body,
         * {
             font-family: 'Poppins', sans-serif !important;
+        }
 
+        body {
+            overflow: visible !important;
         }
     </style>
 </head>
 
 <body>
     @include('components.guest.navbar')
+    {{-- Hero --}}
     <section class="swiper fp-hero-section">
         <div class="swiper-wrapper">
             <div class="swiper-slide fp-hero-slide d-flex align-items-center"
@@ -38,12 +42,13 @@
         </div>
     </section>
 
+    {{-- Going Soon Section --}}
     <section class="fp-dishes-section">
         <div class="container">
             <div class="d-flex justify-content-between align-items-end mb-5">
                 <div>
-                    <span class="text-uppercase small text-success fw-bold tracking-wider">Hot & Ready</span>
-                    <h2 class="fw-bold m-0 mt-1">Recently Added Plates</h2>
+                    <span class="text-uppercase small text-success fw-bold tracking-wider">Going Soon</span>
+                    <h2 class="fw-bold m-0 mt-1">Last Chance Plates</h2>
                 </div>
                 <div class="d-flex gap-2">
                     <button class="btn btn-outline-dark rounded-circle fp-dishes-prev p-2 lh-1"><i
@@ -55,77 +60,36 @@
 
             <div class="swiper fp-dishes-slider">
                 <div class="swiper-wrapper p-2">
-                    <div class="swiper-slide">
-                        <div class="card fp-dish-card">
-                            <div class="fp-dish-img-wrapper">
-                                <span class="fp-dish-badge">Top Rated</span>
-                                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600"
-                                    alt="Dish 1">
-                            </div>
-                            <div class="card-body p-4">
-                                <h5 class="fw-bold fs-5 text-truncate mb-2">Organic Salmon Avocado Bowl</h5>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <span class="fp-dish-price">$18.50</span>
-                                    <button class="btn btn-sm btn-outline-danger rounded-circle"><i
-                                            class="bi bi-plus-lg"></i></button>
+                    @foreach ($latestProducts as $product)
+                        <div class="swiper-slide">
+                            <div class="card fp-dish-card">
+                                <div class="fp-dish-img-wrapper">
+                                    {{-- <span class="fp-dish-badge">Top Rated</span> --}}
+                                    <img src="{{ asset($product->productImage->first()->image_path) }}"
+                                        alt="{{ $product->title }}">
+                                </div>
+                                <div class="card-body p-4">
+                                    <a href="/{{ $product->id }}">
+                                        <h5 class="fw-bold fs-5 text-truncate mb-2">{{ $product->title ?? '' }}</h5>
+                                    </a>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div>
+                                            <span class="fp-dish-price">Rs {{ $product->price }}</span>
+                                            <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
+                                        </div>
+                                        <button class="btn btn-sm btn-outline-danger rounded-circle"><i
+                                                class="bi bi-plus-lg"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card fp-dish-card">
-                            <div class="fp-dish-img-wrapper">
-                                <span class="fp-dish-badge bg-warning text-dark">New</span>
-                                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600"
-                                    alt="Dish 2">
-                            </div>
-                            <div class="card-body p-4">
-                                <h5 class="fw-bold fs-5 text-truncate mb-2">Spicy Basil Pepperoni Pizza</h5>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <span class="fp-dish-price">$16.00</span>
-                                    <button class="btn btn-sm btn-outline-danger rounded-circle"><i
-                                            class="bi bi-plus-lg"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card fp-dish-card">
-                            <div class="fp-dish-img-wrapper">
-                                <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600"
-                                    alt="Dish 3">
-                            </div>
-                            <div class="card-body p-4">
-                                <h5 class="fw-bold fs-5 text-truncate mb-2">Berry Infused French Toast</h5>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <span class="fp-dish-price">$12.25</span>
-                                    <button class="btn btn-sm btn-outline-danger rounded-circle"><i
-                                            class="bi bi-plus-lg"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card fp-dish-card">
-                            <div class="fp-dish-img-wrapper">
-                                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600"
-                                    alt="Dish 4">
-                            </div>
-                            <div class="card-body p-4">
-                                <h5 class="fw-bold fs-5 text-truncate mb-2">Superfood Mediterranean Salad</h5>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <span class="fp-dish-price">$14.00</span>
-                                    <button class="btn btn-sm btn-outline-danger rounded-circle"><i
-                                            class="bi bi-plus-lg"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
 
+    {{-- Mission Statement --}}
     <section class="fp-kitchen-section">
         <div class="container">
             <div class="row align-items-center g-5">
@@ -156,6 +120,132 @@
         </div>
     </section>
 
+    {{-- Value For Money --}}
+    <section class="fp-dishes-section">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-end mb-5">
+                <div>
+                    <span class="text-uppercase small text-success fw-bold tracking-wider">Bang For Bucks</span>
+                    <h2 class="fw-bold m-0 mt-1">Value For Money Items</h2>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-dark rounded-circle fp-dishes-prev p-2 lh-1"><i
+                            class="bi bi-chevron-left"></i></button>
+                    <button class="btn btn-outline-dark rounded-circle fp-dishes-next p-2 lh-1"><i
+                            class="bi bi-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="swiper fp-value-slider">
+                <div class="swiper-wrapper p-2">
+                    @foreach ($valueProducts as $product)
+                        <div class="swiper-slide">
+                            <div class="card fp-dish-card">
+                                <div class="fp-dish-img-wrapper">
+                                    {{-- <span class="fp-dish-badge">Top Rated</span> --}}
+                                    <img src="{{ asset($product->productImage->first()->image_path) }}"
+                                        alt="{{ $product->title }}">
+                                </div>
+                                <div class="card-body p-4">
+                                    <a href="/{{ $product->id }}">
+                                        <h5 class="fw-bold fs-5 text-truncate mb-2">{{ $product->title ?? '' }}</h5>
+                                    </a>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div>
+                                            <span class="fp-dish-price">Rs {{ $product->price }}</span>
+                                            <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
+                                        </div>
+                                        <button class="btn btn-sm btn-outline-danger rounded-circle"><i
+                                                class="bi bi-plus-lg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- How It Works --}}
+    <section class="py-5 fp-feature-section">
+        <div class="container">
+
+            <div class="text-center mb-5">
+                <span class="text-uppercase small text-success fw-bold tracking-wider">
+                    Simple Process
+                </span>
+                <h2 class="fw-bold">How Food For All Works</h2>
+                <p class="text-muted">
+                    Making quality food affordable while reducing unnecessary waste.
+                </p>
+            </div>
+
+
+            <div class="row g-4">
+
+                <div class="col-md-4">
+                    <div class="fp-feature-card text-center p-4 h-100">
+
+                        <div class="fp-feature-icon mb-4">
+                            <i class="bi bi-shop"></i>
+                        </div>
+
+                        <h4 class="fw-bold">
+                            Local Stores Join
+                        </h4>
+
+                        <p class="text-muted">
+                            Restaurants, bakeries, and shops list fresh food available at better prices.
+                        </p>
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="fp-feature-card text-center p-4 h-100">
+
+                        <div class="fp-feature-icon mb-4">
+                            <i class="bi bi-basket"></i>
+                        </div>
+
+                        <h4 class="fw-bold">
+                            Customers Save
+                        </h4>
+
+                        <p class="text-muted">
+                            Discover delicious meals and groceries while enjoying special value deals.
+                        </p>
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="fp-feature-card text-center p-4 h-100">
+
+                        <div class="fp-feature-icon mb-4">
+                            <i class="bi bi-recycle"></i>
+                        </div>
+
+                        <h4 class="fw-bold">
+                            Reduce Waste
+                        </h4>
+
+                        <p class="text-muted">
+                            Every purchase helps prevent good food from being wasted.
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    {{-- Explore By Store --}}
     <section class="fp-categories-section">
         <div class="container">
             <div class="text-center mb-5">
@@ -165,53 +255,188 @@
 
             <div class="swiper fp-categories-slider">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="fp-circle-item">
-                            <div class="fp-circle-img-wrapper">
-                                <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400"
-                                    alt="Bakery">
+
+                    @foreach ($vendors as $vendor)
+                        <div class="swiper-slide">
+                            <div class="fp-circle-item">
+                                <div class="fp-circle-img-wrapper">
+                                    <img src="{{ asset('storage/' . $vendor->vendorProfile->avatar) }}"
+                                        alt="{{ $vendor->name }}">
+                                </div>
+                                <h6 class="fw-bold mb-0">{{ $vendor->name }}</h6>
                             </div>
-                            <h6 class="fw-bold mb-0">Artisan Bakery</h6>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="fp-circle-item">
-                            <div class="fp-circle-img-wrapper">
-                                <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400"
-                                    alt="Salads">
-                            </div>
-                            <h6 class="fw-bold mb-0">Green Bowls</h6>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="fp-circle-item">
-                            <div class="fp-circle-img-wrapper">
-                                <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400"
-                                    alt="Desserts">
-                            </div>
-                            <h6 class="fw-bold mb-0">Sweet Desserts</h6>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="fp-circle-item">
-                            <div class="fp-circle-img-wrapper">
-                                <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400"
-                                    alt="Drinks">
-                            </div>
-                            <h6 class="fw-bold mb-0">Cold Press Juices</h6>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="fp-circle-item">
-                            <div class="fp-circle-img-wrapper">
-                                <img src="https://images.unsplash.com/photo-1532336414038-cf19250c5757?w=400"
-                                    alt="Pasta">
-                            </div>
-                            <h6 class="fw-bold mb-0">Handmade Pasta</h6>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="swiper-pagination position-relative mt-5"></div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Another Slider --}}
+    <section class="fp-dishes-section">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-end mb-5">
+                <div>
+                    <span class="text-uppercase small text-success fw-bold tracking-wider">Bang For Bucks</span>
+                    <h2 class="fw-bold m-0 mt-1">Value For Money Items</h2>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-dark rounded-circle fp-dishes-prev p-2 lh-1"><i
+                            class="bi bi-chevron-left"></i></button>
+                    <button class="btn btn-outline-dark rounded-circle fp-dishes-next p-2 lh-1"><i
+                            class="bi bi-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="swiper fp-value-slider">
+                <div class="swiper-wrapper p-2">
+                    @foreach ($valueProducts as $product)
+                        <div class="swiper-slide">
+                            <div class="card fp-dish-card">
+                                <div class="fp-dish-img-wrapper">
+                                    {{-- <span class="fp-dish-badge">Top Rated</span> --}}
+                                    <img src="{{ asset($product->productImage->first()->image_path) }}"
+                                        alt="{{ $product->title }}">
+                                </div>
+                                <div class="card-body p-4">
+                                    <a href="/{{ $product->id }}">
+                                        <h5 class="fw-bold fs-5 text-truncate mb-2">{{ $product->title ?? '' }}</h5>
+                                    </a>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div>
+                                            <span class="fp-dish-price">Rs {{ $product->price }}</span>
+                                            <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
+                                        </div>
+                                        <button class="btn btn-sm btn-outline-danger rounded-circle"><i
+                                                class="bi bi-plus-lg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Stats --}}
+    <section class="fp-impact-section py-5">
+
+        <div class="container">
+
+            <div class="row align-items-center g-5">
+
+                <div class="col-lg-6">
+
+                    <span class="text-uppercase small text-warning fw-bold">
+                        Our Impact
+                    </span>
+
+                    <h2 class="display-5 fw-bold text-white mt-2">
+                        Small Actions Create A Bigger Change
+                    </h2>
+
+                    <p class="text-light fs-5">
+                        By connecting customers with local stores, we create a smarter food system where everyone
+                        benefits.
+                    </p>
+
+                </div>
+
+
+                <div class="col-lg-6">
+
+                    <div class="row g-3">
+
+                        <div class="col-6">
+                            <div class="fp-stat-card">
+                                <i class="bi bi-people-fill"></i>
+                                <h2>{{ $userCount }}+</h2>
+                                <p>Happy Customers</p>
+                            </div>
+                        </div>
+
+
+                        <div class="col-6">
+                            <div class="fp-stat-card">
+                                <i class="bi bi-shop-window"></i>
+                                <h2>{{ $vendorCount }}+</h2>
+                                <p>Partner Stores</p>
+                            </div>
+                        </div>
+
+
+                        {{-- <div class="col-6">
+                            <div class="fp-stat-card">
+                                <i class="bi bi-bag-check-fill"></i>
+                                <h2>1000+</h2>
+                                <p>Meals Saved</p>
+                            </div>
+                        </div>
+
+
+                        <div class="col-6">
+                            <div class="fp-stat-card">
+                                <i class="bi bi-globe2"></i>
+                                <h2>24/7</h2>
+                                <p>Food Access</p>
+                            </div>
+                        </div> --}}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    {{-- Recently Added Slider --}}
+    <section class="fp-dishes-section">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-end mb-5">
+                <div>
+                    <span class="text-uppercase small text-success fw-bold tracking-wider">Bang For Bucks</span>
+                    <h2 class="fw-bold m-0 mt-1">Value For Money Items</h2>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-dark rounded-circle fp-dishes-prev p-2 lh-1"><i
+                            class="bi bi-chevron-left"></i></button>
+                    <button class="btn btn-outline-dark rounded-circle fp-dishes-next p-2 lh-1"><i
+                            class="bi bi-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="swiper fp-value-slider">
+                <div class="swiper-wrapper p-2">
+                    @foreach ($valueProducts as $product)
+                        <div class="swiper-slide">
+                            <div class="card fp-dish-card">
+                                <div class="fp-dish-img-wrapper">
+                                    {{-- <span class="fp-dish-badge">Top Rated</span> --}}
+                                    <img src="{{ asset($product->productImage->first()->image_path) }}"
+                                        alt="{{ $product->title }}">
+                                </div>
+                                <div class="card-body p-4">
+                                    <a href="/{{ $product->id }}">
+                                        <h5 class="fw-bold fs-5 text-truncate mb-2">{{ $product->title ?? '' }}</h5>
+                                    </a>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div>
+                                            <span class="fp-dish-price">Rs {{ $product->price }}</span>
+                                            <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
+                                        </div>
+                                        <button class="btn btn-sm btn-outline-danger rounded-circle"><i
+                                                class="bi bi-plus-lg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </section>
@@ -239,6 +464,27 @@
                 navigation: {
                     nextEl: '.fp-dishes-next',
                     prevEl: '.fp-dishes-prev',
+                },
+                breakpoints: {
+                    576: {
+                        slidesPerView: 2
+                    },
+                    768: {
+                        slidesPerView: 3
+                    },
+                    1024: {
+                        slidesPerView: 4
+                    }
+                }
+            });
+
+            // Trending Plates Carousel
+            const valueSlider = new Swiper('.fp-value-slider', {
+                slidesPerView: 1,
+                spaceBetween: 24,
+                navigation: {
+                    nextEl: '.fp-value-next',
+                    prevEl: '.fp-value-prev',
                 },
                 breakpoints: {
                     576: {

@@ -6,14 +6,14 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Vendor\VendorPageController;
 use App\Http\Controllers\Vendor\VendorProfileController;
 use App\Http\Controllers\Customer\CustomerPageController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SubCategoriesController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');;
+Route::get('/', [GuestController::class, 'getHomeItems'])->name('home');
+Route::get('/{id}', [GuestController::class, 'productDetails'])->name('product');
 
 Route::get('/cart', function () {
     return view('cart');

@@ -1,0 +1,78 @@
+<?php
+
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\User;
+
+class GuestController extends Controller
+{
+    public function getHomeItems()
+    {
+        $userCount = User::where('role', 2)->count();
+        $vendorCount = User::where('role', 1)->count();
+
+        $latestProducts = Product::with('productImage')
+            ->where('status', 'published')
+            ->oldest('updated_at')
+            ->take(10)
+            ->get();
+
+
+        $vendors = User::with('vendorProfile')
+            ->where('role', 1)
+            ->orderByDesc('updated_at')
+            ->limit(10)
+            ->get();
+
+    $valueProducts = Product::with('mainImage')
+        ->where('status', 'published')
+        ->get()
+        ->map(function ($product) {
+
+            $discountScore = 0;
+
+            if ($product->initial_price > 0 && $product->initial_price > $product->price) {
+                $discountScore =
+                    (($product->initial_price - $product->price)
+                    / $product->initial_price) * 100;
+            }
+
+            $priceScore = max(
+                100 - ($product->price / 20),
+                0
+            );
+
+            $stockScore = min(
+                $product->stock * 5,
+                100
+            );
+
+            $freshnessScore = max(
+                100 - (now()->diffInDays($product->updated_at) * 5),
+                0
+            );
+
+            // Greedy selection score: prioritize customer savings
+            $product->value_score =
+                ($discountScore * 0.70)
+                + ($priceScore * 0.15)
+                + ($stockScore * 0.10)
+                + ($freshnessScore * 0.05);
+
+            return $product;
+
+        })
+        ->sortByDesc('value_score')
+        ->take(10);
+
+        return view('home', compact('latestProducts', 'vendors', 'valueProducts', 'userCount', 'vendorCount'));
+    }
+
+    public function productDetails($id)
+    {
+        $product = Product::with('productImage')->findOrFail($id);
+
+        return view('product', compact('product'));
+    }
+}
