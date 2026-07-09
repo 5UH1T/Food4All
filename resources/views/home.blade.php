@@ -157,7 +157,8 @@
                                             <span class="fp-dish-price">Rs {{ $product->price }}</span>
                                             <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
                                         </div>
-                                        <button class="btn btn-sm btn-outline-success rounded-circle"><i
+                                        <button class="btn btn-sm btn-outline-success rounded-circle"
+                                            onclick="addToCart({{ $product->id }})"><i
                                                 class="bi bi-plus-lg"></i></button>
                                     </div>
                                 </div>
@@ -384,7 +385,8 @@
                                             <span class="fp-dish-price">Rs {{ $product->price }}</span>
                                             <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
                                         </div>
-                                        <button class="btn btn-sm btn-outline-success rounded-circle"><i
+                                        <button class="btn btn-sm btn-outline-success rounded-circle"
+                                            onclick="addToCart({{ $product->id }})"><i
                                                 class="bi bi-plus-lg"></i></button>
                                     </div>
                                 </div>

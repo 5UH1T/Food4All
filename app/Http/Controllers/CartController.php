@@ -7,56 +7,60 @@ use App\Models\Product;
 
 class CartController extends Controller
 {
-public function add(Request $request)
+    public function add(Request $request)
     {
-        // Check login
         if (!auth()->check()) {
             return response()->json([
                 'message' => 'Please login first'
             ], 401);
         }
 
-
         $user = auth()->user();
 
-
-        // Get or create cart
         $cart = $user->cart()->firstOrCreate([]);
 
-
-        // Get product
         $product = Product::findOrFail($request->product_id);
 
+        $quantity = (int) ($request->quantity ?? 1);
 
-        // Check if product already in cart
+        // Check requested quantity against stock
+        if ($quantity > $product->stock) {
+            return response()->json([
+                'message' => 'Not enough stock available'
+            ], 422);
+        }
+
+
         $cartItem = $cart->items()
             ->where('product_id', $product->id)
             ->first();
 
+
         if ($cartItem) {
-            if ($cartItem->quantity >= $product->stock) {
+
+            $newQuantity = $cartItem->quantity + $quantity;
+
+            // Check total cart quantity against stock
+            if ($newQuantity > $product->stock) {
                 return response()->json([
                     'message' => 'Cannot add more items. Stock limit reached.'
                 ], 422);
             }
 
-            // Increase quantity
-            $cartItem->increment('quantity');
 
             $cartItem->update([
-                'total_price' => $cartItem->quantity * $product->price
+                'quantity' => $newQuantity,
+                'total_price' => $newQuantity * $product->price
             ]);
 
         } else {
 
-            // Add new product
             $cart->items()->create([
                 'product_id' => $product->id,
-                'quantity' => 1,
+                'quantity' => $quantity,
                 'donation_quantity' => 0,
-                'total_price' => $product->price
+                'total_price' => $quantity * $product->price
             ]);
-
         }
 
 
