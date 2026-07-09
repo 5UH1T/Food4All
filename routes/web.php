@@ -68,6 +68,9 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])
         Route::get('/products', [VendorPageController::class, 'products'])->name('products');
         Route::get('/subcategories/{categoryId}', [ProductsController::class, 'getSubCategories'])->name('getSubCategories');
         Route::post('/products/create', [ProductsController::class, 'store'])->name('createProduct');
+        Route::get('/products/{product}/edit', [VendorPageController::class, 'editProduct'])->name('products.edit');
+        Route::put('/products/{product}', [VendorPageController::class, 'updateProduct'])->name('products.update');
+        Route::delete('/products/{product}', [VendorPageController::class, 'deleteProduct'])->name('products.delete');
         Route::get('/categories', [VendorPageController::class, 'categories'])->name('categories');
         Route::post('/categories/create', [SubCategoriesController::class, 'addCategory'])->name('createCategory');
         Route::put('/categories/{id}', [SubCategoriesController::class, 'updateCategory'])->name('updateCategory');

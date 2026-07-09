@@ -81,7 +81,7 @@ public function store(Request $request)
     }
 
     return redirect()
-        ->back()
+        ->route('vendor.products')
         ->with('success', 'Product created successfully!');
 }
 

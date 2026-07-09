@@ -62,6 +62,70 @@ class VendorPageController extends Controller
         return view('vendor.products.view', compact('products'));
     }
 
+    public function editProduct(Product $product)
+    {
+        abort_if($product->vendor_id != auth()->id(), 403);
+
+        $categories = Category::where('status', 'published')
+            ->select('id', 'category_name')
+            ->get();
+
+        $subCategories = SubCategory::where('status', 'published')
+            ->select('id', 'category_id', 'sub_category_name')
+            ->get();
+
+        $product->load('productImage');
+
+        return view('vendor.products.edit', compact(
+            'product',
+            'categories',
+            'subCategories'
+        ));
+    }
+
+    public function updateProduct(Request $request, Product $product)
+    {
+        abort_if($product->vendor_id != auth()->id(), 403);
+
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            'category_id' => 'required',
+            'sub_category_id' => 'required',
+            'description' => 'nullable|string',
+            'status' => 'required|in:draft,published',
+        ]);
+
+        $product->update([
+            'title' => $request->title,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'initial_price' => $request->initial_price,
+            'category_id' => $request->category_id,
+            'sub_category_id' => $request->sub_category_id,
+            'description' => $request->description,
+            'status' => $request->status,
+        ]);
+
+        return redirect()
+            ->route('vendor.products')
+            ->with('success', 'Product updated successfully.');
+    }
+    
+    public function deleteProduct(Product $product)
+    {
+        abort_if($product->vendor_id != auth()->id(), 403);
+
+        $product->productImage()->delete();
+
+        $product->delete();
+
+        return redirect()
+            ->back()
+            ->with('success', 'Product deleted successfully.');
+    }
+
     public function index()
     {
         return view('vendor.dashboard');

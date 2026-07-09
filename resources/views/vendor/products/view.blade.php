@@ -3,6 +3,18 @@
     Products - Vendor
 @endsection
 @section('vendor_content')
+    @include('components.admin.category.deleteModal')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                window.notyf.success("{{ session('success') }}");
+            @endif
+
+            @if (session('error'))
+                window.notyf.error("{{ session('error') }}");
+            @endif
+        });
+    </script>
     <div class="w-full flex items-center justify-end mb-10">
         <form method="GET" class="form-outline relative border-1 border-slate-500 rounded-lg overflow-hidden w-[300px]">
             <input type="search" name="search" required placeholder="Search..." value="{{ request('search') }}"
@@ -100,14 +112,20 @@
                                 <td class="p-3 text-end">
                                     <div class="flex justify-end gap-3">
 
-                                        <button
+                                        <a href="{{ route('vendor.products.edit', $product->id) }}"
                                             class="w-9 h-9 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+
                                             <i class="fa-solid fa-pen-to-square"></i>
-                                        </button>
+
+                                        </a>
 
                                         <button
-                                            class="w-9 h-9 flex items-center justify-center rounded-lg bg-red-50 text-red-600">
+                                            class="w-9 h-9 flex items-center justify-center rounded-lg bg-red-50 text-red-600 delete-btn"
+                                            data-id="{{ $product->id }}" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal">
+
                                             <i class="fa-solid fa-trash-can"></i>
+
                                         </button>
 
                                     </div>
@@ -128,4 +146,23 @@
     <div class="mt-2">
         {{ $products->links('pagination::bootstrap-5') }}
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+
+                btn.addEventListener('click', function() {
+
+                    const id = this.dataset.id;
+
+                    document.getElementById('deleteForm').action =
+                        `/store/products/${id}`;
+
+                });
+
+            });
+
+        });
+    </script>
 @endsection
