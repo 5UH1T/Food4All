@@ -52,3 +52,226 @@ html, body {
 .sidebar-brand {
     text-decoration: none !important;
 }
+
+:root {
+            --fp-primary: #2b2d42;
+            --fp-accent: #ffa502;
+            --fp-accent-orange: #f77f00;
+            --fp-muted: #6c757d;
+            --fp-light-cream: #fff5e07d;
+            --fp-white: #ffffff;
+        }
+
+        /* SECTION: Hero Carousels (fp-hero) */
+        .fp-hero-section {
+            height: 80vh;
+            min-height: 500px;
+        }
+
+        .fp-hero-slide {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .fp-hero-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+        }
+
+        /* SECTION: Latest Hot Dishes (fp-dishes) */
+        .fp-dishes-section {
+            padding: 80px 0;
+        }
+
+        .fp-dish-card {
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: var(--fp-white);
+            transition: all 0.3s ease;
+        }
+
+        .fp-dish-card:hover {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .fp-dish-img-wrapper {
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .fp-dish-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .fp-dish-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--fp-accent);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 30px;
+        }
+
+        .fp-dish-price {
+            color: var(--fp-accent-orange);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        /* SECTION: About Our Kitchen (fp-kitchen) */
+        .fp-kitchen-section {
+            padding: 100px 0;
+            background-color: var(--fp-light-cream);
+        }
+
+        .fp-kitchen-img-frame {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            height: 450px;
+        }
+
+        .fp-kitchen-img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* SECTION: Round Ingredient/Category Showcase (fp-categories) */
+        .fp-categories-section {
+            padding: 80px 0;
+        }
+
+        .fp-circle-item {
+            text-align: center;
+        }
+
+        .fp-circle-img-wrapper {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--fp-light-cream);
+            box-shadow: 0 10px 25px rgba(217, 4, 41, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .fp-circle-item:hover .fp-circle-img-wrapper {
+            border-color: var(--fp-accent-orange);
+            transform: scale(1.01);
+        }
+
+        .fp-circle-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* SECTION: Promo Callout Grid (fp-promos) */
+        .fp-promos-section {
+            padding: 40px 0;
+        }
+
+        .fp-promo-banner {
+            border-radius: 16px;
+            background-size: cover;
+            background-position: center;
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fp-promo-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        /* Swiper Controls Config Override */
+        .swiper-pagination-bullet-active {
+            background: var(--fp-accent-orange) !important;
+        }
+
+        .fp-btn-accent {
+            background-color: var(--fp-accent);
+            color: white;
+            border-radius: 30px;
+            padding: 10px 28px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .fp-btn-accent:hover {
+            background-color: orange;
+            color: white;
+        }
+
+        /* SECTION : Single Product */
+
+        .fp-product-section {
+            background: var(--fp-white);
+        }
+
+        .fp-product-image {
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--fp-light-cream);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, .08);
+        }
+
+        .fp-product-image img {
+            width: 100%;
+            height: 550px;
+            object-fit: cover;
+        }
+
+        .fp-category-badge {
+            background: var(--fp-accent);
+            color: #fff;
+            padding: .55rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        .fp-product-price {
+            font-size: 2rem;
+            color: var(--fp-accent-orange);
+            font-weight: 700;
+        }
+
+        .fp-info-box {
+            background: var(--fp-light-cream);
+            border-radius: 15px;
+            padding: 20px;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, .05);
+        }
+
+        .form-control:focus {
+            border-color: var(--fp-accent);
+            box-shadow: 0 0 0 .15rem rgba(255, 165, 2, .25);
+        }
+
+        .btn-dark {
+            border-radius: 30px;
+            padding: 10px 28px;
+        }
