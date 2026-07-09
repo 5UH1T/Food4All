@@ -17,10 +17,10 @@ use App\Http\Controllers\CartController;
 Route::get('/', [GuestController::class, 'getHomeItems'])->name('home');
 Route::get('/autocomplete', [GuestController::class, 'autocomplete'])->name('autocomplete');
 
-Route::get('/cart', function () {
-    return view('cart');
-});
+Route::get('/cart', [CartController::class, 'index'])
+    ->name('cart');
 
+Route::put('/cart/update', [CartController::class, 'update'])->name('cart.update');
 
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 

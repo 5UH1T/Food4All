@@ -69,4 +69,95 @@ class CartController extends Controller
             'cartCount' => $cart->items()->sum('quantity')
         ]);
     }
+
+    public function index()
+    {
+        if (!auth()->check()) {
+            return redirect('/login');
+        }
+
+        $cart = auth()->user()
+            ->cart()
+            ->with('items.product')
+            ->first();
+
+        return view('cart', compact('cart'));
+    }
+
+    public function update(Request $request)
+    {
+        if (!auth()->check()) {
+            return redirect('/login');
+        }
+
+
+        $request->validate([
+            'items' => 'required|array',
+            'items.*.item_id' => 'required|exists:cart_items,id',
+            'items.*.quantity' => 'required|integer|min:1',
+            'items.*.donation_quantity' => 'nullable|integer|min:0',
+        ]);
+
+
+        $cart = auth()->user()->cart()->first();
+
+
+        if (!$cart) {
+            return back()->with('error', 'Cart not found');
+        }
+
+
+        foreach ($request->items as $itemData) {
+
+            $cartItem = $cart->items()
+                ->with('product')
+                ->where('id', $itemData['item_id'])
+                ->first();
+
+
+            if (!$cartItem) {
+                continue;
+            }
+
+
+            $product = $cartItem->product;
+
+            $quantity = (int) $itemData['quantity'];
+            $donationQuantity = (int) ($itemData['donation_quantity'] ?? 0);
+
+
+
+            // Stock check
+            if ($quantity > $product->stock) {
+                return back()->with(
+                    'error',
+                    "Not enough stock for {$product->title}"
+                );
+            }
+
+
+
+            // Donation cannot exceed quantity
+            if ($donationQuantity > $quantity) {
+                return back()->with(
+                    'error',
+                    "Donation quantity cannot exceed purchased quantity"
+                );
+            }
+
+
+
+            $cartItem->update([
+                'quantity' => $quantity,
+                'donation_quantity' => $donationQuantity,
+                'total_price' => $quantity * $product->price
+            ]);
+
+        }
+
+
+        return redirect()
+            ->route('cart')
+            ->with('success', 'Cart updated successfully');
+    }
 }
