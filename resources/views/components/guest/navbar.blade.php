@@ -67,6 +67,21 @@
         background: #b90322;
         color: white;
     }
+
+    .nb-suggestion-item {
+        padding: 12px 20px;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .nb-suggestion-item:hover {
+        background: #f8f8f8;
+        color: var(--fp-accent);
+    }
+
+    #suggestionBox {
+        overflow: hidden;
+    }
 </style>
 
 
@@ -83,17 +98,25 @@
 
 
         <!-- SEARCH -->
-        <div class="flex-grow-1 max-w-3xl">
+        <div class="flex-grow-1 max-w-3xl position-relative">
+
             <div class="input-group">
 
-                <input type="search" class="form-control rounded-start-pill py-2 px-4 nb-search"
-                    placeholder="Search products, brands and categories...">
+                <input id="searchInput" type="search" class="form-control rounded-start-pill py-2 px-4 nb-search"
+                    placeholder="Search products, brands and categories..." autocomplete="off">
 
                 <button class="btn rounded-end-pill px-4 text-white" style="background:var(--fp-accent)">
                     Search
                 </button>
 
             </div>
+
+
+            <div id="suggestionBox" class="position-absolute w-100 bg-white shadow rounded-4 mt-2 d-none"
+                style="z-index:999">
+
+            </div>
+
         </div>
 
 
@@ -289,4 +312,81 @@
 
 
 </div> --}}
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const suggestionBox = document.getElementById('suggestionBox');
+
+
+    searchInput.addEventListener('keyup', function() {
+
+        let value = this.value;
+
+
+        if (value.length < 2) {
+
+            suggestionBox.classList.add('d-none');
+            return;
+
+        }
+
+
+        fetch(`/autocomplete?search=${value}`)
+            .then(response => response.json())
+            .then(data => {
+
+
+                suggestionBox.innerHTML = "";
+
+
+                if (data.length === 0) {
+
+                    suggestionBox.classList.add('d-none');
+                    return;
+
+                }
+
+
+                data.forEach(product => {
+
+                    let item = document.createElement('div');
+
+                    item.className =
+                        "nb-suggestion-item";
+
+                    item.innerHTML =
+                        `<i class="bi bi-search me-2"></i>${product.title}`;
+
+
+                    item.onclick = function() {
+
+                        // searchInput.value = product;
+                        suggestionBox.classList.add('d-none');
+                        window.location.href = `/${product.id}`;
+
+                    };
+
+
+                    suggestionBox.appendChild(item);
+
+                });
+
+
+                suggestionBox.classList.remove('d-none');
+
+
+            });
+
+    });
+
+    document.addEventListener('click', function(e) {
+
+        if (!searchInput.contains(e.target) &&
+            !suggestionBox.contains(e.target)) {
+
+            suggestionBox.classList.add('d-none');
+
+        }
+
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

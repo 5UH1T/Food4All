@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
+use App\Algorithms\Trie;
 
 class GuestController extends Controller
 {
@@ -75,4 +76,37 @@ class GuestController extends Controller
 
         return view('product', compact('product'));
     }
+
+public function autocomplete(Request $request)
+{
+    $query = strtolower($request->search);
+
+    if(strlen($query) < 2){
+        return response()->json([]);
+    }
+
+
+    $trie = new Trie();
+
+
+    Product::where('status','published')
+        ->get(['id','title'])
+        ->each(function($product) use ($trie){
+
+            $trie->insert(
+                $product->title,
+                $product->id
+            );
+
+        });
+
+
+    return response()->json(
+        array_slice(
+            $trie->search($query),
+            0,
+            8
+        )
+    );
+}
 }

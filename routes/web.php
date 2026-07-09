@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
 Route::get('/', [GuestController::class, 'getHomeItems'])->name('home');
+Route::get('/autocomplete', [GuestController::class, 'autocomplete'])->name('autocomplete');
 
 Route::get('/cart', function () {
     return view('cart');
