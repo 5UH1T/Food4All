@@ -11,7 +11,9 @@ class VendorProfile extends Model
         'phone',
         'address',
         'avatar',
-        'pan'
+        'pan',
+        'description',
+        'map',
     ];
 
     public function user()

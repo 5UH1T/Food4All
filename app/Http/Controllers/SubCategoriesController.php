@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -29,6 +30,7 @@ class SubCategoriesController extends Controller
             'sub_category_name' => $request->sub_category_name,
             'category_id' => $request->category_id, 
             'status' => $request->status,
+            'vendor_id' => Auth::id(),
         ]);
 
         return redirect()->back()->with('success','Category Added Successfully!');

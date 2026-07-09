@@ -14,10 +14,10 @@ class VendorPageController extends Controller
     {
         $search = $request->query('search');
         $categories = Category::select('id','category_name')->where('status', 'published')->get();
-        $subCategories = SubCategory::query()
-        ->with('categories')
-        ->when($search, function ($query) use ($search) {
-            $query->where('sub_category_name', 'LIKE', "%{$search}%");
+        $subCategories = SubCategory::where('vendor_id', auth()->id())
+            ->with('categories')
+            ->when($search, function ($query) use ($search) {
+                $query->where('sub_category_name', 'LIKE', "%{$search}%");
             })
             ->orderBy('id', 'desc')
             ->paginate(5)

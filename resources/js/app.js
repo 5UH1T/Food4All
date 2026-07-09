@@ -1,7 +1,7 @@
 import './bootstrap';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { editCategoryValidation, createCategoryValidation, createSubCategoryValidation, editSubCategoryValidation, loginValidation, userRegisterValidation, storeRegisterValidation, createProductValidation } from './helpers/validate';
+import { editCategoryValidation, createCategoryValidation, createSubCategoryValidation, editSubCategoryValidation, loginValidation, userRegisterValidation, storeRegisterValidation, createProductValidation, vendorProfileValidation } from './helpers/validate';
 
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
@@ -44,5 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('#createProductForm')) {
         createProductValidation();
+    }
+
+    if (document.querySelector('#editVendorProfile')) {
+        vendorProfileValidation();
     }
 });

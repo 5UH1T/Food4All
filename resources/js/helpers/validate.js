@@ -240,6 +240,82 @@ export function storeRegisterValidation() {
         });
 }
 
+//Update Vendor Profile Validation
+export function vendorProfileValidation() {
+    const validation = new JustValidate('#editVendorProfile', {
+        errorFieldCssClass: 'is-invalid',
+    });
+
+    validation
+
+        .addField('#name', [
+            {
+                rule: 'required',
+                errorMessage: 'Store name is required',
+            },
+            {
+                rule: 'customRegexp',
+                value: /^(?=(?:.*[A-Za-z]){2})[A-Za-z][A-Za-z\s.'-]*$/,
+                errorMessage: 'Please enter a valid store name',
+            },
+        ])
+
+        .addField('#phone', [
+            {
+                rule: 'required',
+                errorMessage: 'Phone number is required',
+            },
+            {
+                rule: 'minLength',
+                value: 10,
+                errorMessage: 'Phone number must be at least 10 digits',
+            },
+            {
+                rule: 'customRegexp',
+                value: /^(98|97)\d{8}$/,
+                errorMessage: 'Please enter a valid phone number',
+            },
+        ])
+
+        .addField('#address', [
+            {
+                rule: 'required',
+                errorMessage: 'Address is required',
+            },
+            {
+                rule: 'minLength',
+                value: 3,
+                errorMessage: 'Address must be at least 3 characters',
+            },
+        ])
+
+        .addField('#pan', [
+            {
+                rule: 'required',
+                errorMessage: 'PAN number is required',
+            },
+            {
+                rule: 'customRegexp',
+                value: /^\d{9}$/,
+                errorMessage: 'Please enter a valid PAN number',
+            },
+        ])
+
+        .addField('#map', [
+            {
+                validator: (value) => {
+                    if (!value) return true;
+                    return /^https:\/\//.test(value);
+                },
+                errorMessage: 'Map link must start with https://',
+            },
+        ])
+
+        .onSuccess((event) => {
+            event.target.submit();
+        });
+}
+
 // Admin Catgories
 export function editCategoryValidation() {
     const validation = new JustValidate('#editAdminCategory', {

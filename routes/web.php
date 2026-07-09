@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Vendor\VendorPageController;
+use App\Http\Controllers\Vendor\VendorProfileController;
 use App\Http\Controllers\Customer\CustomerPageController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SubCategoriesController;
@@ -64,7 +65,6 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])
         Route::get('/', [VendorPageController::class, 'index'])->name('dashboard');
         Route::get('/orders', [VendorPageController::class, 'orders'])->name('orders');
         Route::get('/payments', [VendorPageController::class, 'payments'])->name('payments');
-        Route::get('/settings', [VendorPageController::class, 'settings'])->name('settings');
         Route::get('/products', [VendorPageController::class, 'products'])->name('products');
         Route::get('/subcategories/{categoryId}', [ProductsController::class, 'getSubCategories'])->name('getSubCategories');
         Route::post('/products/create', [ProductsController::class, 'store'])->name('createProduct');
@@ -72,6 +72,11 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])
         Route::post('/categories/create', [SubCategoriesController::class, 'addCategory'])->name('createCategory');
         Route::put('/categories/{id}', [SubCategoriesController::class, 'updateCategory'])->name('updateCategory');
         Route::delete('/categories/{id}', [SubCategoriesController::class, 'deleteCategory'])->name('deleteCategory');
+        Route::get('/settings', [VendorProfileController::class, 'edit'])
+            ->name('settings');
+
+        Route::put('/settings', [VendorProfileController::class, 'update'])
+            ->name('updateProfile');
 });
 
 
