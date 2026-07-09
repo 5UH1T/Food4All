@@ -40,9 +40,14 @@
     .nb-avatar {
         width: 42px;
         height: 42px;
-        background: var(--fp-primary);
+        background-color: var(--fp-primary);
         color: white;
         font-weight: 600;
+
+        &:hover {
+            background-color: var(--fp-primary);
+            color: white;
+        }
     }
 
     .nb-cart-badge {
@@ -97,66 +102,74 @@
 
 
             <!-- CART -->
-            <button class="btn nb-icon-btn position-relative flex items-center justify-center"
-                data-bs-toggle="offcanvas" data-bs-target="#cartDrawer">
-
-                🛒
-
+            <a href="/cart" class="btn nb-icon-btn position-relative flex items-center justify-center">
+                {{-- data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" --}}
+                <i class="bi bi-cart4"></i>
                 <span
                     class="position-absolute top-0 start-100 translate-middle 
                 badge rounded-pill nb-cart-badge">
                     3
                 </span>
 
-            </button>
+            </a>
+
+            @auth
+                <!-- PROFILE DROPDOWN -->
+                <div class="dropdown">
+                    <button class="btn nb-avatar rounded-circle flex items-center justify-center" data-bs-toggle="dropdown">
+                        {{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 1)) }}
+                    </button>
 
 
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
 
-            <!-- PROFILE DROPDOWN -->
-            <div class="dropdown">
+                        <li>
+                            @php
+                                $path = match (auth()->user()->role) {
+                                    0 => 'admin',
+                                    1 => 'store',
+                                    default => 'customer',
+                                };
+                            @endphp
 
-                <button class="btn nb-avatar rounded-circle flex items-center justify-center" data-bs-toggle="dropdown">
+                            <a class="dropdown-item" href="/{{ $path }}">
+                                My Account
+                            </a>
+                        </li>
 
-                    JD
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                Orders
+                            </a>
+                        </li>
 
-                </button>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
 
-                <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
+                                <a class="d-flex justify-content-start align-items-center gap-2 py-3 dropdown-item text-danger hover:bg-gray-100"
+                                    href="/logout"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                    <i class="bi bi-box-arrow-right"></i> Log Out
+                                </a>
+                            </form>
+                        </li>
 
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            My Account
-                        </a>
-                    </li>
+                    </ul>
 
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            Orders
-                        </a>
-                    </li>
+                </div>
 
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            Wishlist
-                        </a>
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item text-danger" href="#">
-                            Logout
-                        </a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-
+            @endauth
+            @guest
+                <a href="{{ route('login') }}" class="btn btn-success">
+                    Login / Register
+                </a>
+            @endguest
         </div>
 
 
@@ -169,7 +182,7 @@
 
 <!-- CART DRAWER -->
 
-<div class="offcanvas offcanvas-end nb-cart-drawer" tabindex="-1" id="cartDrawer">
+{{-- <div class="offcanvas offcanvas-end nb-cart-drawer" tabindex="-1" id="cartDrawer">
 
 
     <div class="offcanvas-header border-bottom">
@@ -275,8 +288,5 @@
     </div>
 
 
-</div>
-
-
-
+</div> --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

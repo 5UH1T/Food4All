@@ -123,7 +123,7 @@
 
                 <div class="navbar-collapse">
                     <ul class="navbar-nav navbar-align flex items-center justify-center gap-2">
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown d-none">
                             <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown"
                                 data-bs-toggle="dropdown">
                                 <div class="position-relative">
@@ -196,11 +196,11 @@
 
                         <li class="nav-item dropdown">
 
-                            <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center"
+                            <button
+                                class="btn dropdown-toggle d-flex align-items-center justify-content-center nb-avatar"
                                 href="#" data-bs-toggle="dropdown">
-                                <img src="https://i.pravatar.cc/100" class="avatar img-fluid me-1 rounded-[50%]"
-                                    alt="Charles Hall" />
-                            </a>
+                                {{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 1)) }}
+                            </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a href="#"
                                     class="d-flex justify-content-start align-items-center gap-2 py-3 hover:bg-gray-100 text-sm text-gray-700 dropdown-item">

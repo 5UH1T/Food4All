@@ -13,7 +13,7 @@ use UniSharp\LaravelFilemanager\Lfm;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');;
 
 Route::get('/cart', function () {
     return view('cart');

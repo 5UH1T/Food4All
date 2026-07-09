@@ -49,6 +49,19 @@ html, body {
     text-decoration: none;
 }
 
+.nb-avatar {
+    width: 42px;
+    height: 42px;
+    background-color: black !important;
+    border: 2px solid black !important;
+    color: white !important;
+    font-weight: 600;
+    &:hover {
+        background-color: black !important;
+        color: white !important;
+    }
+}
+
 .sidebar-brand {
     text-decoration: none !important;
 }
