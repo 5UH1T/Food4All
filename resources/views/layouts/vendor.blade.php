@@ -195,14 +195,9 @@
                                 {{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 1)) }}
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="#"
+                                <a href="settings"
                                     class="d-flex justify-content-start align-items-center gap-2 py-3 dropdown-item hover:bg-gray-100 text-sm dropdown-item text-gray-700 active:text-gray-700">
                                     <i class="fa-solid fa-circle-user"></i> Profile
-                                </a>
-
-                                <a href="#"
-                                    class="d-flex justify-content-start align-items-center gap-2 py-3 dropdown-item hover:bg-gray-100 text-sm text-gray-700 active:text-gray-700">
-                                    <i class="fa-solid fa-gear"></i> Settings
                                 </a>
                                 {{-- <div class="dropdown-divider"></div> --}}
                                 {{-- <a class="dropdown-item" href="#">Log out</a> --}}
