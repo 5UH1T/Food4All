@@ -11,6 +11,8 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SubCategoriesController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
+use App\Http\Controllers\CartController;
+
 
 Route::get('/', [GuestController::class, 'getHomeItems'])->name('home');
 Route::get('/autocomplete', [GuestController::class, 'autocomplete'])->name('autocomplete');
@@ -18,6 +20,9 @@ Route::get('/autocomplete', [GuestController::class, 'autocomplete'])->name('aut
 Route::get('/cart', function () {
     return view('cart');
 });
+
+
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 
 Route::get('/signin', function () {
     return view('login');

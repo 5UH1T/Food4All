@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Food For All</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -77,7 +78,8 @@
                                             <span class="fp-dish-price">Rs {{ $product->price }}</span>
                                             <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
                                         </div>
-                                        <button class="btn btn-sm btn-outline-success rounded-circle"><i
+                                        <button class="btn btn-sm btn-outline-success rounded-circle"
+                                            onclick="addToCart({{ $product->id }})"><i
                                                 class="bi bi-plus-lg"></i></button>
                                     </div>
                                 </div>
@@ -520,6 +522,37 @@
                 }
             });
         });
+
+        function addToCart(productId) {
+            fetch('/cart/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        product_id: productId
+                    })
+                })
+                .then(async response => {
+
+                    if (response.status === 401) {
+                        window.location.href = '/login';
+                        return;
+                    }
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        window.notyf.success(data.message);
+                    } else {
+                        window.notyf.error(data.message);
+                    }
+
+                });
+        }
     </script>
 </body>
 
