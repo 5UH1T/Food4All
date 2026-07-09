@@ -14,6 +14,10 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/cart', function () {
+    return view('cart');
+});
+
 Route::get('/signin', function () {
     return view('login');
 });
