@@ -524,4 +524,44 @@ export function createProductValidation() {
         .onSuccess((event) => {
             event.target.submit();
         });
-    }
+}
+
+export function createCartValidation() {
+
+    const validation = new JustValidate('#cartUpdateForm', {
+        errorFieldCssClass: 'is-invalid',
+    });
+
+    document.querySelectorAll('.fp-cart-card').forEach(card => {
+
+        const quantity = card.querySelector('.fp-product-qty');
+        const donation = card.querySelector('input[name*="[donation_quantity]"]');
+        const errorSpan = card.querySelector('.quantity-error');
+
+        if (!quantity || !donation) return;
+
+        validation.addField(quantity, [
+            {
+                rule: 'required',
+                errorMessage: 'Quantity is required',
+            },
+            {
+                rule: 'number',
+                errorMessage: 'Quantity must be a number',
+            },
+            {
+                validator: (value) => {
+                    return Number(value) >= Number(donation.value || 0);
+                },
+                errorMessage: 'Quantity cannot be less than donation quantity.',
+            },
+        ], {
+            errorsContainer: errorSpan,
+        });
+
+    });
+
+    validation.onSuccess((event) => {
+        event.target.submit();
+    });
+}

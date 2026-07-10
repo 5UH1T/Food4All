@@ -118,6 +118,8 @@
                                                     </button>
                                                 </div>
 
+                                                <div class="text-danger small quantity-error"></div>
+
                                             </div>
 
                                             <!-- Donation -->
@@ -152,8 +154,8 @@
                                                             <i class="bi bi-dash"></i>
                                                         </button>
 
-                                                        <input type="number" id="quantity" class="quantity-input"
-                                                            value="{{ $item->donation_quantity ?? 0 }}" min="1"
+                                                        <input type="number" class="quantity-input donation-input"
+                                                            value="{{ $item->donation_quantity ?? 0 }}" min="0"
                                                             readonly
                                                             name="items[{{ $item->id }}][donation_quantity]"
                                                             max="{{ $item->quantity }}">
@@ -280,15 +282,17 @@
 
             toggle.addEventListener("change", function() {
 
+                const donationInput = card.querySelector('input[name*="[donation_quantity]"]');
+
                 if (this.checked) {
 
                     donateQty.classList.remove("d-none");
-                    productQty.readOnly = true;
 
                 } else {
 
                     donateQty.classList.add("d-none");
-                    productQty.readOnly = false;
+
+                    donationInput.value = 0;
 
                 }
 
@@ -298,16 +302,22 @@
 
         document.querySelectorAll(".fp-cart-card").forEach(card => {
 
-            // Donation toggle
             const toggle = card.querySelector(".fp-donation-toggle");
             const donateQty = card.querySelector(".fp-donation-qty");
+            const donationInput = card.querySelector(".donation-input");
 
             toggle.addEventListener("change", function() {
 
                 if (this.checked) {
+
                     donateQty.classList.remove("d-none");
+
                 } else {
+
                     donateQty.classList.add("d-none");
+
+                    donationInput.value = 0;
+
                 }
 
             });
