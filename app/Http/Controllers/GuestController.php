@@ -79,7 +79,10 @@ class GuestController extends Controller
 
     public function productDetails($id)
     {
-        $product = Product::with('productImage')->findOrFail($id);
+        $product = Product::with([
+            'productImage',
+            'vendor'
+        ])->findOrFail($id);
 
         return view('product', compact('product'));
     }

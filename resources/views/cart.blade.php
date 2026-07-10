@@ -170,6 +170,13 @@
                                         </div>
 
                                     </div>
+                                    <div class="w-full flex justify-end mt-4">
+                                        <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                            data-id="{{ $item->id }}" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
 
                                 </div>
                             @endforeach
@@ -230,6 +237,39 @@
     @endif
     </div>
     </section>
+
+    <!-- DELETE MODAL -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-3">
+
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Remove Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    Are you sure you want to remove this item from your cart?
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light border" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <form id="deleteForm" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="btn btn-danger">
+                            Remove
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <script>
         document.querySelectorAll(".fp-cart-card").forEach(card => {
@@ -317,6 +357,13 @@
 
                 });
 
+            });
+
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    let itemId = this.dataset.id;
+                    document.getElementById('deleteForm').action = `/cart/${itemId}`;
+                });
             });
 
         });

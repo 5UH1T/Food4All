@@ -24,6 +24,9 @@ Route::put('/cart/update', [CartController::class, 'update'])->name('cart.update
 
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 
+Route::delete('/cart/{id}', [CartController::class, 'destroy'])
+    ->name('cart.destroy');
+
 Route::get('/signin', function () {
     return view('login');
 });

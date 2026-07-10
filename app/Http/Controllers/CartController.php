@@ -160,4 +160,29 @@ class CartController extends Controller
             ->route('cart')
             ->with('success', 'Cart updated successfully');
     }
+
+    public function destroy($id)
+    {
+        if (!auth()->check()) {
+            return redirect('/login');
+        }
+
+        $cart = auth()->user()->cart()->first();
+
+        if (!$cart) {
+            return back()->with('error', 'Cart not found');
+        }
+
+        $cartItem = $cart->items()->where('id', $id)->first();
+
+        if (!$cartItem) {
+            return back()->with('error', 'Cart item not found');
+        }
+
+        $cartItem->delete();
+
+        return redirect()
+            ->route('cart')
+            ->with('success', 'Item removed from cart successfully.');
+    }
 }

@@ -57,6 +57,12 @@
                         </del>
                     </div>
 
+                    <!-- Store -->
+                    <div class="mb-4">
+                        <strong class="fs-5 text-muted"><i class="bi bi-geo-alt-fill"></i> {{ $product->vendor->name }},
+                            {{ $product->vendor->vendorProfile->address }}</strong>
+                    </div>
+
                     <!-- Description -->
                     <p class="text-muted mb-4">
                         {!! $product->description !!}

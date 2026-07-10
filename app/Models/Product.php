@@ -36,4 +36,9 @@ class Product extends Model
     {
         return $this->hasOne(ProductImage::class)->where('is_main', 1);
     }
+
+    public function vendor()
+    {
+        return $this->belongsTo(User::class, 'vendor_id');
+    }
 }
