@@ -222,9 +222,13 @@
 
                             </div>
 
-                            <button class="fp-btn-accent w-100">
-                                Place Order
-                            </button>
+                            <form action="{{ route('checkout') }}" method="POST">
+                                @csrf
+
+                                <button type="submit" class="fp-btn-accent w-100">
+                                    Proceed to Checkout
+                                </button>
+                            </form>
 
                         </div>
 

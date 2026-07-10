@@ -12,6 +12,7 @@ use App\Http\Controllers\SubCategoriesController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 
 Route::get('/', [GuestController::class, 'getHomeItems'])->name('home');
@@ -26,6 +27,8 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 
 Route::delete('/cart/{id}', [CartController::class, 'destroy'])
     ->name('cart.destroy');
+
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout');
 
 Route::get('/signin', function () {
     return view('login');
