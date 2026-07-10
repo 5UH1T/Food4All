@@ -120,6 +120,7 @@ public function store(Request $request)
     public function getSubCategories($categoryId)
     {
         return SubCategory::select('id,sub_category_name')->where('category_id', $categoryId)
+            ->where('vendor_id', Auth::id())
             ->where('status', 'published')
             ->select('id', 'sub_category_name')
             ->get();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Vendor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -15,7 +16,7 @@ class VendorPageController extends Controller
     {
         $search = $request->query('search');
         $categories = Category::select('id','category_name')->where('status', 'published')->get();
-        $subCategories = SubCategory::where('vendor_id', auth()->id())
+        $subCategories = SubCategory::where('vendor_id', Auth::id())
             ->with('categories')
             ->when($search, function ($query) use ($search) {
                 $query->where('sub_category_name', 'LIKE', "%{$search}%");
@@ -41,7 +42,7 @@ class VendorPageController extends Controller
     {
         $categories = Category::select('id','category_name')->where('status', 'published')->select('id', 'category_name')->get();
 
-        $subCategories = SubCategory::select('id','sub_category_name')->where('status', 'published')->select('id', 'category_id', 'sub_category_name')->get();
+        $subCategories = SubCategory::select('id','sub_category_name')->where('vendor_id', Auth::id())->where('status', 'published')->select('id', 'category_id', 'sub_category_name')->get();
 
         return view('vendor.products.manage' , compact('categories','subCategories'));
     }
@@ -50,7 +51,7 @@ class VendorPageController extends Controller
     {
         $search = $request->query('search');
 
-        $products = Product::where('vendor_id', auth()->id())
+        $products = Product::where('vendor_id', Auth::id())
             ->with(['mainImage','categories', 'subCategories'])
             ->when($search, function ($query) use ($search) {
                 $query->where('title', 'LIKE', "%{$search}%");
@@ -64,7 +65,7 @@ class VendorPageController extends Controller
 
     public function editProduct(Product $product)
     {
-        abort_if($product->vendor_id != auth()->id(), 403);
+        abort_if($product->vendor_id != Auth::id(), 403);
 
         $categories = Category::where('status', 'published')
             ->select('id', 'category_name')
@@ -85,7 +86,7 @@ class VendorPageController extends Controller
 
     public function updateProduct(Request $request, Product $product)
     {
-        abort_if($product->vendor_id != auth()->id(), 403);
+        abort_if($product->vendor_id != Auth::id(), 403);
 
         $request->validate([
             'title' => 'required|string|max:255',
@@ -115,7 +116,7 @@ class VendorPageController extends Controller
     
     public function deleteProduct(Product $product)
     {
-        abort_if($product->vendor_id != auth()->id(), 403);
+        abort_if($product->vendor_id != Auth::id(), 403);
 
         $product->productImage()->delete();
 

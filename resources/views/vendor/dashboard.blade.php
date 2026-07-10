@@ -70,7 +70,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h2 class="mt-1 mb-3">$21.300</h2>
+                                        <h2 class="mt-1 mb-3">Rs 2100</h2>
                                         <div class="mb-0">
                                             <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i>
                                                 6.65% </span>
