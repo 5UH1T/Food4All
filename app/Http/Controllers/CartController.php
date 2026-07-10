@@ -4,18 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
     public function add(Request $request)
     {
-        if (!auth()->check()) {
+        if (!Auth::check()) {
             return response()->json([
                 'message' => 'Please login first'
             ], 401);
         }
 
-        $user = auth()->user();
+        $user = Auth::user();
 
         $cart = $user->cart()->firstOrCreate([]);
 
@@ -72,11 +73,11 @@ class CartController extends Controller
 
     public function index()
     {
-        if (!auth()->check()) {
+        if (!Auth::check()) {
             return redirect('/login');
         }
 
-        $cart = auth()->user()
+        $cart = Auth::user()
             ->cart()
             ->with('items.product')
             ->first();
@@ -86,7 +87,7 @@ class CartController extends Controller
 
     public function update(Request $request)
     {
-        if (!auth()->check()) {
+        if (!Auth::check()) {
             return redirect('/login');
         }
 
@@ -99,7 +100,7 @@ class CartController extends Controller
         ]);
 
 
-        $cart = auth()->user()->cart()->first();
+        $cart = Auth::user()->cart()->first();
 
 
         if (!$cart) {
@@ -163,11 +164,11 @@ class CartController extends Controller
 
     public function destroy($id)
     {
-        if (!auth()->check()) {
+        if (!Auth::check()) {
             return redirect('/login');
         }
 
-        $cart = auth()->user()->cart()->first();
+        $cart = Auth::user()->cart()->first();
 
         if (!$cart) {
             return back()->with('error', 'Cart not found');
