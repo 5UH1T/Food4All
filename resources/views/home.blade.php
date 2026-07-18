@@ -25,6 +25,17 @@
 
 <body>
     @include('components.guest.navbar')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                window.notyf.success("{{ session('success') }}");
+            @endif
+
+            @if (session('error'))
+                window.notyf.error("{{ session('error') }}");
+            @endif
+        });
+    </script>
     {{-- Hero --}}
     <section class="swiper fp-hero-section">
         <div class="swiper-wrapper">

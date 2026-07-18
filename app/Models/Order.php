@@ -14,6 +14,9 @@ class Order extends Model
         'total_cost',
         'status',
         'payment_status',
+        'transaction_uuid',
+        'payment_method',
+        'esewa_ref_id',
     ];
 
     public function user()

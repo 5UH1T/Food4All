@@ -14,6 +14,20 @@ use UniSharp\LaravelFilemanager\Lfm;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 
+use App\Http\Controllers\EsewaController;
+
+Route::get('/esewa/pay/{order}',
+    [EsewaController::class,'pay'])
+    ->name('esewa.pay');
+
+Route::get('/esewa/success',
+    [EsewaController::class,'success'])
+    ->name('esewa.success');
+
+Route::get('/esewa/failure',
+    [EsewaController::class,'failure'])
+    ->name('esewa.failure');
+
 
 Route::get('/', [GuestController::class, 'getHomeItems'])->name('home');
 Route::get('/autocomplete', [GuestController::class, 'autocomplete'])->name('autocomplete');

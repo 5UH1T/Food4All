@@ -48,6 +48,6 @@ class CheckoutController extends Controller
         });
 
 
-        return redirect()->route('home');
+        return redirect()->route('esewa.pay', $order);
     }
 }
