@@ -6,14 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Food For All</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
         body,
-        * {
+        *:not(i) {
             font-family: 'Poppins', sans-serif !important;
         }
 
@@ -64,38 +61,16 @@
                 </div>
                 <div class="d-flex gap-2">
                     <button class="btn btn-outline-dark rounded-circle fp-dishes-prev p-2 lh-1"><i
-                            class="bi bi-chevron-left"></i></button>
+                            class="fa-solid fa-chevron-left"></i></button>
                     <button class="btn btn-outline-dark rounded-circle fp-dishes-next p-2 lh-1"><i
-                            class="bi bi-chevron-right"></i></button>
+                            class="fa-solid fa-chevron-right"></i></i></button>
                 </div>
             </div>
 
             <div class="swiper fp-dishes-slider">
                 <div class="swiper-wrapper p-2">
                     @foreach ($endProducts as $product)
-                        <div class="swiper-slide">
-                            <div class="card fp-dish-card">
-                                <div class="fp-dish-img-wrapper">
-                                    {{-- <span class="fp-dish-badge">Top Rated</span> --}}
-                                    <img src="{{ asset($product->productImage->first()->image_path) }}"
-                                        alt="{{ $product->title }}">
-                                </div>
-                                <div class="card-body p-4">
-                                    <a href="/{{ $product->id }}">
-                                        <h5 class="fw-bold fs-5 text-truncate mb-2">{{ $product->title ?? '' }}</h5>
-                                    </a>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <div>
-                                            <span class="fp-dish-price">Rs {{ $product->price }}</span>
-                                            <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
-                                        </div>
-                                        <button class="btn btn-sm btn-outline-success rounded-circle"
-                                            onclick="addToCart({{ $product->id }})"><i
-                                                class="bi bi-plus-lg"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <x-product-card :product="$product" />
                     @endforeach
                 </div>
             </div>
@@ -142,39 +117,17 @@
                     <h2 class="fw-bold m-0 mt-1">Value For Money Items</h2>
                 </div>
                 <div class="d-flex gap-2">
-                    <button class="btn btn-outline-dark rounded-circle fp-dishes-prev p-2 lh-1"><i
-                            class="bi bi-chevron-left"></i></button>
-                    <button class="btn btn-outline-dark rounded-circle fp-dishes-next p-2 lh-1"><i
-                            class="bi bi-chevron-right"></i></button>
+                    <button class="btn btn-outline-dark rounded-circle fp-value-prev p-2 lh-1"><i
+                            class="fa-solid fa-chevron-left"></i></button>
+                    <button class="btn btn-outline-dark rounded-circle fp-value-next p-2 lh-1"><i
+                            class="fa-solid fa-chevron-right"></i></i></button>
                 </div>
             </div>
 
             <div class="swiper fp-value-slider">
                 <div class="swiper-wrapper p-2">
                     @foreach ($valueProducts as $product)
-                        <div class="swiper-slide">
-                            <div class="card fp-dish-card">
-                                <div class="fp-dish-img-wrapper">
-                                    {{-- <span class="fp-dish-badge">Top Rated</span> --}}
-                                    <img src="{{ asset($product->productImage->first()->image_path) }}"
-                                        alt="{{ $product->title }}">
-                                </div>
-                                <div class="card-body p-4">
-                                    <a href="/{{ $product->id }}">
-                                        <h5 class="fw-bold fs-5 text-truncate mb-2">{{ $product->title ?? '' }}</h5>
-                                    </a>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <div>
-                                            <span class="fp-dish-price">Rs {{ $product->price }}</span>
-                                            <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
-                                        </div>
-                                        <button class="btn btn-sm btn-outline-success rounded-circle"
-                                            onclick="addToCart({{ $product->id }})"><i
-                                                class="bi bi-plus-lg"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <x-product-card :product="$product" />
                     @endforeach
                 </div>
             </div>
@@ -370,125 +323,24 @@
                     <h2 class="fw-bold m-0 mt-1">Recently Added Items</h2>
                 </div>
                 <div class="d-flex gap-2">
-                    <button class="btn btn-outline-dark rounded-circle fp-dishes-prev p-2 lh-1"><i
-                            class="bi bi-chevron-left"></i></button>
-                    <button class="btn btn-outline-dark rounded-circle fp-dishes-next p-2 lh-1"><i
-                            class="bi bi-chevron-right"></i></button>
+                    <button class="btn btn-outline-dark rounded-circle fp-recent-prev p-2 lh-1"><i
+                            class="fa-solid fa-chevron-left"></i></button>
+                    <button class="btn btn-outline-dark rounded-circle fp-recent-next p-2 lh-1"><i
+                            class="fa-solid fa-chevron-right"></i></button>
                 </div>
             </div>
 
-            <div class="swiper fp-value-slider">
+            <div class="swiper fp-recent-slider">
                 <div class="swiper-wrapper p-2">
                     @foreach ($latestProducts as $product)
-                        <div class="swiper-slide">
-                            <div class="card fp-dish-card">
-                                <div class="fp-dish-img-wrapper">
-                                    {{-- <span class="fp-dish-badge">Top Rated</span> --}}
-                                    <img src="{{ asset($product->productImage->first()->image_path) }}"
-                                        alt="{{ $product->title }}">
-                                </div>
-                                <div class="card-body p-4">
-                                    <a href="/{{ $product->id }}">
-                                        <h5 class="fw-bold fs-5 text-truncate mb-2">{{ $product->title ?? '' }}</h5>
-                                    </a>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <div>
-                                            <span class="fp-dish-price">Rs {{ $product->price }}</span>
-                                            <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
-                                        </div>
-                                        <button class="btn btn-sm btn-outline-success rounded-circle"
-                                            onclick="addToCart({{ $product->id }})"><i
-                                                class="bi bi-plus-lg"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <x-product-card :product="$product" />
                     @endforeach
                 </div>
             </div>
         </div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hero Main Showcase
-            const heroSlider = new Swiper('.fp-hero-section', {
-                loop: true,
-                autoplay: {
-                    delay: 4500,
-                    disableOnInteraction: false
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true
-                },
-            });
-
-            // Trending Plates Carousel
-            const dishesSlider = new Swiper('.fp-dishes-slider', {
-                slidesPerView: 1,
-                spaceBetween: 24,
-                navigation: {
-                    nextEl: '.fp-dishes-next',
-                    prevEl: '.fp-dishes-prev',
-                },
-                breakpoints: {
-                    576: {
-                        slidesPerView: 2
-                    },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    1024: {
-                        slidesPerView: 4
-                    }
-                }
-            });
-
-            // Trending Plates Carousel
-            const valueSlider = new Swiper('.fp-value-slider', {
-                slidesPerView: 1,
-                spaceBetween: 24,
-                navigation: {
-                    nextEl: '.fp-value-next',
-                    prevEl: '.fp-value-prev',
-                },
-                breakpoints: {
-                    576: {
-                        slidesPerView: 2
-                    },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    1024: {
-                        slidesPerView: 4
-                    }
-                }
-            });
-
-            // Round Showcase Categories Carousel
-            const categoriesSlider = new Swiper('.fp-categories-slider', {
-                slidesPerView: 2,
-                spaceBetween: 20,
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true
-                },
-                breakpoints: {
-                    480: {
-                        slidesPerView: 3
-                    },
-                    768: {
-                        slidesPerView: 4
-                    },
-                    992: {
-                        slidesPerView: 5
-                    }
-                }
-            });
-        });
-
         function addToCart(productId) {
             fetch('/cart/add', {
                     method: 'POST',

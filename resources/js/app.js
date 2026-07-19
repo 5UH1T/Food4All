@@ -1,7 +1,9 @@
 import './bootstrap';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { editCategoryValidation, createCategoryValidation, createSubCategoryValidation, editSubCategoryValidation, loginValidation, userRegisterValidation, storeRegisterValidation, createProductValidation, vendorProfileValidation, createCartValidation  } from './helpers/validate';
+import './helpers/swiper';
 
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
