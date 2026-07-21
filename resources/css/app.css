@@ -463,3 +463,14 @@ html, body {
     width: 40px;
     height: 40px;
 }
+
+.item-desc {
+    background-color: #6a6a6a26;
+    padding: 15px;
+    border-radius: 16px;
+}
+
+.item-desc p {
+    font-style: italic !important;
+    color: #454545 !important
+}

@@ -6,12 +6,6 @@
     }
 @endphp
 
-<!-- Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Tailwind CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-
 <style>
     .nb-navbar {
         background: var(--fp-white);
@@ -19,12 +13,6 @@
         position: sticky !important;
         top: 0;
         z-index: 100;
-    }
-
-    .nb-logo {
-        color: var(--fp-primary);
-        font-weight: 800;
-        letter-spacing: -0.5px;
     }
 
     .nb-search {
@@ -100,7 +88,7 @@
 
 
         <!-- LOGO -->
-        <a href="/" class="navbar-brand nb-logo h-full">
+        <a href="/" class="navbar-brand h-full" style="scale: 1.3">
             <img src="{{ asset('admin_assets/img/logo-flat.png') }}" alt="Logo" class="w-[100px]">
         </a>
 

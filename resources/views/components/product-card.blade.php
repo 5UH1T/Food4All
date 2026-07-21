@@ -12,7 +12,9 @@
             <div class="d-flex justify-content-between align-items-center mt-3">
                 <div>
                     <span class="fp-dish-price">Rs {{ $product->price }}</span>
-                    <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
+                    @if ($product->initial_price)
+                        <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
+                    @endif
                 </div>
                 <button class="btn btn-sm btn-outline-success rounded-circle"
                     onclick="addToCart({{ $product->id }})"><i class="bi bi-plus-lg"></i></button>

@@ -14,10 +14,13 @@ class SubCategoriesController extends Controller
     // Create Category
     public function addCategory(Request $request) {
         $validator = Validator::make($request->all(), [
-            'sub_category_name' => [
-                'required',
-                Rule::unique('sub_categories', 'sub_category_name'),
-            ],
+        'sub_category_name' => [
+            'required',
+            Rule::unique('sub_categories', 'sub_category_name')
+                ->where(function ($query) {
+                    return $query->where('vendor_id', Auth::id());
+                }),
+        ],
             'status' => ['required'],
             'category_id' => ['required'],
         ]);
@@ -47,10 +50,14 @@ class SubCategoriesController extends Controller
     public function updateCategory(Request $request, string $id) {
         $category = SubCategory::findOrFail($id);
         $validator = Validator::make($request->all(), [
-            'sub_category_name' => [
-                'required',
-                Rule::unique('sub_categories', 'sub_category_name')->ignore($id),
-            ],
+        'sub_category_name' => [
+            'required',
+            Rule::unique('sub_categories', 'sub_category_name')
+                ->where(function ($query) {
+                    return $query->where('vendor_id', Auth::id());
+                })
+                ->ignore($id),
+        ],
             'status' => ['required'],
             'category_id' => ['required'],
         ]);

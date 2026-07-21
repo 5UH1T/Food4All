@@ -48,10 +48,11 @@
                     <!-- Price -->
                     <div class="mb-4">
                         <span class="fp-product-price">Rs {{ $product->price }}</span>
-
-                        <del class="text-muted ms-3">
-                            Rs {{ $product->initial_price }}
-                        </del>
+                        @if ($product->initial_price)
+                            <span class="text-muted ms-3 fp-dish-price-cut">
+                                Rs {{ $product->initial_price }}
+                            </span>
+                        @endif
                     </div>
 
                     <!-- Store -->
@@ -61,9 +62,10 @@
                     </div>
 
                     <!-- Description -->
-                    <p class="text-muted mb-4">
+                    <strong class="ml-2">Product Description</strong>
+                    <div class="mb-4 mt-1 item-desc">
                         {!! $product->description !!}
-                    </p>
+                    </div>
 
                     <!-- Category -->
                     <div class="mb-3">
