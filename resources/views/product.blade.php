@@ -213,7 +213,7 @@
         }
 
         function buyNow(productId) {
-
+            let quantity = document.getElementById('quantity').value;
             fetch('/cart/add', {
                     method: 'POST',
                     headers: {
@@ -224,7 +224,7 @@
                     },
                     body: JSON.stringify({
                         product_id: productId,
-                        quantity: 1
+                        quantity: quantity
                     })
                 })
                 .then(async response => {
