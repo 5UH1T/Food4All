@@ -19,9 +19,8 @@ class CartController extends Controller
         $user = Auth::user();
 
         $cart = $user->cart()->firstOrCreate([]);
-
+        $this->clearExpiredCart();
         $product = Product::findOrFail($request->product_id);
-
         $quantity = (int) ($request->quantity ?? 1);
 
         // Check requested quantity against stock
@@ -62,6 +61,7 @@ class CartController extends Controller
                 'donation_quantity' => 0,
                 'total_price' => $quantity * $product->price
             ]);
+            $cart->touch();
         }
 
 
@@ -76,7 +76,7 @@ class CartController extends Controller
         if (!Auth::check()) {
             return redirect('/login');
         }
-
+        $this->clearExpiredCart();
         $cart = Auth::user()
             ->cart()
             ->with('items.product')
@@ -126,8 +126,6 @@ class CartController extends Controller
             $quantity = (int) $itemData['quantity'];
             $donationQuantity = (int) ($itemData['donation_quantity'] ?? 0);
 
-
-
             // Stock check
             if ($quantity > $product->stock) {
                 return back()->with(
@@ -135,8 +133,6 @@ class CartController extends Controller
                     "Not enough stock for {$product->title}"
                 );
             }
-
-
 
             // Donation cannot exceed quantity
             if ($donationQuantity > $quantity) {
@@ -146,13 +142,13 @@ class CartController extends Controller
                 );
             }
 
-
-
             $cartItem->update([
                 'quantity' => $quantity,
                 'donation_quantity' => $donationQuantity,
                 'total_price' => $quantity * $product->price
             ]);
+
+            $cart->touch();
 
         }
 
@@ -181,9 +177,26 @@ class CartController extends Controller
         }
 
         $cartItem->delete();
+        
+        $cart->touch();
 
         return redirect()
             ->route('cart')
             ->with('success', 'Item removed from cart successfully.');
     }
+
+    private function clearExpiredCart()
+    {
+        $cart = Auth::user()->cart()->first();
+
+        if (!$cart) {
+            return;
+        }
+
+        if ($cart->updated_at->lt(now()->subMinutes(10))) {
+            $cart->items()->delete();
+            $cart->touch();
+        }
+    }
+
 }
