@@ -27,6 +27,10 @@ html, body {
     padding: 1rem !important;
 }
 
+.dropdown-menu .dropdown-item:active {
+    background-color: #374151 !important;
+}
+
 .dropdown-toggle::after {
     all: unset !important;
 }
@@ -60,6 +64,18 @@ html, body {
         background-color: black !important;
         color: white !important;
     }
+}
+
+.nb-img-avatar img {
+    width: 42px;
+    height: 42px;
+    border: 2px solid black !important;
+    object-fit: cover;
+    border-radius: 50%;
+    &:hover {
+        opacity: 0.9;
+    }
+
 }
 .quantity-box {
     background: #fff;

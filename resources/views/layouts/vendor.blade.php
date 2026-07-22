@@ -188,14 +188,26 @@
                         </li>
 
                         <li class="nav-item dropdown">
-
-                            <button
-                                class="btn dropdown-toggle d-flex align-items-center justify-content-center nb-avatar"
-                                href="#" data-bs-toggle="dropdown">
-                                {{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 1)) }}
-                            </button>
+                            @php
+                                $img = null;
+                                if (auth()->check() && Auth::user()->role === 1) {
+                                    $img = Storage::url(Auth::user()->vendorProfile->avatar);
+                                }
+                            @endphp
+                            @if ($img)
+                                <a class="dropdown-toggle nb-img-avatar" href="#" data-bs-toggle="dropdown"
+                                    title="{{ Auth::user()->name }}">
+                                    <img src="{{ asset($img) }}">
+                                </a>
+                            @else
+                                <button
+                                    class="btn dropdown-toggle d-flex align-items-center justify-content-center nb-avatar"
+                                    href="#" data-bs-toggle="dropdown" title="{{ Auth::user()->name }}">
+                                    {{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 1)) }}
+                                </button>
+                            @endif
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="settings"
+                                <a href="/store/settings"
                                     class="d-flex justify-content-start align-items-center gap-2 py-3 dropdown-item hover:bg-gray-100 text-sm dropdown-item text-gray-700 active:text-gray-700">
                                     <i class="fa-solid fa-circle-user"></i> Profile
                                 </a>
