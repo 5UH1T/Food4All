@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Vendor\VendorPageController;
 use App\Http\Controllers\Vendor\VendorProfileController;
+use App\Http\Controllers\Customer\CustomerProfileController;
 use App\Http\Controllers\Customer\CustomerPageController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ProductsController;
@@ -107,7 +108,12 @@ Route::middleware(['auth', 'verified', 'rolemanager:customer'])
         Route::get('/orders', [CustomerPageController::class, 'orders'])->name('orders');
         Route::get('/payments', [CustomerPageController::class, 'payments'])->name('payments');
         Route::get('/donations', [CustomerPageController::class, 'donations'])->name('donations');
-        Route::get('/', [CustomerPageController::class, 'profile'])->name('profile');
+        // Route::get('/', [CustomerPageController::class, 'profile'])->name('profile');
+        Route::get('/', [CustomerProfileController::class, 'edit'])
+            ->name('profile');
+
+        Route::put('/', [CustomerProfileController::class, 'update'])
+            ->name('updateProfile');
 });
 
 // Route::get('/vendor/dashboard', function () {

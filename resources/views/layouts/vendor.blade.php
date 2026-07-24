@@ -1,3 +1,6 @@
+@php
+    $name = Str::ucfirst(Auth::user()->name);
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +32,7 @@
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
                 <a class="sidebar-brand" href="{{ route('vendor.dashboard') }}">
-                    <span class="align-middle">Vendor</span>
+                    <span class="align-middle">{{ $name }}</span>
                 </a>
 
                 <ul class="sidebar-nav">
