@@ -82,13 +82,18 @@
                             </div>
 
                             <small class="text-muted">
-                                Select your business logo or profile image.
+                                Select your profile image.
                             </small>
 
                             <div class="mt-3">
                                 <img id="holder" src="{{ old('avatar', Storage::url($customer->avatar) ?? '') }}"
                                     style="max-height:180px;border-radius:10px;"
                                     class="{{ old('avatar', $customer->avatar ?? '') ? '' : 'd-none' }}">
+                                <small id="removeAvatar"
+                                    class="text-red-500 underline cursor-pointer ml-8
+                                     {{ old('avatar', $customer->avatar ?? '') ? '' : 'd-none' }}">
+                                    Remove Image
+                                </small>
                             </div>
 
                         </div>
@@ -110,7 +115,6 @@
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/ckeditor/ckeditor.js"></script>
 
     <script>
@@ -129,6 +133,7 @@
 
             const input = document.getElementById('thumbnail');
             const holder = document.getElementById('holder');
+            const remove = document.getElementById('removeAvatar');
 
             let previous = input.value;
 
@@ -141,15 +146,27 @@
                 if (input.value) {
                     holder.src = input.value;
                     holder.classList.remove('d-none');
+                    remove.classList.remove('d-none');
                 } else {
                     holder.src = '';
                     holder.classList.add('d-none');
+                    remove.classList.add('d-none');
                 }
             }
 
             setInterval(function() {
                 refreshPreview();
             }, 300);
+
+        });
+
+        $('#removeAvatar').on('click', function() {
+
+            $('#thumbnail').val('');
+
+            $('#holder')
+                .attr('src', '')
+                .addClass('d-none');
 
         });
     </script>

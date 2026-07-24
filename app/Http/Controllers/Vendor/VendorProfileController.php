@@ -32,6 +32,8 @@ public function update(Request $request)
         // Convert full URL into storage path
         if ($avatar) {
             $avatar = Str::after($avatar, '/storage/');
+        } else {
+            $avatar = null;
         }
         
         $request->validate([

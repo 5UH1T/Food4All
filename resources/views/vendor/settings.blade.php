@@ -119,6 +119,11 @@
                                 <img id="holder" src="{{ old('avatar', Storage::url($vendor->avatar) ?? '') }}"
                                     style="max-height:180px;border-radius:10px;"
                                     class="{{ old('avatar', $vendor->avatar ?? '') ? '' : 'd-none' }}">
+                                <small id="removeAvatar"
+                                    class="text-red-500 underline cursor-pointer ml-8
+                                     {{ old('avatar', $vendor->avatar ?? '') ? '' : 'd-none' }}">
+                                    Remove Image
+                                </small>
                             </div>
 
                         </div>
@@ -158,6 +163,7 @@
 
             const input = document.getElementById('thumbnail');
             const holder = document.getElementById('holder');
+            const remove = document.getElementById('removeAvatar');
 
             let previous = input.value;
 
@@ -170,15 +176,27 @@
                 if (input.value) {
                     holder.src = input.value;
                     holder.classList.remove('d-none');
+                    remove.classList.remove('d-none');
                 } else {
                     holder.src = '';
                     holder.classList.add('d-none');
+                    remove.classList.add('d-none');
                 }
             }
 
             setInterval(function() {
                 refreshPreview();
             }, 300);
+
+        });
+
+        $('#removeAvatar').on('click', function() {
+
+            $('#thumbnail').val('');
+
+            $('#holder')
+                .attr('src', '')
+                .addClass('d-none');
 
         });
     </script>

@@ -164,7 +164,9 @@
                             @php
                                 $img = null;
                                 if (auth()->check() && Auth::user()->role === 2) {
-                                    $img = Storage::url(Auth::user()->profile->avatar);
+                                    if (Auth::user()->profile->avatar) {
+                                        $img = Storage::url(Auth::user()->profile->avatar);
+                                    }
                                 }
                             @endphp
                             @if ($img)
