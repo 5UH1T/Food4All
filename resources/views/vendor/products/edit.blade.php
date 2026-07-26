@@ -154,15 +154,14 @@
                             <div class="input-group">
 
                                 <button class="btn btn-primary" type="button" id="lfm" data-input="thumbnail">
-
-                                    Choose Images
-
+                                    Update Images
                                 </button>
 
-
-                                <input id="thumbnail" class="form-control" type="text" name="images" readonly hidden>
+                                <input id="thumbnail" class="form-control" type="text" name="images" readonly hidden
+                                    value="{{ $product->productImage->pluck('image_path')->implode(', ') }}">
 
                             </div>
+                            <small class="text-muted d-block mt-1">Plese select one or more images (Maximum: 5)</small>
 
 
                             <div id="holder" class="mt-3 d-flex flex-wrap gap-3">
@@ -319,6 +318,16 @@
 
             // Polling interval catches incoming programmatic selections out of UniSharp Popup
             setInterval(function() {
+                let images = input.value
+                    .split(',')
+                    .map(img => img.trim())
+                    .filter(Boolean);
+
+                if (images.length > 5) {
+                    window.notyf.error('Maximum 5 images allowed');
+                    input.value = images.slice(0, 5).join(', ');
+                }
+
                 renderPreview();
             }, 300);
         });

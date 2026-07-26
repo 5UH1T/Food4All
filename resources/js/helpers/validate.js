@@ -55,7 +55,7 @@ export function userRegisterValidation() {
             {
                 rule: 'customRegexp',
                 value:  /^(?=(?:.*[A-Za-z]){2})[A-Za-z][A-Za-z\s.'-]*$/,
-                errorMessage: 'Please enter a valid store name',
+                errorMessage: 'Please enter a valid name',
             },
         ])
 
@@ -232,6 +232,60 @@ export function storeRegisterValidation() {
                 rule: 'customRegexp',
                 value: /^\d{9}$/,
                 errorMessage: 'Please enter a valid PAN number',
+            },
+        ])
+
+        .onSuccess((event) => {
+            event.target.submit();
+        });
+}
+
+//Update User Profile Validation
+export function userProfileValidation() {
+    const validation = new JustValidate('#editUserProfile', {
+        errorFieldCssClass: 'is-invalid',
+    });
+
+    validation
+
+        .addField('#name', [
+            {
+                rule: 'required',
+                errorMessage: 'Full name is required',
+            },
+            {
+                rule: 'customRegexp',
+                value:  /^(?=(?:.*[A-Za-z]){2})[A-Za-z][A-Za-z\s.'-]*$/,
+                errorMessage: 'Please enter a valid name',
+            },
+        ])
+
+        .addField('#phone', [
+            {
+                rule: 'required',
+                errorMessage: 'Phone number is required',
+            },
+            {
+                rule: 'minLength',
+                value: 10,
+                errorMessage: 'Phone number must be at least 10 digits',
+            },
+            {
+                rule: 'customRegexp',
+                value: /^(98|97)\d{8}$/,
+                errorMessage: 'Please enter a valid phone number',
+            },
+        ])
+
+        .addField('#address', [
+            {
+                rule: 'required',
+                errorMessage: 'Address is required',
+            },
+            {
+                rule: 'minLength',
+                value: 3,
+                errorMessage: 'Address must be at least 3 characters',
             },
         ])
 

@@ -88,15 +88,18 @@ class VendorPageController extends Controller
     {
         abort_if($product->vendor_id != Auth::id(), 403);
 
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
             'category_id' => 'required',
             'sub_category_id' => 'required',
             'description' => 'nullable|string',
+            'images' => 'required|string',
             'status' => 'required|in:draft,published',
         ]);
+
+        $product->productImage()->where('product_id', $product->id)->delete();
 
         $product->update([
             'title' => $request->title,
@@ -108,6 +111,22 @@ class VendorPageController extends Controller
             'description' => $request->description,
             'status' => $request->status,
         ]);
+
+        // 2. Safely convert images string → array
+        $images = collect(explode(',', $validated['images']))
+            ->map(fn ($img) => parse_url(trim($img), PHP_URL_PATH))
+            ->filter()
+            ->values();
+
+        // 3. Save images
+        foreach ($images as $index => $image) {
+            $product->productImage()->create([
+                'image_path' => $image,
+                'is_main' => $index === 0,
+                'position' => $index,
+            ]);
+        }
+
 
         return redirect()
             ->route('vendor.products')

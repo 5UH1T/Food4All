@@ -2,7 +2,7 @@ import './bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { editCategoryValidation, createCategoryValidation, createSubCategoryValidation, editSubCategoryValidation, loginValidation, userRegisterValidation, storeRegisterValidation, createProductValidation, vendorProfileValidation, createCartValidation  } from './helpers/validate';
+import { editCategoryValidation, createCategoryValidation, createSubCategoryValidation, editSubCategoryValidation, loginValidation, userRegisterValidation, storeRegisterValidation, createProductValidation, userProfileValidation, vendorProfileValidation, createCartValidation  } from './helpers/validate';
 import './helpers/swiper';
 
 import { Notyf } from 'notyf';
@@ -46,6 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.querySelector('#createProductForm')) {
         createProductValidation();
+    }
+
+    if (document.querySelector('#editUserProfile')) {
+        userProfileValidation();
     }
 
     if (document.querySelector('#editVendorProfile')) {
