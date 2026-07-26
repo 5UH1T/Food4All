@@ -185,10 +185,26 @@
             }
 
             setInterval(function() {
-                refreshPreview();
+
+                if (input.value !== previous) {
+
+                    let images = input.value
+                        .split(',')
+                        .map(x => x.trim())
+                        .filter(Boolean);
+
+                    if (images.length > 1) {
+                        input.value = images[0];
+                        window.notyf.error('Only one image is allowed.');
+                    }
+
+                    refreshPreview(true);
+                }
+
             }, 300);
 
         });
+
 
         $('#removeAvatar').on('click', function() {
 
@@ -197,6 +213,8 @@
             $('#holder')
                 .attr('src', '')
                 .addClass('d-none');
+
+            $(this).addClass('d-none');
 
         });
     </script>

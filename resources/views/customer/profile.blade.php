@@ -137,25 +137,27 @@
 
             let previous = input.value;
 
-            function refreshPreview(force = false) {
+            setInterval(function() {
 
-                if (previous === input.value && !force) return;
+                if (input.value !== previous) {
 
-                previous = input.value;
+                    let images = input.value
+                        .split(',')
+                        .map(x => x.trim())
+                        .filter(Boolean);
 
-                if (input.value) {
+                    if (images.length > 1) {
+                        input.value = images[0];
+                        window.notyf.error('Please select only one image.');
+                    }
+
+                    previous = input.value;
+
                     holder.src = input.value;
                     holder.classList.remove('d-none');
                     remove.classList.remove('d-none');
-                } else {
-                    holder.src = '';
-                    holder.classList.add('d-none');
-                    remove.classList.add('d-none');
                 }
-            }
 
-            setInterval(function() {
-                refreshPreview();
             }, 300);
 
         });
