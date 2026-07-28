@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\OrderItem;
+use App\Models\Order;
 
 class VendorPageController extends Controller
 {
@@ -28,9 +30,36 @@ class VendorPageController extends Controller
         return view('vendor.categories.manage', compact('categories', 'subCategories'));
     }
 
-    public function orders()
+
+    public function orders(Request $request)
     {
-        return view('vendor.orders.manage');
+        $search = $request->query('search');
+        $status = $request->query('status');
+        $vendorId = Auth::id();
+
+        $orders = Order::whereHas('items.product', function ($query) use ($vendorId) {
+                $query->where('vendor_id', $vendorId);
+            })
+            ->when($search, function ($query) use ($search) {
+                $query->where('id', 'LIKE', "%{$search}%");
+            })
+            ->when($status, function ($query) use ($status) {
+                $query->where('status', $status);
+            })
+            ->with([
+                'user',
+                'items' => function ($query) use ($vendorId) {
+                    $query->whereHas('product', function ($q) use ($vendorId) {
+                        $q->where('vendor_id', $vendorId);
+                    })->with('product');
+                }
+            ])
+            ->orderByRaw("CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END")
+            ->orderByDesc('id')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('vendor.orders.manage', compact('orders'));
     }
 
     public function payments()

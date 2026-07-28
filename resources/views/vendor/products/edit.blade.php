@@ -25,8 +25,8 @@
     <div class="container py-4">
 
         <div class="mb-4">
-            <h2 class="fw-bold">Create Food Product</h2>
-            <p class="text-muted">Fill in the details to add a new food item</p>
+            <h2 class="fw-bold">Update Food Product</h2>
+            <p class="text-muted">Fill in the details to update food item</p>
         </div>
 
         <form method="POST" id="createProductForm" enctype="multipart/form-data"
