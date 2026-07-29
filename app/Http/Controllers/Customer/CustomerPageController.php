@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
+use App\Models\OrderItem;
+use App\Models\Order;
 
 class CustomerPageController extends Controller
 {
@@ -17,9 +21,28 @@ class CustomerPageController extends Controller
         return view('customer.payments.manage');
     }
 
-    public function orders()
+    public function orders(Request $request)
     {
-        return view('customer.orders.manage');
+        $search = $request->query('search');
+        $status = $request->query('status');
+        $userId = Auth::id();
+
+        $orders = Order::where('user_id', $userId)
+            ->when($search, function ($query) use ($search) {
+                $query->where('id', 'LIKE', "%{$search}%");
+            })
+            ->when($status, function ($query) use ($status) {
+                $query->where('status', $status);
+            })
+            ->with([
+                'user',
+                'items.product'
+            ])
+            ->orderByDesc('updated_at')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('customer.orders.manage', compact('orders'));
     }
 
     public function donations()
