@@ -82,6 +82,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])
         Route::get('/products/create', [VendorPageController::class, 'createProducts'])->name('createProducts');
         Route::get('/', [VendorPageController::class, 'index'])->name('dashboard');
         Route::get('/orders', [VendorPageController::class, 'orders'])->name('orders');
+        Route::patch('/orders/{order}/status', [VendorPageController::class, 'updateItemStatus'])->name('orders.updateStatus');
         Route::get('/payments', [VendorPageController::class, 'payments'])->name('payments');
         Route::get('/products', [VendorPageController::class, 'products'])->name('products');
         Route::get('/subcategories/{categoryId}', [ProductsController::class, 'getSubCategories'])->name('getSubCategories');

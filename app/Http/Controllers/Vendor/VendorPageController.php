@@ -54,12 +54,45 @@ class VendorPageController extends Controller
                     })->with('product');
                 }
             ])
-            ->orderByRaw("CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END")
-            ->orderByDesc('id')
+            ->orderByDesc('updated_at')
             ->paginate(10)
             ->withQueryString();
 
         return view('vendor.orders.manage', compact('orders'));
+    }
+
+    public function updateItemStatus(Request $request, Order $order)
+    {
+        $vendorId = Auth::id();
+
+        $items = OrderItem::where('order_id', $order->id)
+            ->whereHas('product', function ($query) use ($vendorId) {
+                $query->where('vendor_id', $vendorId);
+            })
+            ->get();
+
+        foreach ($items as $item) {
+            $item->update([
+                'item_status' => 'prepared',
+            ]);
+        }
+
+        $allPrepared = OrderItem::where('order_id', $order->id)
+        ->where('item_status', '!=', 'prepared')
+        ->doesntExist();
+
+        if ($allPrepared) {
+            $order->update([
+                'status' => 'ready',
+            ]);
+
+            OrderItem::where('order_id', $order->id)
+            ->update([
+                'item_status' => 'ready',
+            ]);
+        }
+
+        return back()->with('success', 'Order marked as Prepared.');
     }
 
     public function payments()

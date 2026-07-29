@@ -14,6 +14,7 @@ class OrderItem extends Model
         'product_id',
         'quantity',
         'donation_quantity',
+        'item_status',
         'total_price',
     ];
 

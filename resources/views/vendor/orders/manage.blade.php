@@ -3,6 +3,7 @@
     Orders - Vendor
 @endsection
 @section('vendor_content')
+    @include('components.vendor.category.updateStatusModal')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             @if (session('success'))
@@ -42,11 +43,12 @@
                 class="form-control w-100 pr-[40px] rounded-lg appearance-none cursor-pointer">
                 <option value="" selected disabled>-- Filter By Status --</option>
                 <option value="">All Orders</option>
-                <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                 <option value="confirmed" {{ request('status') == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
                 <option value="prepared" {{ request('status') == 'prepared' ? 'selected' : '' }}>Prepared</option>
-                <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Completed</option>
-                <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                <option value="ready" {{ request('status') == 'ready' ? 'selected' : '' }}>Ready to Pickup</option>
+                <option value="picked" {{ request('status') == 'picked' ? 'selected' : '' }}>Picked Up</option>
+                <option value="delivered" {{ request('status') == 'delivered' ? 'selected' : '' }}>Delivered</option>
             </select>
         </form>
     </div>
@@ -110,17 +112,36 @@
 
 
                                 <td class="p-3 text-center">
-                                    <span @class([
-                                        'px-3 py-1 rounded-full text-xs fw-semibold',
-                                        'text-green-600 bg-green-100' => $order->status === 'confirmed',
-                                        'text-red-600 bg-red-100' => $order->status === 'cancelled',
-                                        'text-amber-600 bg-amber-100' => !in_array($order->status, [
-                                            'confirmed',
-                                            'cancelled',
-                                        ]),
-                                    ])>
-                                        {{ ucfirst($order->status) }}
-                                    </span>
+                                    @php
+                                        $status = $order->items->first()?->item_status;
+                                    @endphp
+                                    <div class="dropdown flex items-center justify-center gap-2">
+                                        <span @class([
+                                            'px-3 py-1 rounded-full text-xs fw-semibold dropdown-toggle',
+                                            'text-green-600 bg-green-100' => $status === 'confirmed',
+                                            'text-red-600 bg-red-100' => $status === 'cancelled',
+                                            'text-teal-600 bg-teal-100' => !in_array($status, [
+                                                'confirmed',
+                                                'cancelled',
+                                            ]),
+                                        ])>
+                                            {{ $status === 'ready' ? 'Ready to Pickup' : ucfirst($status) }}
+                                        </span>
+                                        @if ($status === 'confirmed')
+                                            <i class="fas fa-sort-down text-gray-500 mt-[-10px]" type="button"
+                                                data-bs-toggle="dropdown"></i>
+
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item update-status-btn"
+                                                        data-id="{{ $order->id }}" data-bs-toggle="modal"
+                                                        data-bs-target="#updateStatusModal">
+                                                        Mark as Prepared
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        @endif
+                                    </div>
                                 </td>
                                 <td class="p-3 text-end">
                                     <div class="flex justify-end gap-3">
@@ -190,7 +211,7 @@
                                                         <th>#</th>
                                                         <th>Product</th>
                                                         <th>Rate</th>
-                                                        <th>Total Qty</th>
+                                                        <th>User's Qty</th>
                                                         <th>Donated Qty</th>
                                                         <th>Sub Total</th>
                                                     </tr>
@@ -219,7 +240,8 @@
                                                             <td>
                                                                 {{ number_format($item->total_price / $item->quantity, 2) }}
                                                             </td>
-                                                            <td>{{ $item->quantity }}</td>
+                                                            <td class="fw-semibold">
+                                                                {{ $item->quantity - $item->donation_quantity }}</td>
                                                             <td>{{ $item->donation_quantity }}</td>
                                                             <td class="fw-semibold">
                                                                 Rs. {{ $item->total_price }}
@@ -352,22 +374,14 @@
         @endforeach
     @endif
 
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
+    <script>
+        document.querySelectorAll('.update-status-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                let id = this.dataset.id;
 
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-
-                btn.addEventListener('click', function() {
-
-                    const id = this.dataset.id;
-
-                    document.getElementById('deleteForm').action =
-                        `/store/products/${id}`;
-
-                });
-
+                document.getElementById('updateStatusForm').action =
+                    `/store/orders/${id}/status`;
             });
-
         });
-    </script> --}}
+    </script>
 @endsection

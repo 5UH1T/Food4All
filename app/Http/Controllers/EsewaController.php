@@ -95,6 +95,15 @@ class EsewaController extends Controller
                 'esewa_ref_id' => $verify['ref_id'] ?? null
             ]);
 
+            foreach ($order->items as $item) {
+
+                $item->product->decrement('stock', $item->quantity);
+
+                $item->update([
+                    'item_status' => 'confirmed',
+                ]);
+            }
+
 
             if ($order->user && $order->user->cart) {
 
@@ -132,6 +141,13 @@ public function failure(Request $request)
             'payment_status' => 'failed',
             'status' => 'cancelled',
         ]);
+
+        foreach ($order->items as $item) {
+            
+            $item->update([
+                'item_status' => 'cancelled',
+            ]);
+        }
     }
 
     session()->forget('esewa_transaction_uuid');
