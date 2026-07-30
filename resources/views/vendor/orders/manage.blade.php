@@ -118,12 +118,12 @@
                                     <div class="dropdown flex items-center justify-center gap-2">
                                         <span @class([
                                             'px-3 py-1 rounded-full text-xs fw-semibold dropdown-toggle',
-                                            'text-green-600 bg-green-100' => $status === 'confirmed',
                                             'text-red-600 bg-red-100' => $status === 'cancelled',
-                                            'text-teal-600 bg-teal-100' => !in_array($status, [
-                                                'confirmed',
-                                                'cancelled',
-                                            ]),
+                                            'text-blue-600 bg-blue-100' => $status === 'confirmed',
+                                            'text-amber-600 bg-amber-100' => $status === 'prepared',
+                                            'text-purple-600 bg-purple-100' => $status === 'ready',
+                                            'text-indigo-600 bg-indigo-100' => $status === 'picked',
+                                            'text-green-600 bg-green-100' => $status === 'delivered',
                                         ])>
                                             {{ $status === 'ready' ? 'Ready to Pickup' : ucfirst($status) }}
                                         </span>
