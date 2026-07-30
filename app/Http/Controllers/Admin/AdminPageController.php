@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\OrderItem;
 
 class AdminPageController extends Controller
 {
@@ -34,10 +37,57 @@ class AdminPageController extends Controller
         return view('admin.categories.manage', compact('categories'));
     }
 
-    public function orders()
+    public function orders(Request $request)
     {
-        return view('admin.orders.manage');
+        $search = $request->query('search');
+        $status = $request->query('status');
+
+        $orders = Order::when($search, function ($query) use ($search) {
+                $query->where('id', 'LIKE', "%{$search}%");
+            })
+            ->when($status, function ($query) use ($status) {
+                $query->where('status', $status);
+            })
+            ->with([
+                'user',
+                'items.product'
+            ])
+            ->orderByDesc('updated_at')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('admin.orders.manage', compact('orders'));
     }
+
+    public function updateItemStatus(Request $request, Order $order)
+    {
+
+        $status = $request->status;
+        $items = OrderItem::where('order_id', $order->id)->get();
+
+        foreach ($items as $item) {
+            $item->update([
+                'item_status' => $status,
+            ]);
+        }
+
+        $isTrue = OrderItem::where('order_id', $order->id)
+        ->where('item_status', '!=', $status)
+        ->doesntExist();
+
+        if ($isTrue) {
+            $order->update([
+                'status' => $status,
+            ]);
+        }
+        if($status === 'picked')
+            return back()->with('success', 'Order marked as Picked');
+        else if($status === 'delivered')
+            return back()->with('success', 'Order marked as Delivered.');
+        else
+            return back()->with('error', 'Updating order status failed');
+    }
+
 
     public function payments()
     {

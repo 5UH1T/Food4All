@@ -62,6 +62,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])
         Route::get('/categories', [AdminPageController::class, 'categories'])->name('categories');
         Route::get('/', [AdminPageController::class, 'index'])->name('dashboard');
         Route::get('/orders', [AdminPageController::class, 'orders'])->name('orders');
+        Route::patch('/orders/{order}/status', [AdminPageController::class, 'updateItemStatus'])->name('orders.updateStatus');
         Route::get('/payments', [AdminPageController::class, 'payments'])->name('payments');
         Route::get('/settings', [AdminPageController::class, 'settings'])->name('settings');
         Route::get('/users', [AdminPageController::class, 'users'])->name('users');
