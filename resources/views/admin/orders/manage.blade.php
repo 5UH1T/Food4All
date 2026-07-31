@@ -95,14 +95,7 @@
                                 </td>
 
                                 <td class="p-3">
-                                    {{-- Rs. {{ number_format($product->price, 2) }} --}}
-                                    @php
-                                        $total = 0;
-                                        foreach ($order->items as $item) {
-                                            $total += $item->total_price;
-                                        }
-                                    @endphp
-                                    Rs. {{ $total }}
+                                    Rs. {{ $order->items->sum('total_price') }}
                                 </td>
 
                                 <td class="p-3">

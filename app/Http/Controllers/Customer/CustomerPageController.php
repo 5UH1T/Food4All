@@ -45,8 +45,31 @@ class CustomerPageController extends Controller
         return view('customer.orders.manage', compact('orders'));
     }
 
-    public function donations()
-    {
-        return view('customer.donations.manage');
-    }
+public function donations(Request $request)
+{
+    $search = $request->query('search');
+    $status = $request->query('status');
+    $userId = Auth::id();
+
+    $orders = Order::where('user_id', $userId)
+        ->where('status', '!=', 'cancelled')
+        ->whereHas('items', function ($query) {
+            $query->where('donation_quantity', '>', 0);
+        })
+        ->when($search, function ($query) use ($search) {
+            $query->where('id', 'LIKE', "%{$search}%");
+        })
+        ->when($status, function ($query) use ($status) {
+            $query->where('status', $status);
+        })
+        ->with([
+            'user',
+            'items.product'
+        ])
+        ->orderByDesc('updated_at')
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('customer.donations.manage', compact('orders'));
+}
 }
