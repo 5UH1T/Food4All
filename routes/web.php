@@ -108,14 +108,10 @@ Route::middleware(['auth', 'verified', 'rolemanager:customer'])
     ->name('customer.')
     ->group(function () {
         Route::get('/orders', [CustomerPageController::class, 'orders'])->name('orders');
-        Route::get('/payments', [CustomerPageController::class, 'payments'])->name('payments');
+        Route::get('/stats', [CustomerPageController::class, 'stats'])->name('stats');
         Route::get('/donations', [CustomerPageController::class, 'donations'])->name('donations');
-        // Route::get('/', [CustomerPageController::class, 'profile'])->name('profile');
-        Route::get('/', [CustomerProfileController::class, 'edit'])
-            ->name('profile');
-
-        Route::put('/', [CustomerProfileController::class, 'update'])
-            ->name('updateProfile');
+        Route::get('/', [CustomerProfileController::class, 'edit'])->name('profile');
+        Route::put('/', [CustomerProfileController::class, 'update'])->name('updateProfile');
 });
 
 // Route::get('/vendor/dashboard', function () {

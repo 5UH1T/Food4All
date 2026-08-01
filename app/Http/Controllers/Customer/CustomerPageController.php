@@ -16,9 +16,9 @@ class CustomerPageController extends Controller
         return view('customer.profile');
     }
 
-    public function payments()
+    public function stats()
     {
-        return view('customer.payments.manage');
+        return view('customer.stats.manage');
     }
 
     public function orders(Request $request)
@@ -45,31 +45,51 @@ class CustomerPageController extends Controller
         return view('customer.orders.manage', compact('orders'));
     }
 
-public function donations(Request $request)
-{
-    $search = $request->query('search');
-    $status = $request->query('status');
-    $userId = Auth::id();
+    public function donations(Request $request)
+    {
+        $search = $request->search;
+        $filterDate = $request->filterDate;
+        $userId = Auth::id();
 
-    $orders = Order::where('user_id', $userId)
-        ->where('status', '!=', 'cancelled')
-        ->whereHas('items', function ($query) {
-            $query->where('donation_quantity', '>', 0);
-        })
-        ->when($search, function ($query) use ($search) {
+        $query = Order::where('user_id', $userId)
+            ->where('status', '!=', 'cancelled')
+            ->whereHas('items', function ($query) {
+                $query->where('donation_quantity', '>', 0);
+            });
+
+        // Search by Order ID
+        if ($search) {
             $query->where('id', 'LIKE', "%{$search}%");
-        })
-        ->when($status, function ($query) use ($status) {
-            $query->where('status', $status);
-        })
-        ->with([
-            'user',
-            'items.product'
-        ])
-        ->orderByDesc('updated_at')
-        ->paginate(10)
-        ->withQueryString();
+        }
 
-    return view('customer.donations.manage', compact('orders'));
-}
+        // Filter by date
+        if ($filterDate == 'today') {
+            $query->whereDate('created_at', today());
+        } elseif ($filterDate == 'week') {
+            $query->whereBetween('created_at', [
+                now()->startOfWeek(),
+                now()->endOfWeek(),
+            ]);
+        } elseif ($filterDate == 'month') {
+            $query->whereBetween('created_at', [
+                now()->startOfMonth(),
+                now()->endOfMonth(),
+            ]);
+        } elseif ($filterDate == 'year') {
+            $query->whereBetween('created_at', [
+                now()->startOfYear(),
+                now()->endOfYear(),
+            ]);
+        }
+
+        $orders = $query->with([
+                'user',
+                'items.product'
+            ])
+            ->orderByDesc('updated_at')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('customer.donations.manage', compact('orders'));
+    }
 }

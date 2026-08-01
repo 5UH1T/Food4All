@@ -66,10 +66,10 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="{{ route('customer.payments') }}"
-                            class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('customer.payments') ? 'active' : '' }}">
-                            <i class="fa-solid fa-receipt"></i>
-                            <span>Payments</span>
+                        <a href="{{ route('customer.stats') }}"
+                            class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('customer.stats') ? 'active' : '' }}">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Stats</span>
                         </a>
                     </li>
                 </ul>

@@ -38,16 +38,14 @@
                 <input type="hidden" name="search" value="{{ request('search') }}">
             @endif
 
-            <select name="status" onchange="this.form.submit()"
+            <select name="filterDate" onchange="this.form.submit()"
                 class="form-control w-100 pr-[40px] rounded-lg appearance-none cursor-pointer">
-                <option value="" selected disabled>-- Filter By Status --</option>
-                <option value="">All Orders</option>
-                <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-                <option value="confirmed" {{ request('status') == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
-                <option value="prepared" {{ request('status') == 'prepared' ? 'selected' : '' }}>Prepared</option>
-                <option value="ready" {{ request('status') == 'ready' ? 'selected' : '' }}>Ready to Pickup</option>
-                <option value="picked" {{ request('status') == 'picked' ? 'selected' : '' }}>Picked Up</option>
-                <option value="delivered" {{ request('status') == 'delivered' ? 'selected' : '' }}>Delivered</option>
+                <option value="" selected disabled>-- Filter By Date --</option>
+                <option value="">All Donations</option>
+                <option value="today" {{ request('filterDate') == 'today' ? 'selected' : '' }}>Today</option>
+                <option value="week" {{ request('filterDate') == 'week' ? 'selected' : '' }}>This Week</option>
+                <option value="month" {{ request('filterDate') == 'month' ? 'selected' : '' }}>This Month</option>
+                <option value="year" {{ request('filterDate') == 'year' ? 'selected' : '' }}>This Year</option>
             </select>
         </form>
     </div>
