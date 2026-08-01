@@ -85,7 +85,7 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item">
+                    {{-- <li class="sidebar-item">
                         <a href="{{ route('admin.payments') }}"
                             class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('admin.payments') ? 'active' : '' }}">
                             <i class="fa-solid fa-receipt"></i>
@@ -107,7 +107,7 @@
                             <i class="fa-solid fa-gear"></i>
                             <span>Settings</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </nav>

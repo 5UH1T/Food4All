@@ -17,11 +17,6 @@ class AdminPageController extends Controller
         return view('admin.attributes.manage');
     }
 
-    public function donations()
-    {
-        return view('admin.donations.manage');
-    }
-
     public function categories(Request $request)
     {
         $search = $request->query('search');
@@ -86,6 +81,54 @@ class AdminPageController extends Controller
             return back()->with('success', 'Order marked as Delivered.');
         else
             return back()->with('error', 'Updating order status failed');
+    }
+
+    public function donations(Request $request)
+    {
+        $search = $request->search;
+        $filterDate = $request->filterDate;
+
+        $query = Order::where('status', '!=', 'cancelled')
+            ->whereHas('items', function ($query) {
+                $query->where('donation_quantity', '>', 0);
+            });
+
+        // Search by Order ID
+        if ($search) {
+            $query->where('id', 'LIKE', "%{$search}%");
+        }
+
+        // Filter by date
+        if ($filterDate == 'today') {
+            $query->whereDate('created_at', today());
+        } elseif ($filterDate == 'week') {
+            $query->whereBetween('created_at', [
+                now()->startOfWeek(),
+                now()->endOfWeek(),
+            ]);
+        } elseif ($filterDate == 'month') {
+            $query->whereBetween('created_at', [
+                now()->startOfMonth(),
+                now()->endOfMonth(),
+            ]);
+        } elseif ($filterDate == 'year') {
+            $query->whereBetween('created_at', [
+                now()->startOfYear(),
+                now()->endOfYear(),
+            ]);
+        }
+
+        $orders = $query->with([
+                'user',
+                'items' => function ($query) {
+                    $query->where('donation_quantity', '>', 0)->with('product');
+                }
+            ])
+            ->orderByDesc('updated_at')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('admin.donations.manage', compact('orders'));
     }
 
 
