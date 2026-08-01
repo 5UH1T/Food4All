@@ -95,11 +95,6 @@ class VendorPageController extends Controller
         return back()->with('success', 'Order marked as Prepared.');
     }
 
-    public function payments()
-    {
-        return view('vendor.payments.manage');
-    }
-
     public function createProducts()
     {
         $categories = Category::select('id','category_name')->where('status', 'published')->select('id', 'category_name')->get();
@@ -206,6 +201,62 @@ class VendorPageController extends Controller
         return redirect()
             ->back()
             ->with('success', 'Product deleted successfully.');
+    }
+
+    public function donations(Request $request)
+    {
+        $search = $request->search;
+        $filterDate = $request->filterDate;
+        $vendorId = Auth::id();
+
+        $query = Order::where('status', '!=', 'cancelled')
+            ->whereHas('items', function ($query) use ($vendorId) {
+            $query->where('donation_quantity', '>', 0)
+                ->whereHas('product', function ($q) use ($vendorId) {
+                    $q->where('vendor_id', $vendorId);
+                });
+        });
+
+        // Search by Order ID
+        if ($search) {
+            $query->where('id', 'LIKE', "%{$search}%");
+        }
+
+        // Filter by date
+        if ($filterDate == 'today') {
+            $query->whereDate('created_at', today());
+        } elseif ($filterDate == 'week') {
+            $query->whereBetween('created_at', [
+                now()->startOfWeek(),
+                now()->endOfWeek(),
+            ]);
+        } elseif ($filterDate == 'month') {
+            $query->whereBetween('created_at', [
+                now()->startOfMonth(),
+                now()->endOfMonth(),
+            ]);
+        } elseif ($filterDate == 'year') {
+            $query->whereBetween('created_at', [
+                now()->startOfYear(),
+                now()->endOfYear(),
+            ]);
+        }
+
+        $orders = $query->with([
+                'user',
+                'items' => function ($query) use ($vendorId) {
+                    $query->where('donation_quantity', '>', 0)
+                        ->whereHas('product', function ($q) use ($vendorId) {
+                            $q->where('vendor_id', $vendorId);
+                        })
+                        ->with('product');
+                }
+            ])
+            ->orderByDesc('updated_at')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('vendor.donations.manage', compact('orders'));
     }
 
     public function index()

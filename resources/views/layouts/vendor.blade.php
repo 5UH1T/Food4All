@@ -89,10 +89,10 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="{{ route('vendor.payments') }}"
-                            class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('vendor.payments') ? 'active' : '' }}">
-                            <i class="fa-solid fa-receipt"></i>
-                            <span>Payments</span>
+                        <a href="{{ route('vendor.donations') }}"
+                            class="sidebar-link rounded-lg d-flex align-items-center gap-1 px-4 py-3 {{ request()->routeIs('vendor.donations') ? 'active' : '' }}">
+                            <i class="fa-solid fa-gift"></i>
+                            <span>Donations</span>
                         </a>
                     </li>
 
