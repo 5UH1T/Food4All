@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\User;
 
 class AdminPageController extends Controller
 {
@@ -152,9 +153,22 @@ class AdminPageController extends Controller
         return view('admin.users.manage');
     }
 
-    public function vendors()
+    public function vendors(Request $request)
     {
-        return view('admin.vendors.manage');
+        $search = $request->query('search');
+
+        $vendors = User::query()
+            ->where('role',1)
+            ->when($search, function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")
+                    ->orWhereHas('vendorProfile', function ($q) use ($search) {
+                        $q->where('address', 'LIKE', "%{$search}%");
+                    });
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+        return view('admin.vendors.manage',compact('vendors'));
     }
 
 

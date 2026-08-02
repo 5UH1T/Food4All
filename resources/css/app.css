@@ -23,6 +23,10 @@ html, body {
     @apply text-white
 }
 
+.vendor-desc p {
+    @apply text-gray-600 text-[15px] italic
+}
+
 .navbar {
     padding: 1rem !important;
 }
