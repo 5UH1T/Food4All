@@ -3,7 +3,6 @@
     Users - Admin
 @endsection
 @section('admin_content')
-    @include('components.admin.users.viewModal')
 
     <h2 class="text-center mb-5">All Users</h2>
     <div class="mb-3 d-flex align-items-center justify-content-end w-100">

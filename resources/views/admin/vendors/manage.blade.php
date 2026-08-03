@@ -3,7 +3,6 @@
     Vendors - Admin
 @endsection
 @section('admin_content')
-    @include('components.admin.vendors.viewModal')
 
     <h2 class="text-center mb-5">All Vendors</h2>
     <div class="mb-3 d-flex align-items-center justify-content-end w-100">

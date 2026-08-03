@@ -14,6 +14,7 @@
             @endif
         });
     </script>
+    <h2 class="text-center mb-5">All Orders</h2>
     <div class="w-full flex flex-row-reverse items-center justify-between mb-10">
         <form method="GET" class="form-outline relative border-1 border-slate-500 rounded-lg overflow-hidden w-[300px]">
             <input type="search" name="search" required placeholder="Search by Order Number" value="{{ request('search') }}"
