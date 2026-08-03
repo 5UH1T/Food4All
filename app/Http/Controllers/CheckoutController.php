@@ -10,7 +10,10 @@ use App\Http\Controllers\EsewaController;
 class CheckoutController extends Controller
 {
     public function store()
-    {
+    {   
+        if(Auth::user()->role !== 2) {
+            return back()->with('error', 'Order can only be placed by Users');
+        }
         $cart = Auth::user()
             ->cart()
             ->with('items.product')

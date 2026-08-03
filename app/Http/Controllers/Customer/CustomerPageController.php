@@ -11,10 +11,6 @@ use App\Models\Order;
 
 class CustomerPageController extends Controller
 {
-    public function profile()
-    {
-        return view('customer.profile');
-    }
 
     public function stats()
     {
