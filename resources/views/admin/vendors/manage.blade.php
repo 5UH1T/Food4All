@@ -132,10 +132,10 @@
                     <div class="modal-header border-bottom bg-white px-4 py-3">
 
                         <div class="d-flex align-items-center gap-3">
-
-                            <img src="https://i.pravatar.cc/120?img=12" alt="Vendor" class="rounded-circle border"
-                                width="60" height="60" style="object-fit: cover;">
-
+                            @if ($vendor->vendorProfile->avatar)
+                                <img src="{{ Storage::url($vendor->vendorProfile->avatar) }}" alt="Vendor"
+                                    class="rounded-circle border w-16 h-16" style="object-fit: cover;">
+                            @endif
                             <div>
                                 <h5 class="modal-title fw-semibold mb-1" id="vendorProfileModalLabel">
                                     {{ $vendor->name }}

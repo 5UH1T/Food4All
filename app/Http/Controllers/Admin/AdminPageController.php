@@ -148,9 +148,19 @@ class AdminPageController extends Controller
         return view('admin.settings');
     }
 
-    public function users()
+    public function users(Request $request)
     {
-        return view('admin.users.manage');
+        $search = $request->query('search');
+
+        $users = User::query()
+            ->where('role',2)
+            ->when($search, function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%");
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+        return view('admin.users.manage', compact('users'));
     }
 
     public function vendors(Request $request)
