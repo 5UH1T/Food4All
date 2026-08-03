@@ -178,7 +178,11 @@
                                     </h6>
 
                                     <div class="text-muted mb-0 vendor-desc">
-                                        {!! $vendor->vendorProfile->description !!}
+                                        @if ($vendor->vendorProfile->description)
+                                            {!! $vendor->vendorProfile->description !!}
+                                        @else
+                                            No description available
+                                        @endif
                                     </div>
 
                                 </div>

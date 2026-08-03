@@ -11,6 +11,23 @@ html, body {
     overflow:  auto !important;
 }
 
+/* Width of the scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* The draggable thumb */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 999px;
+}
+
+/* Optional hover effect */
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
 .globe-icon {
     @apply text-[#495057] text-2xl duration-100 hover:text-[#3B7DDD]
 }
