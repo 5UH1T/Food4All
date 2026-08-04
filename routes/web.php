@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Vendor\VendorPageController;
+use App\Http\Controllers\Vendor\VendorDashboardController;
 use App\Http\Controllers\Vendor\VendorProfileController;
 use App\Http\Controllers\Customer\CustomerProfileController;
 use App\Http\Controllers\Customer\CustomerPageController;
@@ -81,7 +82,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:vendor'])
     ->group(function () {
 
         Route::get('/products/create', [VendorPageController::class, 'createProducts'])->name('createProducts');
-        Route::get('/', [VendorPageController::class, 'index'])->name('dashboard');
+        Route::get('/', [VendorDashboardController::class, 'index'])->name('dashboard');
         Route::get('/orders', [VendorPageController::class, 'orders'])->name('orders');
         Route::patch('/orders/{order}/status', [VendorPageController::class, 'updateItemStatus'])->name('orders.updateStatus');
         Route::get('/donations', [VendorPageController::class, 'donations'])->name('donations');

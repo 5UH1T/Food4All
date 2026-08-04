@@ -258,15 +258,4 @@ class VendorPageController extends Controller
 
         return view('vendor.donations.manage', compact('orders'));
     }
-
-    public function index()
-    {
-        return view('vendor.dashboard');
-    }
-
-    public function settings()
-    {
-        return view('vendor.settings');
-    }
-
 }
