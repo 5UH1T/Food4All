@@ -34,12 +34,12 @@
                                     </div>
                                 </div>
 
-                                {{-- Total Sales --}}
+                                {{-- Total Revenue --}}
                                 <div class="col-sm-4">
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <h5 class="card-title">Sales</h5>
+                                                <h5 class="card-title">Total Revenue</h5>
                                                 <span class="stat text-primary" style="width: 30px; height: 30px;">
                                                     <i class="fa-solid fa-dollar-sign"></i>
                                                 </span>
@@ -109,12 +109,12 @@
                         </div>
                     </div>
 
-                    {{-- Monthly Sales --}}
+                    {{-- Monthly Revenue --}}
                     <div class="col-xl-5">
                         <div class="card flex-fill w-100">
                             <div class="card-header">
 
-                                <h5 class="card-title mb-0">Monthly Sales</h5>
+                                <h5 class="card-title mb-0">Monthly Revenue</h5>
                             </div>
                             <div class="card-body py-3">
                                 <div class="chart chart-sm">
@@ -168,12 +168,12 @@
                         </div>
                     </div>
 
-                    {{-- Monthly Unit Sales --}}
+                    {{-- Monthly Sales --}}
                     <div class="col-12 col-lg-4 col-xxl-4 d-flex">
                         <div class="card flex-fill w-100">
                             <div class="card-header">
 
-                                <h5 class="card-title mb-0">Unit Sales</h5>
+                                <h5 class="card-title mb-0">Monthly Sales</h5>
                             </div>
                             <div class="card-body d-flex w-100">
                                 <div class="align-self-center chart chart-lg">
@@ -397,7 +397,7 @@
                         "Dec"
                     ],
                     datasets: [{
-                        label: "Total Sales",
+                        label: "Units Sold",
                         backgroundColor: window.theme.primary,
                         borderColor: window.theme.primary,
                         hoverBackgroundColor: window.theme.light,
