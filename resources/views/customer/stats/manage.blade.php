@@ -17,16 +17,11 @@
                             <div class="col-sm-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col mt-0">
-                                                <h5 class="card-title">Items Purchased</h5>
-                                            </div>
-
-                                            <div class="col-auto">
-                                                <div class="stat text-primary">
-                                                    <i class="fa-solid fa-plate-wheat"></i>
-                                                </div>
-                                            </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="card-title">Items Purchased</h5>
+                                            <span class="stat text-primary" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-utensils"></i>
+                                            </span>
                                         </div>
                                         <h2 class="mt-1 mb-3">{{ $stats['products'] }}</h2>
                                     </div>
@@ -37,16 +32,11 @@
                             <div class="col-sm-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col mt-0">
-                                                <h5 class="card-title">Stores Explored</h5>
-                                            </div>
-
-                                            <div class="col-auto">
-                                                <div class="stat text-primary">
-                                                    <i class="fa-solid fa-shop"></i>
-                                                </div>
-                                            </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="card-title">Stores Explored</h5>
+                                            <span class="stat text-primary" style="width: 40px; height: 40px;">
+                                                <i class="fa-solid fa-shop"></i>
+                                            </span>
                                         </div>
                                         <h2 class="mt-1 mb-3">{{ $stats['stores'] }}</h2>
                                     </div>
@@ -57,16 +47,11 @@
                             <div class="col-sm-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col mt-0">
-                                                <h5 class="card-title">Successful Orders</h5>
-                                            </div>
-
-                                            <div class="col-auto">
-                                                <div class="stat text-primary">
-                                                    <i class="fa-solid fa-basket-shopping"></i>
-                                                </div>
-                                            </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="card-title">Successful Orders</h5>
+                                            <span class="stat text-primary" style="width: 40px; height: 40px;">
+                                                <i class="fa-solid fa-basket-shopping"></i>
+                                            </span>
                                         </div>
                                         <h2 class="mt-1 mb-3">{{ $stats['orders'] || '0' }}</h2>
                                         <div class="mb-0">
@@ -83,16 +68,11 @@
                             <div class="col-sm-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col mt-0">
-                                                <h5 class="card-title">Ordered Amount</h5>
-                                            </div>
-
-                                            <div class="col-auto">
-                                                <div class="stat text-primary">
-                                                    <i class="fa-solid fa-dollar-sign"></i>
-                                                </div>
-                                            </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="card-title">Ordered Amount</h5>
+                                            <span class="stat text-primary" style="width: 40px; height: 40px;">
+                                                <i class="fa-solid fa-dollar-sign"></i>
+                                            </span>
                                         </div>
                                         <h2 class="mt-1 mb-3">Rs {{ $stats['order_amount'] }}</h2>
                                         <div class="mb-0">
@@ -114,18 +94,12 @@
                             <div class="col-sm-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col mt-0">
-                                                <h5 class="card-title">Donated Amount</h5>
-                                            </div>
-
-                                            <div class="col-auto">
-                                                <div class="stat text-primary">
-                                                    <i class="fa-solid fa-gift"></i>
-                                                </div>
-                                            </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="card-title">Donated Amount</h5>
+                                            <span class="stat text-primary" style="width: 40px; height: 40px;">
+                                                <i class="fa-solid fa-gift"></i>
+                                            </span>
                                         </div>
-
                                         <h2 class="mt-1 mb-3">Rs. {{ $stats['donation'] }}</h2>
                                         <div class="mb-0">
                                             @if ($analysis['donation'])

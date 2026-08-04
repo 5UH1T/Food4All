@@ -18,16 +18,11 @@
                                 <div class="col-sm-4">
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="row">
-                                                <div class="col mt-0">
-                                                    <h5 class="card-title">Orders</h5>
-                                                </div>
-
-                                                <div class="col-auto">
-                                                    <div class="stat text-primary">
-                                                        <i class="align-middle" data-feather="truck"></i>
-                                                    </div>
-                                                </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h5 class="card-title">Orders</h5>
+                                                <span class="stat text-primary" style="width: 30px; height: 30px;">
+                                                    <i class="fa-solid fa-basket-shopping"></i>
+                                                </span>
                                             </div>
                                             <h2 class="mt-1 mb-3">1350</h2>
                                             <div class="mb-0">
@@ -43,16 +38,11 @@
                                 <div class="col-sm-4">
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="row">
-                                                <div class="col mt-0">
-                                                    <h5 class="card-title">Sales</h5>
-                                                </div>
-
-                                                <div class="col-auto">
-                                                    <div class="stat text-primary">
-                                                        <i class="align-middle" data-feather="users"></i>
-                                                    </div>
-                                                </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h5 class="card-title">Sales</h5>
+                                                <span class="stat text-primary" style="width: 30px; height: 30px;">
+                                                    <i class="fa-solid fa-dollar-sign"></i>
+                                                </span>
                                             </div>
                                             <h2 class="mt-1 mb-3">Rs. 15000</h2>
                                             <div class="mb-0">
@@ -68,16 +58,11 @@
                                 <div class="col-sm-4">
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="row">
-                                                <div class="col mt-0">
-                                                    <h5 class="card-title">Customers</h5>
-                                                </div>
-
-                                                <div class="col-auto">
-                                                    <div class="stat text-primary">
-                                                        <i class="align-middle" data-feather="shopping-cart"></i>
-                                                    </div>
-                                                </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h5 class="card-title">Customers</h5>
+                                                <span class="stat text-primary" style="width: 30px; height: 30px;">
+                                                    <i class="fas fa-users"></i>
+                                                </span>
                                             </div>
                                             <h2 class="mt-1 mb-3">264</h2>
                                             <div class="mb-0">
@@ -93,16 +78,11 @@
                                 <div class="">
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="row">
-                                                <div class="col mt-0">
-                                                    <h5 class="card-title">Top Selling Products</h5>
-                                                </div>
-
-                                                <div class="col-auto">
-                                                    <div class="stat text-primary">
-                                                        <i class="align-middle" data-feather="dollar-sign"></i>
-                                                    </div>
-                                                </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h5 class="card-title">Top Selling Products</h5>
+                                                <span class="stat text-primary" style="width: 30px; height: 30px;">
+                                                    <i class="fas fa-utensils"></i>
+                                                </span>
                                             </div>
                                             <table class="table mt-2 align-middle">
                                                 <tr>
@@ -176,6 +156,10 @@
                                             <tr>
                                                 <td>Cancelled</td>
                                                 <td class="text-end">209</td>
+                                            </tr>
+                                            <tr class="fw-bold">
+                                                <td>Total</td>
+                                                <td class="text-end">969</td>
                                             </tr>
                                         </tbody>
                                     </table>
