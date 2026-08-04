@@ -24,7 +24,7 @@
                                                     <i class="fa-solid fa-basket-shopping"></i>
                                                 </span>
                                             </div>
-                                            <h2 class="mt-1 mb-3">1350</h2>
+                                            <h2 class="mt-1 mb-3">{{ $stats['orders'] }}</h2>
                                             <div class="mb-0">
                                                 <small class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
                                                     -3.65% </small>
@@ -44,7 +44,7 @@
                                                     <i class="fa-solid fa-dollar-sign"></i>
                                                 </span>
                                             </div>
-                                            <h2 class="mt-1 mb-3">Rs. 15000</h2>
+                                            <h2 class="mt-1 mb-3">Rs. {{ $stats['revenue'] }}</h2>
                                             <div class="mb-0">
                                                 <small class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i>
                                                     5.25% </small>
@@ -64,7 +64,7 @@
                                                     <i class="fas fa-users"></i>
                                                 </span>
                                             </div>
-                                            <h2 class="mt-1 mb-3">264</h2>
+                                            <h2 class="mt-1 mb-3">{{ $stats['customers'] }}</h2>
                                             <div class="mb-0">
                                                 <small class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
                                                     -2.25% </small>
@@ -85,21 +85,16 @@
                                                 </span>
                                             </div>
                                             <table class="table mt-2 align-middle">
-                                                <tr>
-                                                    <td class="p-1 fw-bold">1</td>
-                                                    <td class="p-1 fw-bold">Chicken Mo:Mo</td>
-                                                    <td class="p-1 fw-bold text-end">1300 units</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="p-1 fw-bold">2</td>
-                                                    <td class="p-1 fw-bold">Pizza</td>
-                                                    <td class="p-1 fw-bold text-end">1204 units</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="p-1 fw-bold">3</td>
-                                                    <td class="p-1 fw-bold">Naan</td>
-                                                    <td class="p-1 fw-bold text-end">112 units</td>
-                                                </tr>
+                                                @forelse($stats['top'] as $index => $item)
+                                                    <tr>
+                                                        <td class="p-1 fw-bold">{{ $loop->iteration }}</td>
+                                                        <td class="p-1 fw-bold">{{ $item['product']->title }}</td>
+                                                        <td class="p-1 fw-bold text-end">{{ $item['sales'] }} units
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <span>No Products Found</span>
+                                                @endforelse
                                             </table>
                                         </div>
                                     </div>
@@ -147,19 +142,21 @@
                                         <tbody>
                                             <tr>
                                                 <td>Completed</td>
-                                                <td class="text-end">460</td>
+                                                <td class="text-end">{{ $stats['complete'] }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Pending</td>
-                                                <td class="text-end">300</td>
+                                                <td class="text-end">{{ $stats['pending'] }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Cancelled</td>
-                                                <td class="text-end">209</td>
+                                                <td class="text-end">{{ $stats['cancel'] }}</td>
                                             </tr>
                                             <tr class="fw-bold">
                                                 <td>Total</td>
-                                                <td class="text-end">969</td>
+                                                <td class="text-end">
+                                                    {{ $stats['complete'] + $stats['pending'] + $stats['cancel'] }}
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -366,7 +363,9 @@
                 data: {
                     labels: ["Completed", "Pending", "Cancelled"],
                     datasets: [{
-                        data: [460, 300, 209],
+                        data: [{{ $stats['complete'] }}, {{ $stats['pending'] }},
+                            {{ $stats['cancel'] }}
+                        ],
                         backgroundColor: [
                             window.theme.success,
                             window.theme.warning,
