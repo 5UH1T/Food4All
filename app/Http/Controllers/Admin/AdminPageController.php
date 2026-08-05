@@ -138,11 +138,6 @@ class AdminPageController extends Controller
         return view('admin.payments.manage');
     }
 
-    public function index()
-    {
-        return view('admin.dashboard');
-    }
-
     public function settings()
     {
         return view('admin.settings');

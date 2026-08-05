@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminPageController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Vendor\VendorPageController;
 use App\Http\Controllers\Vendor\VendorDashboardController;
@@ -61,7 +62,7 @@ Route::middleware(['auth', 'verified', 'rolemanager:admin'])
 
         Route::get('/attributes', [AdminPageController::class, 'attributes'])->name('attributes');
         Route::get('/categories', [AdminPageController::class, 'categories'])->name('categories');
-        Route::get('/', [AdminPageController::class, 'index'])->name('dashboard');
+        Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::get('/orders', [AdminPageController::class, 'orders'])->name('orders');
         Route::patch('/orders/{order}/status', [AdminPageController::class, 'updateItemStatus'])->name('orders.updateStatus');
         Route::get('/payments', [AdminPageController::class, 'payments'])->name('payments');
