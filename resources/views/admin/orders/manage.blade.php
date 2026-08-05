@@ -315,7 +315,7 @@
                                                             {{ number_format($item->total_price / $item->quantity, 2) }}
                                                         </td>
                                                         <td class="fw-semibold">
-                                                            {{ $item->quantity - $item->donation_quantity }}</td>
+                                                            {{ $item->quantity }}</td>
                                                         <td>{{ $item->donation_quantity }}</td>
                                                         <td class="fw-semibold">
                                                             Rs. {{ $item->total_price }}
