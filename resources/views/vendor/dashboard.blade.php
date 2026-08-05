@@ -5,7 +5,6 @@
 @section('vendor_content')
     <div class="">
         <div class="container-fluid p-0">
-
             <h2 class="mb-5">Analytics Dashboard</h1>
 
                 <div class="row">
@@ -25,11 +24,25 @@
                                                 </span>
                                             </div>
                                             <h2 class="mt-1 mb-3">{{ $stats['orders'] }}</h2>
-                                            <div class="mb-0">
-                                                <small class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
-                                                    -3.65% </small>
-                                                <small class="text-muted">Since last month</small>
-                                            </div>
+                                            @if ($stats['salesF'])
+                                                @if ($stats['salesF'] > 0)
+                                                    <div class="mb-0">
+                                                        <small class="text-success"> <i
+                                                                class="mdi mdi-arrow-bottom-right"></i>
+                                                            {{ $stats['salesF'] }}% </small>
+                                                        <small class="text-muted">Since last month</small>
+                                                    </div>
+                                                @else
+                                                    <div class="mb-0">
+                                                        <small class="text-danger"> <i
+                                                                class="mdi mdi-arrow-bottom-right"></i>
+                                                            {{ $stats['salesF'] }}% </small>
+                                                        <small class="text-muted">Since last month</small>
+                                                    </div>
+                                                @endif
+                                            @else
+                                                <small class="text-success">New</small>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -45,11 +58,25 @@
                                                 </span>
                                             </div>
                                             <h2 class="mt-1 mb-3">Rs. {{ $stats['revenue'] }}</h2>
-                                            <div class="mb-0">
-                                                <small class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i>
-                                                    5.25% </small>
-                                                <small class="text-muted">Since last month</small>
-                                            </div>
+                                            @if ($stats['revenueF'])
+                                                @if ($stats['revenueF'] > 0)
+                                                    <div class="mb-0">
+                                                        <small class="text-success"> <i
+                                                                class="mdi mdi-arrow-bottom-right"></i>
+                                                            {{ $stats['revenueF'] }}% </small>
+                                                        <small class="text-muted">Since last month</small>
+                                                    </div>
+                                                @else
+                                                    <div class="mb-0">
+                                                        <small class="text-danger"> <i
+                                                                class="mdi mdi-arrow-bottom-right"></i>
+                                                            {{ $stats['revenueF'] }}% </small>
+                                                        <small class="text-muted">Since last month</small>
+                                                    </div>
+                                                @endif
+                                            @else
+                                                <small class="text-success">New</small>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -66,8 +93,8 @@
                                             </div>
                                             <h2 class="mt-1 mb-3">{{ $stats['customers'] }}</h2>
                                             <div class="mb-0">
-                                                <small class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>
-                                                    -2.25% </small>
+                                                <small class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i>
+                                                    +{{ $stats['uniqueUser'] }} </small>
                                                 <small class="text-muted">Since last month</small>
                                             </div>
                                         </div>
@@ -203,76 +230,78 @@
                         <div class="card flex-fill">
                             <div class="card-header">
 
-                                <h5 class="card-title mb-0">Latest Projects</h5>
+                                <h5 class="card-title mb-0">Latest Orders</h5>
                             </div>
-                            <table class="table table-hover my-0">
-                                <thead>
+                            <table class="w-full text-left">
+
+                                <thead class="bg-gray-50 border-b border-gray-100">
                                     <tr>
-                                        <th>Name</th>
-                                        <th class="d-none d-xl-table-cell">Start Date</th>
-                                        <th class="d-none d-xl-table-cell">End Date</th>
-                                        <th>Status</th>
-                                        <th class="d-none d-md-table-cell">Assignee</th>
+                                        <th class="p-3">S.N.</th>
+                                        <th class="p-3">Order ID</th>
+                                        <th class="p-3">Ordered By</th>
+                                        <th class="p-3">Amount</th>
+                                        <th class="p-3">Date</th>
+                                        <th class="p-3 text-center">Status</th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
-                                    <tr>
-                                        <td>Project Apollo</td>
-                                        <td class="d-none d-xl-table-cell">01/01/2023</td>
-                                        <td class="d-none d-xl-table-cell">31/06/2023</td>
-                                        <td><span class="badge bg-success">Done</span></td>
-                                        <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Project Fireball</td>
-                                        <td class="d-none d-xl-table-cell">01/01/2023</td>
-                                        <td class="d-none d-xl-table-cell">31/06/2023</td>
-                                        <td><span class="badge bg-danger">Cancelled</span></td>
-                                        <td class="d-none d-md-table-cell">William Harris</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Project Hades</td>
-                                        <td class="d-none d-xl-table-cell">01/01/2023</td>
-                                        <td class="d-none d-xl-table-cell">31/06/2023</td>
-                                        <td><span class="badge bg-success">Done</span></td>
-                                        <td class="d-none d-md-table-cell">Sharon Lessman</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Project Nitro</td>
-                                        <td class="d-none d-xl-table-cell">01/01/2023</td>
-                                        <td class="d-none d-xl-table-cell">31/06/2023</td>
-                                        <td><span class="badge bg-warning">In progress</span></td>
-                                        <td class="d-none d-md-table-cell">Vanessa Tucker</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Project Phoenix</td>
-                                        <td class="d-none d-xl-table-cell">01/01/2023</td>
-                                        <td class="d-none d-xl-table-cell">31/06/2023</td>
-                                        <td><span class="badge bg-success">Done</span></td>
-                                        <td class="d-none d-md-table-cell">William Harris</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Project X</td>
-                                        <td class="d-none d-xl-table-cell">01/01/2023</td>
-                                        <td class="d-none d-xl-table-cell">31/06/2023</td>
-                                        <td><span class="badge bg-success">Done</span></td>
-                                        <td class="d-none d-md-table-cell">Sharon Lessman</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Project Romeo</td>
-                                        <td class="d-none d-xl-table-cell">01/01/2023</td>
-                                        <td class="d-none d-xl-table-cell">31/06/2023</td>
-                                        <td><span class="badge bg-success">Done</span></td>
-                                        <td class="d-none d-md-table-cell">Christina Mason</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Project Wombat</td>
-                                        <td class="d-none d-xl-table-cell">01/01/2023</td>
-                                        <td class="d-none d-xl-table-cell">31/06/2023</td>
-                                        <td><span class="badge bg-warning">In progress</span></td>
-                                        <td class="d-none d-md-table-cell">William Harris</td>
-                                    </tr>
+
+                                    @if (!$allOrders || $allOrders->count() === 0)
+                                        <tr>
+                                            <td colspan="9" class="p-4 text-center fw-semibold">
+                                                No Orders Found
+                                            </td>
+                                        </tr>
+                                    @else
+                                        @foreach ($allOrders as $index => $order)
+                                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+
+                                                <td class="p-3">
+                                                    {{ 1 + $index }}
+                                                </td>
+
+                                                <td class="p-3 font-bold">
+                                                    #{{ $order->id }}
+                                                </td>
+
+                                                <td class="p-3">
+                                                    {{ $order->user->name }}
+                                                </td>
+
+                                                <td class="p-3">
+                                                    Rs. {{ $order->items->sum('total_price') }}
+                                                </td>
+
+                                                <td class="p-3">
+                                                    {{ \Carbon\Carbon::parse($order->created_at)->format('F j, Y') }}
+                                                </td>
+
+
+                                                <td class="p-3 text-center">
+                                                    @php
+                                                        $status = $order->items->first()?->item_status;
+                                                    @endphp
+                                                    <div class="dropdown flex items-center justify-center gap-2">
+                                                        <span @class([
+                                                            'px-3 py-1 rounded-full text-xs fw-semibold dropdown-toggle',
+                                                            'text-red-600 bg-red-100' => $status === 'cancelled',
+                                                            'text-blue-600 bg-blue-100' => $status === 'confirmed',
+                                                            'text-amber-600 bg-amber-100' => $status === 'prepared',
+                                                            'text-purple-600 bg-purple-100' => $status === 'ready',
+                                                            'text-indigo-600 bg-indigo-100' => $status === 'picked',
+                                                            'text-green-600 bg-green-100' => $status === 'delivered',
+                                                        ])>
+                                                            {{ $status === 'ready' ? 'Ready to Pickup' : ucfirst($status) }}
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
@@ -300,20 +329,21 @@
                         fill: true,
                         backgroundColor: gradient,
                         borderColor: window.theme.primary,
-                        data: [
-                            2115,
-                            1562,
-                            1584,
-                            1892,
-                            1587,
-                            1923,
-                            2566,
-                            2448,
-                            2805,
-                            3438,
-                            2917,
-                            3327
-                        ]
+                        // data: [
+                        //     2115,
+                        //     1562,
+                        //     1584,
+                        //     1892,
+                        //     1587,
+                        //     1923,
+                        //     2566,
+                        //     2448,
+                        //     2805,
+                        //     3438,
+                        //     2917,
+                        //     3327
+                        // ]
+                        data: {{ Js::from(array_values($chart_stats['revenue'])) }},
                     }]
                 },
                 options: {
@@ -341,7 +371,7 @@
                         }],
                         yAxes: [{
                             ticks: {
-                                stepSize: 1000
+                                stepSize: 5000
                             },
                             display: true,
                             borderDash: [3, 3],
@@ -401,7 +431,7 @@
                         borderColor: window.theme.primary,
                         hoverBackgroundColor: window.theme.light,
                         hoverBorderColor: window.theme.light,
-                        data: [240, 670, 410, 550, 620, 450, 550, 730, 600, 760, 480, 790],
+                        data: {{ Js::from(array_values($chart_stats['units'])) }},
                         barPercentage: .75,
                         categoryPercentage: .5
                     }]
