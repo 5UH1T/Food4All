@@ -19,13 +19,13 @@ html, body {
 
 /* The draggable thumb */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--fp-accent);
   border-radius: 999px;
 }
 
 /* Optional hover effect */
 ::-webkit-scrollbar-thumb:hover {
-  background: #666;
+  background: var(--fp-accent-orange);
 }
 
 .globe-icon {

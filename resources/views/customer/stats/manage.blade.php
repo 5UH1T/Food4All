@@ -53,7 +53,7 @@
                                                 <i class="fa-solid fa-basket-shopping"></i>
                                             </span>
                                         </div>
-                                        <h2 class="mt-1 mb-3">{{ $stats['orders'] || '0' }}</h2>
+                                        <h2 class="mt-1 mb-3">{{ $stats['orders'] }}</h2>
                                         <div class="mb-0">
                                             <small class="text-success">
                                                 +{{ $analysis['orders'] }}
