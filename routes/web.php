@@ -47,9 +47,7 @@ Route::delete('/cart/{id}', [CartController::class, 'destroy'])
 
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout');
 
-Route::get('/products', function () {
-    return view('product-category');
-});
+Route::get('/products', [GuestController::class, 'getProducts'])->name('all-products');
 
 Route::get('/product', function () {
     return view('product');

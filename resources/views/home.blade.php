@@ -44,7 +44,7 @@
                     <h1 class="display-3 fw-bold mb-3">Delicious Meals, Less Food Waste</h1>
                     <p class="lead mb-4 text-light">Fresh meals, bakery treats, and groceries at great prices - helping
                         reduce food waste with every order.</p>
-                    <a href="#" class="btn btn-warning rounded-pill px-4 py-2 fw-bold text-dark">Shop & Save
+                    <a href="/products" class="btn btn-warning rounded-pill px-4 py-2 fw-bold text-dark">Shop & Save
                         Food</a>
                 </div>
             </div>
