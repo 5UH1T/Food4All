@@ -22,6 +22,7 @@
 
 <body>
     @include('components.guest.navbar')
+    @include('components.scroll-to-top')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             @if (session('success'))

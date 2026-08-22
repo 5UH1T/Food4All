@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
 use App\Algorithms\Trie;
+use App\Models\Category;
 
 class GuestController extends Controller
 {
@@ -120,15 +121,98 @@ class GuestController extends Controller
         );
     }
 
-    public function getProducts() {
-        $products = Product::with('productImage')
-            ->where('status', 'published')
-            ->latest('updated_at')
-            ->take(16)
-            ->get();
+    public function getProducts(Request $request)
+    {
+        $search = $request->input('search');
+        $categories = $request->input('categories', []);
+        $minPrice = $request->input('min_price');
+        $maxPrice = $request->input('max_price');
 
-        $count = Product::with('productImage')->where('status', 'published')->count();
+        $sort = $request->input('sort', 'latest');
 
-        return view('all-products',compact('products','count'));
+        // Make sure categories is always an array
+        if (!is_array($categories)) {
+            $categories = [$categories];
+        }
+
+        // Only allow known sorting options
+        $allowedSorts = [
+            'latest',
+            'price_low',
+            'price_high',
+            'name_asc',
+            'name_desc',
+        ];
+
+        if (!in_array($sort, $allowedSorts)) {
+            $sort = 'latest';
+        }
+
+        $query = Product::query()
+            ->with([
+                'productImage',
+                'categories',
+            ])
+            ->where('status', 'published');
+
+        if ($search) {
+            $query->where('title', 'LIKE', '%' . $search . '%');
+        }
+
+        if (!empty($categories)) {
+            $query->whereIn('category_id', $categories);
+        }
+
+        if ($minPrice !== null && $minPrice !== '') {
+            $query->where('price', '>=', $minPrice);
+        }
+
+        if ($maxPrice !== null && $maxPrice !== '') {
+            $query->where('price', '<=', $maxPrice);
+        }
+
+        switch ($sort) {
+            case 'price_low':
+                $query->orderBy('price', 'asc');
+                break;
+
+            case 'price_high':
+                $query->orderBy('price', 'desc');
+                break;
+
+            case 'name_asc':
+                $query->orderBy('title', 'asc');
+                break;
+
+            case 'name_desc':
+                $query->orderBy('title', 'desc');
+                break;
+
+            case 'latest':
+            default:
+                $query->orderByDesc('updated_at');
+                break;
+        }
+
+        $products = $query
+            ->paginate(16)
+            ->withQueryString();
+
+        $categoryList = Category::where('status', 'published')
+            ->orderBy('category_name')
+            ->get(['id', 'category_name']);
+
+        $count = $products->total();
+
+        return view('all-products', compact(
+            'products',
+            'count',
+            'categoryList',
+            'search',
+            'categories',
+            'minPrice',
+            'maxPrice',
+            'sort'
+        ));
     }
 }
