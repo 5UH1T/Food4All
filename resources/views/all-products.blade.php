@@ -350,6 +350,16 @@
                                             </span>
                                         @endif
 
+                                        {{-- Stock --}}
+                                        <span @class([
+                                            'text-xs py-1 px-2 rounded ml-2',
+                                            'text-green-600 bg-green-100' => $product->stock > 0,
+                                            'text-red-600 bg-red-100' => $product->stock === 0,
+                                        ])>
+
+                                            {{ $product->stock }} available
+                                        </span>
+
 
                                         <div class="flex items-center justify-between mt-2">
 
@@ -371,13 +381,22 @@
 
 
                                             {{-- Add to cart --}}
-                                            <button type="button"
-                                                class="btn btn-dark rounded-circle !w-10 !h-10 !p-0"
-                                                onclick="addToCart({{ $product->id }})">
+                                            @if ($product->stock > 0)
+                                                <button type="button"
+                                                    class="btn btn-dark rounded-circle !w-10 !h-10 !p-0"
+                                                    onclick="addToCart({{ $product->id }})">
 
-                                                <i class="bi bi-plus-lg"></i>
+                                                    <i class="bi bi-plus-lg"></i>
 
-                                            </button>
+                                                </button>
+                                            @else
+                                                <button type="button"
+                                                    class="btn btn-dark rounded-circle !w-10 !h-10 !p-0" disabled>
+
+                                                    <i class="bi bi-plus-lg"></i>
+
+                                                </button>
+                                            @endif
 
                                         </div>
 

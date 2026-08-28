@@ -29,7 +29,7 @@
                 <div class="col-lg-6">
                     <div class="fp-product-image">
                         <img src="{{ asset($product->productImage->first()->image_path) }}" class="img-fluid rounded-4"
-                            alt="Margherita Pizza">
+                            alt="">
                     </div>
                 </div>
 
@@ -70,51 +70,62 @@
                     <!-- Category -->
                     <div class="mb-3">
                         <strong>Category :</strong>
-                        {{ $product->subCategories->sub_category_name }}
+                        <span class= 'text-sm py-1 px-2 rounded ml-2 text-orange-600 bg-orange-100'>
+                            {{ $product->subCategories->sub_category_name }}
+                        </span>
+
                     </div>
 
                     <div class="mb-4">
                         <strong>Availability :</strong>
 
-                        <span class="text-success fw-semibold">
-                            {{ $product->stock }} left
-                        </span>
+                        @if ($product->stock === 0)
+                            <span class="text-danger fw-semibold">
+                                Out of Stock
+                            </span>
+                        @else
+                            <span class="text-success fw-semibold">
+                                {{ $product->stock }} left
+                            </span>
+                        @endif
                     </div>
 
-                    <!-- Quantity -->
-                    <div class="d-flex align-items-center gap-3 mb-4">
+                    @if ($product->stock > 0)
+                        <!-- Quantity -->
+                        <div class="d-flex align-items-center gap-3 mb-4">
 
-                        <label class="fw-semibold">
-                            Quantity
-                        </label>
+                            <label class="fw-semibold">
+                                Quantity
+                            </label>
 
-                        <div class="quantity-box d-flex align-items-center">
-                            <button class="quantity-btn" type="button" id="decreaseQty">
-                                <i class="bi bi-dash"></i>
-                            </button>
+                            <div class="quantity-box d-flex align-items-center">
+                                <button class="quantity-btn" type="button" id="decreaseQty">
+                                    <i class="bi bi-dash"></i>
+                                </button>
 
-                            <input type="number" id="quantity" class="quantity-input" value="1" min="1"
-                                max="{{ $product->stock }}">
+                                <input type="number" id="quantity" class="quantity-input" value="1"
+                                    min="1" max="{{ $product->stock }}">
 
-                            <button class="quantity-btn" type="button" id="increaseQty">
-                                <i class="bi bi-plus"></i>
-                            </button>
+                                <button class="quantity-btn" type="button" id="increaseQty">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                            </div>
+
                         </div>
 
-                    </div>
+                        <!-- Buttons -->
+                        <div class="d-flex flex-wrap gap-3 mb-5">
 
-                    <!-- Buttons -->
-                    <div class="d-flex flex-wrap gap-3 mb-5">
+                            <button class="fp-btn-accent" onclick="addProductToCart({{ $product->id }})">
+                                Add to Cart
+                            </button>
 
-                        <button class="fp-btn-accent" onclick="addProductToCart({{ $product->id }})">
-                            Add to Cart
-                        </button>
+                            <button class="btn btn-dark rounded-pill px-4" onclick="buyNow({{ $product->id }})">
+                                Buy Now
+                            </button>
 
-                        <button class="btn btn-dark rounded-pill px-4" onclick="buyNow({{ $product->id }})">
-                            Buy Now
-                        </button>
-
-                    </div>
+                        </div>
+                    @endif
 
                     <!-- Extra Info -->
                     <div class="row g-3">

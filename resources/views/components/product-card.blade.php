@@ -20,15 +20,25 @@
                 </h5>
             </a>
 
-            <span @class([
-                'text-xs py-1 px-2 rounded',
-                'text-green-600 bg-green-100' =>
-                    $product->categories->category_name === 'Vegetarian',
-                ' text-orange-600 bg-orange-100' =>
-                    $product->categories->category_name !== 'Vegetarian',
-            ])>
-                {{ $product->categories->category_name }}
-            </span>
+            <div class=>
+                <span @class([
+                    'text-xs py-1 px-2 rounded',
+                    'text-green-600 bg-green-100' =>
+                        $product->categories->category_name === 'Vegetarian',
+                    ' text-orange-600 bg-orange-100' =>
+                        $product->categories->category_name !== 'Vegetarian',
+                ])>
+                    {{ $product->categories->category_name }}
+                </span>
+
+                <span @class([
+                    'text-xs py-1 px-2 rounded ml-2',
+                    'text-green-600 bg-green-100' => $product->stock > 0,
+                    'text-red-600 bg-red-100' => $product->stock === 0,
+                ])>
+                    {{ $product->stock }} available
+                </span>
+            </div>
 
             <div class="flex items-center justify-between mt-2">
                 <span class="fp-dish-price">
@@ -37,10 +47,16 @@
                         <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
                     @endif
                 </span>
-
-                <button class="btn btn-dark  rounded-circle !w-10 !h-10 !p-0" onclick="addToCart({{ $product->id }})">
-                    <i class="bi bi-plus-lg"></i>
-                </button>
+                @if ($product->stock > 0)
+                    <button class="btn btn-dark  rounded-circle !w-10 !h-10 !p-0"
+                        onclick="addToCart({{ $product->id }})">
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
+                @else
+                    <button class="btn btn-dark  rounded-circle !w-10 !h-10 !p-0" disabled>
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
+                @endif
             </div>
         </div>
 
