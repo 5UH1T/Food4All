@@ -52,13 +52,13 @@
         </div>
     </section>
 
-    {{-- Going Soon Section --}}
+    {{--  Recommended Section --}}
     <section class="fp-dishes-section">
         <div class="container">
             <div class="d-flex justify-content-between align-items-end mb-5">
                 <div>
-                    <span class="text-uppercase small text-success fw-bold tracking-wider">Going Soon</span>
-                    <h2 class="fw-bold m-0 mt-1">Last Chance Plates</h2>
+                    <span class="text-uppercase small text-success fw-bold tracking-wider">Recommended</span>
+                    <h2 class="fw-bold m-0 mt-1">Recommended for You</h2>
                 </div>
                 <div class="d-flex gap-2">
                     <button class="btn btn-outline-dark rounded-circle fp-dishes-prev p-2 lh-1"><i
@@ -70,7 +70,7 @@
 
             <div class="swiper fp-dishes-slider">
                 <div class="swiper-wrapper p-2">
-                    @foreach ($endProducts as $product)
+                    @foreach ($recommendedProducts as $product)
                         <x-product-card :product="$product" />
                     @endforeach
                 </div>

@@ -8,26 +8,31 @@ class Trie
 
     public function insert($word, $id)
     {
-        $node = &$this->root;
+        $word = strtolower($word);
+        $length = strlen($word);
 
-        foreach (str_split(strtolower($word)) as $char) {
-            $node[$char] ??= [];
-            $node = &$node[$char];
+        for ($i = 0; $i < $length; $i++) {
+            $node = &$this->root;
+
+            for ($j = $i; $j < $length; $j++) {
+                $char = $word[$j];
+
+                $node[$char] ??= [];
+                $node = &$node[$char];
+            }
+
+            $node['#'][] = [
+                'id' => $id,
+                'title' => $word
+            ];
         }
-
-        $node['#'] = [
-            'id' => $id,
-            'title' => $word
-        ];
     }
 
-
-    public function search($prefix)
+    public function search($query)
     {
         $node = &$this->root;
 
-        foreach (str_split(strtolower($prefix)) as $char) {
-
+        foreach (str_split(strtolower($query)) as $char) {
             if (!isset($node[$char])) {
                 return [];
             }
@@ -38,15 +43,13 @@ class Trie
         return $this->collect($node);
     }
 
-
     private function collect($node)
     {
         $result = [];
 
         foreach ($node as $key => $value) {
-
             if ($key === '#') {
-                $result[] = $value;
+                $result = array_merge($result, $value);
             } else {
                 $result = array_merge(
                     $result,

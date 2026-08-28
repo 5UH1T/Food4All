@@ -5,12 +5,14 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
 use App\Algorithms\Trie;
+use App\Algorithms\Recommendation;
 use App\Models\Category;
 
 class GuestController extends Controller
 {
     public function getHomeItems()
     {
+        $recommendation = new Recommendation();
         $userCount = User::where('role', 2)->count();
         $vendorCount = User::where('role', 1)->count();
 
@@ -21,11 +23,26 @@ class GuestController extends Controller
             ->get();
 
 
-        $endProducts = Product::with('productImage')
+        $recommendedProducts = Product::with([
+            'mainImage',
+            'categories',
+            'subCategories',
+        ])
+            ->withSum('orderItems', 'quantity')
             ->where('status', 'published')
-            ->oldest('updated_at')
+            ->where('stock', '>', 0)
+            ->get()
+            ->map(function ($product) use ($recommendation) {
+
+                $product->recommendation_score =
+                    $recommendation->calculateScore($product);
+
+                return $product;
+
+            })
+            ->sortByDesc('recommendation_score')
             ->take(10)
-            ->get();
+            ->values();
 
 
         $vendors = User::with('vendorProfile')
@@ -75,7 +92,7 @@ class GuestController extends Controller
             ->sortByDesc('value_score')
             ->take(10);
 
-        return view('home', compact('latestProducts', 'endProducts', 'vendors', 'valueProducts', 'userCount', 'vendorCount'));
+        return view('home', compact('latestProducts', 'recommendedProducts', 'vendors', 'valueProducts', 'userCount', 'vendorCount'));
     }
 
     public function productDetails($id)

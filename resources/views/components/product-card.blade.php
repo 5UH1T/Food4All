@@ -32,7 +32,7 @@
 
             <div class="flex items-center justify-between mt-2">
                 <span class="fp-dish-price">
-                    Rs {{ $product->initial_price }}
+                    Rs {{ $product->price }}
                     @if ($product->initial_price)
                         <span class="fp-dish-price-cut">Rs {{ $product->initial_price }}</span>
                     @endif
