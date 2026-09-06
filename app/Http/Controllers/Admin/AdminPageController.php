@@ -161,6 +161,7 @@ class AdminPageController extends Controller
     public function vendors(Request $request)
     {
         $search = $request->query('search');
+        $orders = Order::with(['user', 'items.product'])->get();
 
         $vendors = User::query()
             ->where('role',1)
@@ -173,7 +174,7 @@ class AdminPageController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(10)
             ->withQueryString();
-        return view('admin.vendors.manage',compact('vendors'));
+        return view('admin.vendors.manage',compact('vendors','orders'));
     }
 
 

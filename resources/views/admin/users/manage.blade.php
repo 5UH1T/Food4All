@@ -195,6 +195,15 @@
                             </div>
 
                             <div class="col-md-5">
+                                @php
+                                    $price = $user->orders->where('status', '!=', 'cancelled')->sum('total_cost');
+                                    $donation = $user->orders
+                                        ->where('status', '!=', 'cancelled')
+                                        ->flatMap->items->sum(function ($item) {
+                                            return ($item->total_price / $item->quantity) * $item->donation_quantity;
+                                        });
+                                    $orders = $user->orders->where('status', '!=', 'cancelled')->count();
+                                @endphp
 
                                 <div class="bg-white border rounded-4 p-4 mb-4">
 
@@ -208,7 +217,7 @@
                                         </span>
 
                                         <span class="fw-semibold">
-                                            NPR 24,500
+                                            NPR {{ $price }}
                                         </span>
                                     </div>
 
@@ -218,17 +227,17 @@
                                         </span>
 
                                         <span class="fw-semibold text-success">
-                                            NPR 8,750
+                                            NPR {{ $donation }}
                                         </span>
                                     </div>
 
                                     <div class="d-flex justify-content-between mb-3">
                                         <span class="text-muted">
-                                            Completed Orders
+                                            Successful Orders
                                         </span>
 
                                         <span class="fw-semibold">
-                                            39
+                                            {{ $orders }}
                                         </span>
                                     </div>
 

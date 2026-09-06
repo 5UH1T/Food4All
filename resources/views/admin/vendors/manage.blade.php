@@ -220,29 +220,8 @@
                                         <span class="text-muted">
                                             Total Orders
                                         </span>
-
-                                        <span class="fw-semibold">
-                                            1,240
-                                        </span>
-                                    </div>
-
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <span class="text-muted">
-                                            Products
-                                        </span>
-
-                                        <span class="fw-semibold">
-                                            86
-                                        </span>
-                                    </div>
-
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <span class="text-muted">
-                                            Completion Rate
-                                        </span>
-
                                         <span class="fw-semibold text-success">
-                                            98%
+                                            {{ $orders->filter(fn($order) => $order->items->contains(fn($item) => $item->product?->vendor_id == $vendor->id))->count() }}
                                         </span>
                                     </div>
 
@@ -252,7 +231,7 @@
                                         </span>
 
                                         <span class="fw-semibold">
-                                            Jan 2024
+                                            {{ \Carbon\Carbon::parse($vendor->created_at)->format('F Y') }}
                                         </span>
                                     </div>
 
