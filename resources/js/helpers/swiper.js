@@ -1,6 +1,6 @@
 import Swiper from 'swiper';
 import 'swiper/css';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay, Thumbs } from 'swiper/modules';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
@@ -126,4 +126,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+    // Product Detail
+    const productThumbnailSlider = new Swiper('.product-thumbnail-swiper', {
+        slidesPerView: 4,
+        spaceBetween: 10,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+
+    const productImageSlider = new Swiper('.product-image-swiper', {
+        modules: [Navigation, Thumbs, Autoplay],
+        spaceBetween: 10,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+        },
+
+        thumbs: {
+            swiper: productThumbnailSlider,
+        },
+    });
 });
+

@@ -22,16 +22,40 @@
     <!-- Product Details Section -->
     <section class="fp-product-section py-5">
         <div class="container">
-
             <div class="row g-5 align-items-center">
 
                 <!-- Product Image -->
                 <div class="col-lg-6">
-                    <div class="fp-product-image">
-                        <img src="{{ asset($product->productImage->first()->image_path) }}" class="img-fluid rounded-4"
-                            alt="">
+                    <!-- Main Slider -->
+                    <div class="swiper product-image-swiper">
+                        <div class="swiper-wrapper">
+                            @foreach ($product->productImage as $image)
+                                <div class="swiper-slide">
+                                    <div class="fp-product-image">
+                                        <img src="{{ asset($image->image_path) }}" class="img-fluid rounded-4 w-100"
+                                            alt="Product image">
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+
+                    <!-- Thumbnail Slider -->
+                    <div class="swiper product-thumbnail-swiper mt-3">
+                        <div class="swiper-wrapper">
+                            @foreach ($product->productImage as $image)
+                                <div class="swiper-slide">
+                                    <img src="{{ asset($image->image_path) }}" class="img-fluid rounded-3"
+                                        alt="Product thumbnail">
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
+
 
                 <!-- Product Content -->
                 <div class="col-lg-6">
