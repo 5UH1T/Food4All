@@ -32,8 +32,11 @@
                             @foreach ($product->productImage as $image)
                                 <div class="swiper-slide">
                                     <div class="fp-product-image">
-                                        <img src="{{ asset($image->image_path) }}" class="img-fluid rounded-4 w-100"
-                                            alt="Product image">
+                                        <a href="{{ asset($image->image_path) }}" class="glightbox"
+                                            data-gallery="product-gallery">
+                                            <img src="{{ asset($image->image_path) }}" class="img-fluid rounded-4 w-100"
+                                                alt="Product image">
+                                        </a>
                                     </div>
                                 </div>
                             @endforeach
@@ -47,7 +50,7 @@
                     <div class="swiper product-thumbnail-swiper mt-3">
                         <div class="swiper-wrapper">
                             @foreach ($product->productImage as $image)
-                                <div class="swiper-slide">
+                                <div class="swiper-slide flex items-center justify-center">
                                     <img src="{{ asset($image->image_path) }}" class="img-fluid rounded-3"
                                         alt="Product thumbnail">
                                 </div>

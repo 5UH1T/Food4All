@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     // Product Detail
     const productThumbnailSlider = new Swiper('.product-thumbnail-swiper', {
-        slidesPerView: 4,
+        slidesPerView: 5,
         spaceBetween: 10,
         freeMode: true,
         watchSlidesProgress: true,

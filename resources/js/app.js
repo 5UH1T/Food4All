@@ -8,11 +8,18 @@ import './helpers/swiper';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 
+import GLightbox from 'glightbox';
+import 'glightbox/dist/css/glightbox.min.css';  
+
 window.notyf = new Notyf({
     duration: 3000,
     position: { x: 'right', y: 'top' }
 });
 
+const lightbox = GLightbox({
+    selector: '.glightbox',
+    loop: true
+});
 
 // Validation
 document.addEventListener('DOMContentLoaded', () => {
