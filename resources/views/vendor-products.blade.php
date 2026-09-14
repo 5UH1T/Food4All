@@ -19,82 +19,6 @@
         body {
             overflow: visible !important;
         }
-
-        /* Vendor Store Hero */
-
-        .vendor-store-hero {
-            background: linear-gradient(135deg, #2b2d42, #20222f);
-            overflow: hidden;
-        }
-
-        .vendor-logo-wrapper {
-            width: 150px;
-            height: 150px;
-            padding: 8px;
-            background: #fff;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .vendor-logo-wrapper img,
-        .vendor-logo-placeholder {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 14px;
-        }
-
-        .vendor-logo-placeholder {
-            background: #f3f4f6;
-            color: #9ca3af;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-        }
-
-        .vendor-store-title {
-            color: #fff;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .vendor-store-description {
-            color: rgba(255, 255, 255, .7);
-            font-size: 15px;
-            line-height: 1.7;
-            overflow-y: auto;
-        }
-
-        .vendor-store-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .vendor-meta-item {
-            color: rgba(255, 255, 255, .7);
-            font-size: 13px;
-        }
-
-        .vendor-meta-item i {
-            color: var(--fp-accent);
-            margin-right: 5px;
-        }
-
-        @media (max-width: 768px) {
-            .vendor-logo-wrapper {
-                width: 110px;
-                height: 110px;
-            }
-
-            .vendor-store-title {
-                font-size: 2rem;
-            }
-        }
     </style>
 </head>
 
@@ -128,7 +52,7 @@
             <div class="row h-full grid-cols-1 md:grid-cols-2">
 
                 <!-- Left -->
-                <div class="flex flex-col justify-center items-center border-r border-white/10 p-6 col-md-3">
+                <div class="flex flex-col justify-center items-center border-r border-white/10 p-6 col-lg-3">
 
                     <!-- Logo -->
                     <div class="mb-4 h-36 w-36 overflow-hidden rounded-xl border-white border-3">
@@ -171,7 +95,7 @@
                 </div>
 
                 <!-- Right -->
-                <div class="flex flex-col justify-center p-6 md:p-10 col-md-9">
+                <div class="flex flex-col justify-center p-6 md:p-10 col-lg-9">
 
                     <h2 class="mb-4 text-lg font-semibold">
                         About the Store
