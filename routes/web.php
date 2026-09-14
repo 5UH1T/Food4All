@@ -49,6 +49,8 @@ Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout')
 
 Route::get('/products', [GuestController::class, 'getProducts'])->name('all-products');
 
+Route::get('/{id}/products', [GuestController::class, 'getVendorProducts'])->name('vendor-products');
+
 Route::get('/product', function () {
     return view('product');
 });

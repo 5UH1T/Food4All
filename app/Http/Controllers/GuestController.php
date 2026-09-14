@@ -232,4 +232,45 @@ class GuestController extends Controller
             'sort'
         ));
     }
+
+    
+    public function getVendorProducts(Request $request, $id)
+    {
+        $vendor = User::findOrFail($id);
+
+        $sort = $request->input('sort', 'latest');
+
+        $query = Product::where('vendor_id', $id);
+
+        switch ($sort) {
+            case 'price_low':
+                $query->orderBy('price', 'asc');
+                break;
+
+            case 'price_high':
+                $query->orderBy('price', 'desc');
+                break;
+
+            case 'name_asc':
+                $query->orderBy('title', 'asc');
+                break;
+
+            case 'name_desc':
+                $query->orderBy('title', 'desc');
+                break;
+
+            default:
+                $query->orderByDesc('updated_at');
+                break;
+        }
+
+        $products = $query->paginate(20);
+
+        return view('vendor-products', compact(
+            'vendor',
+            'products',
+            'sort'
+        ));
+    }
+
 }

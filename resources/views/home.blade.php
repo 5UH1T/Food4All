@@ -228,13 +228,15 @@
                         <div class="swiper-slide">
                             <div class="fp-circle-item">
                                 <div class="fp-circle-img-wrapper">
-                                    @if ($vendor->vendorProfile->avatar)
-                                        <img src="{{ asset(Storage::url($vendor->vendorProfile->avatar)) }}"
-                                            alt="{{ $vendor->name }}">
-                                    @else
-                                        <div class="h-full w-full flex items-center justify-center text-6xl"><i
-                                                class="fa-solid fa-shop"></i></div>
-                                    @endif
+                                    <a href='{{ $vendor->id }}/products' style="all: unset; cursor: pointer">
+                                        @if ($vendor->vendorProfile->avatar)
+                                            <img src="{{ asset(Storage::url($vendor->vendorProfile->avatar)) }}"
+                                                alt="{{ $vendor->name }}">
+                                        @else
+                                            <div class="h-full w-full flex items-center justify-center text-6xl"><i
+                                                    class="fa-solid fa-shop"></i></div>
+                                        @endif
+                                    </a>
                                 </div>
                                 <h6 class="fw-bold mb-0">{{ $vendor->name }}</h6>
                             </div>
